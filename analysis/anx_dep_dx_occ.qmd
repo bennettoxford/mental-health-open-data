@@ -1,0 +1,180 @@
+---
+title: "Depression and anxiety diagnosis code usage"
+format: html
+editor: visual
+---
+
+## Load packages
+
+```{r}
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| echo: true
+
+library(opencodecounts) 
+library(tidyverse)
+library(scales)
+```
+
+## Load codelists
+
+Load codelists from NHSD Primary Care Domain Refsets.
+
+```{r}
+depr_cod <- get_codelist("nhsd-primary-care-domain-refsets/depr_cod/20241205") 
+anx_cod <- get_codelist("nhsd-primary-care-domain-refsets/anxiety-diagnostic-codes/20241205")
+```
+
+## Missing codes 
+
+Look at SNOMED CT codes that are missing from our codelists 
+
+### Depression
+
+```{r}
+
+# Remove all codes that are in our codelist
+snomed_usage_without_depr_cod <- snomed_usage |> 
+  filter(!snomed_code %in% depr_cod$code)
+
+# Search for related codes (e.g., with "depression" in description) and review
+snomed_usage_without_depr_cod_review <- snomed_usage_without_depr_cod |> 
+  filter(str_detect(description, "depression"))
+
+n_depr_codes <- nrow(snomed_usage_without_depr_cod_review)
+
+```
+
+There are `r n_depr_codes` codes that are not in our codelist. These codes could be reviewed by a clinical expert to determine if they should be included here. For now, we will assume that they are not relevant as they have not been included in the NHSD refset.
+
+### Anxiety
+
+```{r}
+
+# Remove all codes that are in our codelist
+snomed_usage_without_anx_cod <- snomed_usage |> 
+  filter(!snomed_code %in% anx_cod$code)
+
+# Search for related codes (e.g., with "depression" in description) and review
+snomed_usage_without_anx_cod_review <- snomed_usage_without_anx_cod |> 
+  filter(str_detect(description, "anxiety"))
+
+n_anx_codes <- nrow(snomed_usage_without_anx_cod_review)
+
+```
+
+There are `r n_anx_codes` codes that are not in our codelist. These codes could be reviewed by a clinical expert to determine if they should be included here. For now, we will assume that they are not relevant as they have not been included in the NHSD refset.
+
+## Frenquency of code usage 
+
+### Depression
+
+The below table summarises the frequency of each code from 2011/12 to 2023/24 included in the depression codelist.
+
+```{r}
+  depr_cod_summary <- snomed_usage %>%
+    filter(snomed_code %in% depr_cod$code) %>%
+    group_by(snomed_code, description) %>%
+    summarise(usage = sum(usage), .groups = "drop") %>%
+    mutate(percent_usage = round(100 * usage / sum(usage), 1)) %>%
+    arrange(desc(usage))
+
+knitr::kable(depr_cod_summary, caption = "Summary of depression SNOMED CT codes")
+
+```
+
+### Anxiety
+
+The below table summarises the frequency of each code from 2011/12 to 2023/24 included in the anxiety codelist.
+
+```{r}
+  anx_cod_summary <- snomed_usage %>%
+    filter(snomed_code %in% anx_cod$code) %>%
+    group_by(snomed_code, description) %>%
+    summarise(usage = sum(usage), .groups = "drop") %>%
+    mutate(percent_usage = round(100 * usage / sum(usage), 1)) %>%
+    arrange(desc(usage))
+
+knitr::kable(anx_cod_summary, caption = "Summary of anxiety SNOMED CT codes")
+
+```
+
+## Coding trends over time
+
+### Depression 
+
+The below figure shows the coding of depression diagnoses over time 
+
+```{r}
+  depression_coding_trend <- snomed_usage %>%
+    filter(snomed_code %in% depr_cod$code) %>%
+    group_by(start_date, end_date) %>%
+    summarise(usage = sum(usage), .groups = "drop") 
+
+depression_plot <- ggplot(depression_coding_trend, aes(y = usage, x = end_date)) + 
+  geom_line() + 
+  labs(title = "Depression diagnosis codes used in primary care from 2011/12 to 2023/24",
+       x = "Date",
+       y = "Usage") + 
+  scale_x_date(breaks = seq(from = min(depression_coding_trend$end_date), to = max(depression_coding_trend$end_date), by = "1 year"),labels = date_format("%Y")) +
+  scale_y_continuous(labels = label_number(), limits = c(0,NA)) +
+  theme_bw()
+
+depression_plot
+
+```
+### Anxiety
+
+The below figure shows the coding of anxiety diagnoses over time. 
+
+```{r}
+
+  anxiety_coding_trend <- snomed_usage %>%
+    filter(snomed_code %in% anx_cod$code) %>%
+    group_by(start_date, end_date) %>%
+    summarise(usage = sum(usage), .groups = "drop") 
+
+anxiety_plot <- ggplot(anxiety_coding_trend, aes(y = usage, x = end_date)) + 
+  geom_line() + 
+  labs(title = "Anxiety diagnosis codes used in primary care from 2011/12 to 2023/24",
+       x = "Date",
+       y = "Usage") + 
+  scale_x_date(
+    breaks = seq(from = min(anxiety_coding_trend$end_date), to = max(anxiety_coding_trend$end_date), by = "1 year"),  
+    labels = date_format("%Y") 
+  ) +
+  scale_y_continuous(labels = label_number(), limits = c(0,NA)) + 
+  theme_bw()
+
+anxiety_plot
+
+
+```
+### Comparisons between trends in depression and anxiety coding
+
+```{r}
+
+depression_coding_trend <- depression_coding_trend %>%
+  mutate(Condition = "Depression diagnoses")
+anxiety_coding_trend <- anxiety_coding_trend %>%
+  mutate(Condition = "Anxiety dignoses") 
+
+combined_diagnoses <- rbind(depression_coding_trend, anxiety_coding_trend)
+
+combined_plot <- ggplot(combined_diagnoses, aes(y = usage, x = end_date)) + 
+  geom_line(aes(color = Condition)) + 
+  labs(title = "Depression and anxiety diagnosis codes used in primary care from 2011/12 to 2023/24",
+       x = "Date",
+       y = "Usage") + 
+  scale_x_date(
+    breaks = seq(from = min(combined_diagnoses$end_date), to = max(combined_diagnoses$end_date), by = "1 year"),  
+    labels = date_format("%Y") 
+  ) +
+  scale_y_continuous(labels = label_number(), limits = c(0,NA)) + 
+  theme_bw()
+
+combined_plot
+
+```
+
