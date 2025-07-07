@@ -158,7 +158,7 @@ anxiety_plot
 depression_coding_trend <- depression_coding_trend %>%
   mutate(Condition = "Depression diagnoses")
 anxiety_coding_trend <- anxiety_coding_trend %>%
-  mutate(Condition = "Anxiety dignoses") 
+  mutate(Condition = "Anxiety diagnoses") 
 
 combined_diagnoses <- rbind(depression_coding_trend, anxiety_coding_trend)
 
