@@ -1,0 +1,55 @@
+---
+title: "proms_lists_anx_dep"
+format: html
+editor: visual
+---
+
+# Patient-Reported Outcome Measures (PROMs) Lists for Anxiety and Depression
+
+The following PROMs are required or recommended in NHS Talking Therapies for patients presenting with depression or anxiety, based on NICE guidelines and the NHS Talking Therapies Manual (Table 8). Additional PROMs identified through SNOMED codelists are also included.
+
+## Depression PROMs
+
+-   **Patient Health Questionnaire-9 (PHQ-9)** – required tool for assessing depression symptoms across the following conditions:
+
+    -   Depression
+    -   Mixed anxiety and depression
+    -   Chronic pain (with comorbid depression)
+    -   Specific phobias
+    -   Agoraphobia
+    -   OCD
+    -   Panic disorder
+    -   PTSD
+    -   Social anxiety
+    -   Body dysmorphic disorder (BDD)
+    -   IBS
+    -   Chronic fatigue syndrome
+    -   Medically unexplained symptoms (MUS), not otherwise specified
+
+-   **Patient Health Questionnaire-15 (PHQ-15)** – optional alternative for MUS
+
+-   **Additional PROMs (found in depression screening codelists):**
+
+    -   **Beck Depression Inventory (BDI)**
+    -   **Hospital Anxiety and Depression Scale – Depression subscale (HADS-D)**
+
+## Anxiety PROMs
+
+-   **Generalised Anxiety Disorder-7 (GAD-7)** – required for:
+    -   Generalised anxiety disorder
+    -   Mixed anxiety and depression
+    -   Chronic pain (with anxiety)
+    -   Also recommended as a fallback when no other anxiety-specific PROM is suitable
+-   **Other recommended PROMs (diagnosis-specific):**
+    -   **Mobility Inventory (MI)** – Agoraphobia
+    -   **Health Anxiety Inventory (HAI)** – Health anxiety (hypochondriasis)
+    -   **Obsessive-Compulsive Inventory (OCI)** – OCD
+    -   **Panic Disorder Severity Scale (PDSS)** – Panic disorder
+    -   **PTSD Checklist for DSM-5 (PCL-5)** – PTSD
+    -   **Social Phobia Inventory (SPIN)** – Social anxiety
+    -   **Body Image Questionnaire (BIQ Weekly)** – BDD
+    -   **Chalder Fatigue Questionnaire (CFQ)** – Chronic fatigue syndrome
+    -   **Francis IBS Scale** – IBS
+-   **Additional PROMs (found in anxiety screening codelists):**
+    -   **Beck Anxiety Inventory (BAI)**
+    -   **Hospital Anxiety and Depression Scale – Anxiety subscale (HADS-A)**
