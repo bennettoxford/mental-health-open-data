@@ -1,5 +1,5 @@
 ---
-title: "Depression and anxiety diagnosis code usage"
+title: "Depression and anxiety diagnosis code usage using opencodecounts"
 format: html
 editor: visual
 ---
@@ -26,9 +26,9 @@ depr_cod <- get_codelist("nhsd-primary-care-domain-refsets/depr_cod/20241205")
 anx_cod <- get_codelist("nhsd-primary-care-domain-refsets/anxiety-diagnostic-codes/20241205")
 ```
 
-## Missing codes 
+## Missing codes
 
-Look at SNOMED CT codes that are missing from our codelists 
+Look at SNOMED CT codes that are missing from our codelists
 
 ### Depression
 
@@ -66,7 +66,7 @@ n_anx_codes <- nrow(snomed_usage_without_anx_cod_review)
 
 There are `r n_anx_codes` codes that are not in our codelist. These codes could be reviewed by a clinical expert to determine if they should be included here. For now, we will assume that they are not relevant as they have not been included in the NHSD refset.
 
-## Frenquency of code usage 
+## Frenquency of code usage
 
 ### Depression
 
@@ -102,9 +102,9 @@ knitr::kable(anx_cod_summary, caption = "Summary of anxiety SNOMED CT codes")
 
 ## Coding trends over time
 
-### Depression 
+### Depression
 
-The below figure shows the coding of depression diagnoses over time 
+The below figure shows the coding of depression diagnoses over time
 
 ```{r}
   depression_coding_trend <- snomed_usage %>%
@@ -124,9 +124,10 @@ depression_plot <- ggplot(depression_coding_trend, aes(y = usage, x = end_date))
 depression_plot
 
 ```
+
 ### Anxiety
 
-The below figure shows the coding of anxiety diagnoses over time. 
+The below figure shows the coding of anxiety diagnoses over time.
 
 ```{r}
 
@@ -151,6 +152,7 @@ anxiety_plot
 
 
 ```
+
 ### Comparisons between trends in depression and anxiety coding
 
 ```{r}
@@ -177,4 +179,3 @@ combined_plot <- ggplot(combined_diagnoses, aes(y = usage, x = end_date)) +
 combined_plot
 
 ```
-
