@@ -254,7 +254,7 @@ depr_anx_coding_trend <- bind_rows(
     levels = c("anx_cod", "depr_cod"), 
     labels = c("Anxiety diagnostic codes", "Depression diagnostic codes")))
 
-fig_depr_and_cod_trends <- ggplot(
+fig_depr_anx_cod_trends <- ggplot(
   depr_anx_coding_trend, 
   aes(
     y = usage,
@@ -282,11 +282,11 @@ fig_depr_and_cod_trends <- ggplot(
   theme(legend.position = "bottom")
 
 ggsave(
-  filename = here("output", "figures", "fig_depr_and_cod_trends.png"),
-  fig_depr_and_cod_trends,
+  filename = here("output", "figures", "fig_depr_anx_cod_trends.png"),
+  fig_depr_anx_cod_trends,
   height = 4.5,
   width = 8
 )
 
-fig_depr_and_cod_trends
+fig_depr_anx_cod_trends
 ```
