@@ -1,0 +1,152 @@
+---
+title: "Codelist for anxiety and depression psychological therapies"
+format: html
+editor: visual
+---
+
+### Background
+
+This document compiles the codelist of psychological therapies for Depression and Anxiety in the UK General practice. The codelist benefits from the NICE guideline recommendations on the management of anxiety and depression. Specific documents reviewed were:
+
+-   [Depression in adults: treatment and management](https://www.nice.org.uk/guidance/ng222/chapter/Recommendations)
+-   [Generalised anxiety disorder and panic disorder in adults: management](https://www.nice.org.uk/guidance/cg113/chapter/Recommendations)
+
+Furthermore, the NHSD codelists for anxiety and depression available on OpenCodelist were adapted. These include:
+
+-   Depression support and treatment codes
+
+-   Anxiety support and treatment codes
+
+### Methodology
+
+**Inclusion and exclusion criteria**
+
+This codelist is designed to maximize sensitivity by including all psychological therapy-related codes potentially applicable to anxiety and depression, regardless of explicit indication. Specifically,
+
+-   Psychological therapies codes specific to anxiety and depression were included
+
+-   Generic psychological therapies codes (e.g. Cognitive Behavioural Therapy) not specific to other conditions were included
+
+-   Psychological therapies codes specific to other conditions (e.g. CBT for insomnia) were excluded  
+
+**Search Terms:**
+
+-   Guided self-help
+
+-   Digital cognitive behavioural therapy for depression
+
+-   Cognitive Behavioural Therapy
+
+-   Behavioural Activation
+
+-   Group Exercise
+
+-   Group mindfulness and meditation
+
+-   Interpersonal psychotherapy
+
+-   Counselling
+
+-   Short-term psychodynamic psychotherapy
+
+-   Individual problem solving
+
+-   Behavioural couple therapy
+
+-   Anxiety
+
+-   Depression
+
+-   Individual guided self-help
+
+-   Individual non-facilitated self-help
+
+-   Psycho-education
+
+-   Education about anxiety
+
+-   Counselling for anxiety
+
+#### Code list
+
+##### Load packages 
+
+```{r}
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| echo: true
+
+library(opencodecounts) 
+library(tidyverse)
+library(scales)
+```
+
+##### Load Codelist 
+
+Load codelist: (<https://www.opencodelists.org/builder/20b86970/>) from opencodelist
+
+```{r}
+depr_anx_cod <- get_codelist("user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/20b86970")
+
+```
+
+##### View the codelist usage 
+
+```{r}
+#| echo: false
+cod_summary <- snomed_usage %>%
+    filter(snomed_code %in% depr_anx_cod$code) %>%
+    group_by(snomed_code, description) %>%
+    summarise(usage = sum(usage), .groups = "drop") %>%
+    mutate(percent_usage = round(100 * usage / sum(usage), 1)) %>%
+    arrange(desc(usage))
+ 
+ knitr::kable(cod_summary, caption = "Summary of depression and anxiety SNOMED CT codes")
+ n_dep_anx_codes <- nrow(cod_summary)
+ n_dep_anx_codes
+```
+
+##### Categorize codes accross therapies and procedure
+
+```{r}
+# Load packages
+#| echo: false
+library(opencodecounts) 
+library(tidyverse)
+library(gt)
+
+dep_anx_tx_cod_usage <- snomed_usage |>
+    filter(snomed_code %in% depr_anx_cod$code)
+
+
+# Extract semantic tag and add new variable
+cod_usage_semantic_tag <- dep_anx_tx_cod_usage |> 
+  mutate(
+    description_short = str_remove(description, " \\([^()]+\\)$"),
+    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
+    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
+  )
+
+#Group by semantic tag
+group_code_semantic <- cod_usage_semantic_tag |> 
+  group_by(snomed_code, description_short, semantic_tag) |> 
+  summarise(usage = sum(usage), .groups = "drop") |>
+  mutate(ratio_usage = usage / sum(usage)) |>
+  arrange(-usage)
+
+# Create table grouped by semantic_tag
+group_code_semantic |> 
+  group_by(semantic_tag) |> 
+  gt() |> 
+  fmt_percent(
+    columns = c(ratio_usage),
+    decimals = 2
+  ) |> 
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(columns = semantic_tag)
+  )
+
+
+```
