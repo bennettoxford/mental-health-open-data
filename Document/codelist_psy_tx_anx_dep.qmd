@@ -24,13 +24,37 @@ Furthermore, the NHSD codelists for anxiety and depression available on OpenCode
 
 ### Methodology
 
+A two-step approach was taken for the development of this codelist:
+
+**Step 1: Desk reviews of relevant guidelines and existing codelists for anxiety and depression**
+
+This codelist benefits from the NICE guideline recommendations on the management of anxiety and depression. Specific documents reviewed were:
+
+1.  **Depression in adults: treatment and management**
+
+2.  **Generalised anxiety disorder and panic disorder in adults: management**
+
+The recommended therapies outlined in the guidelines and existing NHSD codelists for anxiety and depression, available on OpenCodelist, were used in developing a draft codelist. The adapted codelists were:
+
+1.  Depression support and treatment codes
+
+2.  Anxiety support and treatment codes
+
+**Step 2: A methodology-informed session with a General Practitioner** A methodology-informed session was held with a General Practitioner to understand the approach to coding psychological therapies in eHR. This informed the development of improved search terms and inclusion/exclusion criteria.
+
+**Inclusion and exclusion criteria**
+
 This codelist is designed to maximize sensitivity by including all psychological therapy-related codes potentially applicable to anxiety and depression, regardless of explicit indication. Specifically,
 
 -   Psychological therapies codes specific to anxiety and depression were included
 
+-   Psychological therapies codes for conditions related to anxiety and depression (e.g Insomnia, bipolar disorder, psychosis) were included
+
 -   Generic psychological therapies codes (e.g. Cognitive Behavioural Therapy) not specific to other conditions were included
 
--   Psychological therapies codes specific to other conditions (e.g. CBT for insomnia) were excluded  
+-   Common codes (based on GP's perspective) that indicated receipt of psychological therapies were included (e.g. seen by psychologists)
+
+-   Psychological therapies codes specific to other conditions not related to anxiety and depression were excluded 
 
 ### Search Terms
 
@@ -70,6 +94,8 @@ This codelist is designed to maximize sensitivity by including all psychological
 
 -   Counselling for anxiety
 
+-   Referral to improving access to psychological therapies program
+
 ### Code list
 
 ```{r}
@@ -86,7 +112,7 @@ library(scales)
 Load codelist: (<https://www.opencodelists.org/builder/20b86970/>) from opencodelist
 
 ```{r}
-depr_anx_cod <- get_codelist("user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/20b86970")
+depr_anx_cod <- get_codelist("user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/5d8614bb")
 
 ```
 
