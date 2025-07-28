@@ -1,12 +1,9 @@
 ---
-title: "Codelist for anxiety and depression psychological therapies"
-format: html
+title: "Code lists for anxiety and depression psychological therapies"
+format: 
+  html:
+    code-hidden: true
 editor: visual
-knitr:
-  opts_chunk: 
-    echo: false
-    message: false
-    warning: false
 ---
 
 ### Background
@@ -56,7 +53,7 @@ This codelist is designed to maximize sensitivity by including all psychological
 
 -   Psychological therapies codes specific to other conditions not related to anxiety and depression were excluded 
 
-### Search Terms
+#### Search Terms
 
 -   Guided self-help
 
@@ -96,53 +93,112 @@ This codelist is designed to maximize sensitivity by including all psychological
 
 -   Referral to improving access to psychological therapies program
 
-### Code list
+-   Talking therapies
+
+### Results: Code Lists Usage Patterns 
 
 ```{r}
 #| message: false
 #| results: 'hide'
 #| warning: false
-#| echo: true
+#| echo: false 
 
+#Load relevant libraries 
 library(opencodecounts) 
 library(tidyverse)
 library(scales)
+library(gt)
 ```
 
-Load codelist: (<https://www.opencodelists.org/builder/20b86970/>) from opencodelist
+Load codelist: <https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8/> from opencodelist
 
 ```{r}
-depr_anx_cod <- get_codelist("user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/5d8614bb")
+
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| echo: false 
+
+
+#Load codelists from opencodelist
+
+depr_anx_cod <- get_codelist("user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8")
 
 ```
 
+#### Psychological therapies code usage
+
 ```{r}
-#| echo: false
-cod_summary <- snomed_usage %>%
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| echo: false 
+
+#Generate summary of the codelists and usage 
+codelist_summary <- snomed_usage %>%
     filter(snomed_code %in% depr_anx_cod$code) %>%
     group_by(snomed_code, description) %>%
     summarise(usage = sum(usage), .groups = "drop") %>%
     mutate(percent_usage = round(100 * usage / sum(usage), 1)) %>%
     arrange(desc(usage))
  
- knitr::kable(cod_summary, caption = "Summary of depression and anxiety SNOMED CT codes")
- n_dep_anx_codes <- nrow(cod_summary)
+ knitr::kable(codelist_summary, caption = "Summary of depression and anxiety SNOMED CT codes")
+ n_dep_anx_codes <- nrow(codelist_summary)
  n_dep_anx_codes
+```
+
+#### 
+
+```{r}
+
+#| echo: false 
+cod_summary_grouped <- codelist_summary %>%
+  mutate(description = ifelse(usage < 20000, "Others", description)) %>%
+  group_by(description) %>%
+  summarise(
+    usage = sum(usage),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    percent_usage = round(100 * usage / sum(usage), 1)
+  ) %>%
+  arrange(desc(usage)) %>%
+  mutate(description = factor(description, levels = rev(description)))  # Fix order for horizontal bars
+
+# Horizontal bar chart
+ggplot(cod_summary_grouped, aes(x = description, y = usage)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Distribution of Code Usage",
+    x = "Therapies",
+    y = "Usage"
+  ) +
+  scale_y_continuous(labels = function(x) paste0(x / 1000, "k")) +
+  theme_minimal()+
+  theme(
+    plot.margin = margin(t = 20, r = 10, b = 10, l = 10),
+    plot.title = element_text(hjust = 0.5, size = 12, face = "bold")
+  )
+
 ```
 
 ```{r}
 # Load packages
 #| echo: false
-library(opencodecounts) 
-library(tidyverse)
-library(gt)
+
 
 dep_anx_tx_cod_usage <- snomed_usage |>
     filter(snomed_code %in% depr_anx_cod$code)
 
+#Extract IAPT code usage 
+
+iapt_codes_usage <- dep_anx_tx_cod_usage |> 
+  filter(str_detect(str_to_lower(description), "access to psychological therapies programme"))
+
 
 # Extract semantic tag and add new variable
-cod_usage_semantic_tag <- dep_anx_tx_cod_usage |> 
+cod_usage_semantic_tag <- iapt_codes_usage |> 
   mutate(
     description_short = str_remove(description, " \\([^()]+\\)$"),
     semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
@@ -167,7 +223,49 @@ group_code_semantic |>
   tab_style(
     style = cell_text(weight = "bold"),
     locations = cells_body(columns = semantic_tag)
+  ) |>
+  tab_header(
+    title = md("**Code Usage by Semantic Tag**")
   )
 
 
+```
+
+#### Plot of code usage by semantic tag
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+
+library(scales)
+
+# Create plot with facets using facet_wrap()
+ggplot(cod_usage_semantic_tag, 
+  aes(
+    y = usage, 
+    x = end_date,
+    colour = description
+    )) + 
+  geom_line(alpha = 0.2) + 
+  geom_point() +
+  labs(
+    title = "Yearly counts of improving access to psychological therapies programme",
+    x = NULL,
+    y = NULL,
+    colour = NULL,
+    caption = "Data from NHS England SNOMED Code Usage in Primary Care.") + 
+  scale_x_date(
+    date_breaks = "1 year",
+    labels = label_date_short()) +
+  scale_y_continuous(
+    labels = label_number(),
+    limits = c(0, NA)
+    ) +
+  facet_wrap(~semantic_tag, scales = "free_y") +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        plot.margin = margin(t = 20, r = 20, b = 20, l = 20)) +
+  guides(colour = guide_legend(ncol = 2, byrow = TRUE))
 ```

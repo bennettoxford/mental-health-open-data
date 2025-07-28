@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Codelist for anxiety and depression psychological therapies</title>
+<title>Code lists for anxiety and depression psychological therapies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Codelist for anxiety and depression psychological therapies</h1>
+<h1 class="title">Code lists for anxiety and depression psychological therapies</h1>
 </div>
 
 
@@ -111,15 +111,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="methodology" class="level3">
 <h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
+<p>A two-step approach was taken for the development of this codelist:</p>
+<p><strong>Step 1: Desk reviews of relevant guidelines and existing codelists for anxiety and depression</strong></p>
+<p>This codelist benefits from the NICE guideline recommendations on the management of anxiety and depression. Specific documents reviewed were:</p>
+<ol type="1">
+<li><p><strong>Depression in adults: treatment and management</strong></p></li>
+<li><p><strong>Generalised anxiety disorder and panic disorder in adults: management</strong></p></li>
+</ol>
+<p>The recommended therapies outlined in the guidelines and existing NHSD codelists for anxiety and depression, available on OpenCodelist, were used in developing a draft codelist. The adapted codelists were:</p>
+<ol type="1">
+<li><p>Depression support and treatment codes</p></li>
+<li><p>Anxiety support and treatment codes</p></li>
+</ol>
+<p><strong>Step 2: A methodology-informed session with a General Practitioner</strong> A methodology-informed session was held with a General Practitioner to understand the approach to coding psychological therapies in eHR. This informed the development of improved search terms and inclusion/exclusion criteria.</p>
+<p><strong>Inclusion and exclusion criteria</strong></p>
 <p>This codelist is designed to maximize sensitivity by including all psychological therapy-related codes potentially applicable to anxiety and depression, regardless of explicit indication. Specifically,</p>
 <ul>
 <li><p>Psychological therapies codes specific to anxiety and depression were included</p></li>
+<li><p>Psychological therapies codes for conditions related to anxiety and depression (e.g Insomnia, bipolar disorder, psychosis) were included</p></li>
 <li><p>Generic psychological therapies codes (e.g.&nbsp;Cognitive Behavioural Therapy) not specific to other conditions were included</p></li>
-<li><p>Psychological therapies codes specific to other conditions (e.g.&nbsp;CBT for insomnia) were excluded&nbsp;&nbsp;</p></li>
+<li><p>Common codes (based on GP’s perspective) that indicated receipt of psychological therapies were included (e.g.&nbsp;seen by psychologists)</p></li>
+<li><p>Psychological therapies codes specific to other conditions not related to anxiety and depression were excluded&nbsp;</p></li>
 </ul>
-</section>
-<section id="search-terms" class="level3">
-<h3 class="anchored" data-anchor-id="search-terms">Search Terms</h3>
+<section id="search-terms" class="level4">
+<h4 class="anchored" data-anchor-id="search-terms">Search Terms</h4>
 <ul>
 <li><p>Guided self-help</p></li>
 <li><p>Digital cognitive behavioural therapy for depression</p></li>
@@ -139,415 +154,129 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Psycho-education</p></li>
 <li><p>Education about anxiety</p></li>
 <li><p>Counselling for anxiety</p></li>
+<li><p>Referral to improving access to psychological therapies program</p></li>
 </ul>
 </section>
-<section id="code-list" class="level3">
-<h3 class="anchored" data-anchor-id="code-list">Code list</h3>
+</section>
+<section id="results-code-lists-usage-patterns" class="level3">
+<h3 class="anchored" data-anchor-id="results-code-lists-usage-patterns">Results: Code Lists Usage Patterns</h3>
+<p>Load codelist: <a href="https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8/" class="uri">https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8/</a> from opencodelist</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(opencodecounts) </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: 'hide'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Load codelists from opencodelist</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>depr_anx_cod <span class="ot">&lt;-</span> <span class="fu">get_codelist</span>(<span class="st">"user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Load codelist: (<a href="https://www.opencodelists.org/builder/20b86970/" class="uri">https://www.opencodelists.org/builder/20b86970/</a>) from opencodelist</p>
+<section id="psychological-therapies-code-usage" class="level4">
+<h4 class="anchored" data-anchor-id="psychological-therapies-code-usage">Psychological therapies code usage</h4>
+</section>
+<section id="section" class="level4">
+<h4 class="anchored" data-anchor-id="section"></h4>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cod_summary_grouped <span class="ot">&lt;-</span> codelist_summary <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description =</span> <span class="fu">ifelse</span>(usage <span class="sc">&lt;</span> <span class="dv">20000</span>, <span class="st">"Others"</span>, description)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(description) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">usage =</span> <span class="fu">sum</span>(usage),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">percent_usage =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> usage <span class="sc">/</span> <span class="fu">sum</span>(usage), <span class="dv">1</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(usage)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">description =</span> <span class="fu">factor</span>(description, <span class="at">levels =</span> <span class="fu">rev</span>(description)))  <span class="co"># Fix order for horizontal bars</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Horizontal bar chart</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cod_summary_grouped, <span class="fu">aes</span>(<span class="at">x =</span> description, <span class="at">y =</span> usage)) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Code Usage"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Therapies"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Usage"</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(x <span class="sc">/</span> <span class="dv">1000</span>, <span class="st">"k"</span>)) <span class="sc">+</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">10</span>),</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Summary of depression and anxiety SNOMED CT codes</caption>
-<colgroup>
-<col style="width: 15%">
-<col style="width: 66%">
-<col style="width: 6%">
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">snomed_code</th>
-<th style="text-align: left;">description</th>
-<th style="text-align: right;">usage</th>
-<th style="text-align: right;">percent_usage</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">395072006</td>
-<td style="text-align: left;">Counseling for postnatal depression (procedure)</td>
-<td style="text-align: right;">146100</td>
-<td style="text-align: right;">23.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">519101000000109</td>
-<td style="text-align: left;">Referral for cognitive behavioural therapy (procedure)</td>
-<td style="text-align: right;">82080</td>
-<td style="text-align: right;">13.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">702545008</td>
-<td style="text-align: left;">Psychoeducation (procedure)</td>
-<td style="text-align: right;">71155</td>
-<td style="text-align: right;">11.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">228557008</td>
-<td style="text-align: left;">Cognitive and behavioral therapy (regime/therapy)</td>
-<td style="text-align: right;">56880</td>
-<td style="text-align: right;">9.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">933221000000107</td>
-<td style="text-align: left;">Mindfulness-based therapy (regime/therapy)</td>
-<td style="text-align: right;">35425</td>
-<td style="text-align: right;">5.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">199121000000106</td>
-<td style="text-align: left;">Referral for mental health self-help literature (procedure)</td>
-<td style="text-align: right;">32300</td>
-<td style="text-align: right;">5.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">444175001</td>
-<td style="text-align: left;">Guided self-help cognitive behavioral therapy (regime/therapy)</td>
-<td style="text-align: right;">27980</td>
-<td style="text-align: right;">4.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">429329005</td>
-<td style="text-align: left;">Computerized cognitive behavioral therapy (regime/therapy)</td>
-<td style="text-align: right;">27270</td>
-<td style="text-align: right;">4.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">313087008</td>
-<td style="text-align: left;">Counseling for anxiety (procedure)</td>
-<td style="text-align: right;">21780</td>
-<td style="text-align: right;">3.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">199111000000100</td>
-<td style="text-align: left;">Referral for guided self-help for depression (procedure)</td>
-<td style="text-align: right;">15940</td>
-<td style="text-align: right;">2.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">276049006</td>
-<td style="text-align: left;">Self-help group support (finding)</td>
-<td style="text-align: right;">15520</td>
-<td style="text-align: right;">2.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">247581008</td>
-<td style="text-align: left;">Problem solving (observable entity)</td>
-<td style="text-align: right;">15125</td>
-<td style="text-align: right;">2.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">199101000000102</td>
-<td style="text-align: left;">Referral for guided self-help for anxiety (procedure)</td>
-<td style="text-align: right;">14440</td>
-<td style="text-align: right;">2.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1129491000000109</td>
-<td style="text-align: left;">Guided self-help psychological therapy (regime/therapy)</td>
-<td style="text-align: right;">7890</td>
-<td style="text-align: right;">1.3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">302230009</td>
-<td style="text-align: left;">Generic cognitive behavioral therapy (regime/therapy)</td>
-<td style="text-align: right;">7730</td>
-<td style="text-align: right;">1.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1057351000000106</td>
-<td style="text-align: left;">Signposting to depression self-help group (procedure)</td>
-<td style="text-align: right;">6705</td>
-<td style="text-align: right;">1.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">417158007</td>
-<td style="text-align: left;">Referral to psycho-educational group (procedure)</td>
-<td style="text-align: right;">5360</td>
-<td style="text-align: right;">0.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">748041000000107</td>
-<td style="text-align: left;">Guided self-help using computer (regime/therapy)</td>
-<td style="text-align: right;">4975</td>
-<td style="text-align: right;">0.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">861611000000100</td>
-<td style="text-align: left;">Education about anxiety (procedure)</td>
-<td style="text-align: right;">4600</td>
-<td style="text-align: right;">0.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">698631004</td>
-<td style="text-align: left;">Education about self-help group (procedure)</td>
-<td style="text-align: right;">3570</td>
-<td style="text-align: right;">0.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">443119008</td>
-<td style="text-align: left;">Behavioral activation therapy (regime/therapy)</td>
-<td style="text-align: right;">3200</td>
-<td style="text-align: right;">0.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">314034001</td>
-<td style="text-align: left;">Psychodynamic psychotherapy (regime/therapy)</td>
-<td style="text-align: right;">3130</td>
-<td style="text-align: right;">0.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">376061000000109</td>
-<td style="text-align: left;">Prescription of self-help book (procedure)</td>
-<td style="text-align: right;">2740</td>
-<td style="text-align: right;">0.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">228553007</td>
-<td style="text-align: left;">Cognitive therapy (regime/therapy)</td>
-<td style="text-align: right;">2100</td>
-<td style="text-align: right;">0.3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">443730003</td>
-<td style="text-align: left;">Interpersonal psychotherapy (regime/therapy)</td>
-<td style="text-align: right;">1660</td>
-<td style="text-align: right;">0.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">401162000</td>
-<td style="text-align: left;">Problem solving therapy (regime/therapy)</td>
-<td style="text-align: right;">1060</td>
-<td style="text-align: right;">0.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">149631000000108</td>
-<td style="text-align: left;">Digital cognitive behavioural therapy for depression (regime/therapy)</td>
-<td style="text-align: right;">1030</td>
-<td style="text-align: right;">0.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">748051000000105</td>
-<td style="text-align: left;">Guided self-help using book (regime/therapy)</td>
-<td style="text-align: right;">910</td>
-<td style="text-align: right;">0.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">814131000000101</td>
-<td style="text-align: left;">Referral for high intensity cognitive behavioural therapy (procedure)</td>
-<td style="text-align: right;">580</td>
-<td style="text-align: right;">0.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1129491000000109</td>
-<td style="text-align: left;">Guided self-help (regime/therapy)</td>
-<td style="text-align: right;">530</td>
-<td style="text-align: right;">0.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">425680009</td>
-<td style="text-align: left;">Cognitive behavioral therapy by multidisciplinary team (regime/therapy)</td>
-<td style="text-align: right;">480</td>
-<td style="text-align: right;">0.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1659251000000100</td>
-<td style="text-align: left;">Group mindfulness-based cognitive therapy (regime/therapy)</td>
-<td style="text-align: right;">320</td>
-<td style="text-align: right;">0.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">264603002</td>
-<td style="text-align: left;">Transcranial magnetic stimulation of brain (procedure)</td>
-<td style="text-align: right;">305</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">149521000000105</td>
-<td style="text-align: left;">Trauma focused cognitive behavioural therapy (regime/therapy)</td>
-<td style="text-align: right;">300</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">228552002</td>
-<td style="text-align: left;">Problem solving training (procedure)</td>
-<td style="text-align: right;">290</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">286711000000107</td>
-<td style="text-align: left;">Counseling for depression (procedure)</td>
-<td style="text-align: right;">270</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">429048003</td>
-<td style="text-align: left;">Short-term psychodynamic therapy (regime/therapy)</td>
-<td style="text-align: right;">250</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">313019002</td>
-<td style="text-align: left;">First treatment in a course of electroconvulsive therapy (procedure)</td>
-<td style="text-align: right;">240</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">264603002</td>
-<td style="text-align: left;">Transcranial magnetic stimulation (procedure)</td>
-<td style="text-align: right;">230</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">883841000000104</td>
-<td style="text-align: left;">Cognitive behavioural therapy parenting programme (regime/therapy)</td>
-<td style="text-align: right;">195</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">313020008</td>
-<td style="text-align: left;">Subsequent treatment in a course of electroconvulsive therapy (procedure)</td>
-<td style="text-align: right;">180</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1423361000000109</td>
-<td style="text-align: left;">Mindfulness-based cognitive therapy (regime/therapy)</td>
-<td style="text-align: right;">150</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1833051000000102</td>
-<td style="text-align: left;">Mindfulness-based intervention (regime/therapy)</td>
-<td style="text-align: right;">120</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">231079005</td>
-<td style="text-align: left;">Multiple electroconvulsive therapy (procedure)</td>
-<td style="text-align: right;">105</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">284468008</td>
-<td style="text-align: left;">Bilateral electroconvulsive therapy (procedure)</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">923921000000104</td>
-<td style="text-align: left;">Referral for depression self-help video (procedure)</td>
-<td style="text-align: right;">85</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">302242004</td>
-<td style="text-align: left;">Long-term psychodynamic psychotherapy (regime/therapy)</td>
-<td style="text-align: right;">75</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">304821008</td>
-<td style="text-align: left;">Supportive expressive psychodynamic psychotherapy (regime/therapy)</td>
-<td style="text-align: right;">60</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">231080008</td>
-<td style="text-align: left;">Multiple monitored electroconvulsive therapy (procedure)</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1129471000000105</td>
-<td style="text-align: left;">Couple therapy for depression (regime/therapy)</td>
-<td style="text-align: right;">35</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">710201000000106</td>
-<td style="text-align: left;">Giving self-help leaflet (procedure)</td>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">765601000000101</td>
-<td style="text-align: left;">Problem solving (procedure)</td>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1129481000000107</td>
-<td style="text-align: left;">Behavioural couple therapy (regime/therapy)</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1659271000000109</td>
-<td style="text-align: left;">Behavioural activation group therapy (regime/therapy)</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1127281000000100</td>
-<td style="text-align: left;">Applied relaxation (regime/therapy)</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">304822001</td>
-<td style="text-align: left;">Psychodynamic-interpersonal psychotherapy (regime/therapy)</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1106951000000105</td>
-<td style="text-align: left;">Interpersonal psychotherapy for group (regime/therapy)</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">286711000000107</td>
-<td style="text-align: left;">Counselling for depression (procedure)</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">304820009</td>
-<td style="text-align: left;">Developmental psychodynamic psychotherapy (regime/therapy)</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-</tbody>
-</table>
+<div>
+<figure class="figure">
+<p><img src="codelist_psy_tx_anx_dep_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 59</code></pre>
 </div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dep_anx_tx_cod_usage <span class="ot">&lt;-</span> snomed_usage <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(snomed_code <span class="sc">%in%</span> depr_anx_cod<span class="sc">$</span>code)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract IAPT code usage </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>iapt_codes_usage <span class="ot">&lt;-</span> dep_anx_tx_cod_usage <span class="sc">|&gt;</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(<span class="fu">str_to_lower</span>(description), <span class="st">"access to psychological therapies programme"</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract semantic tag and add new variable</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>cod_usage_semantic_tag <span class="ot">&lt;-</span> iapt_codes_usage <span class="sc">|&gt;</span> </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">description_short =</span> <span class="fu">str_remove</span>(description, <span class="st">" </span><span class="sc">\\</span><span class="st">([^()]+</span><span class="sc">\\</span><span class="st">)$"</span>),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">semantic_tag =</span> <span class="fu">str_extract</span>(description, <span class="st">"</span><span class="sc">\\</span><span class="st">(([^()]+)</span><span class="sc">\\</span><span class="st">)$"</span>),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">semantic_tag =</span> <span class="fu">str_replace_all</span>(semantic_tag, <span class="st">"[()]"</span>, <span class="st">""</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Group by semantic tag</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>group_code_semantic <span class="ot">&lt;-</span> cod_usage_semantic_tag <span class="sc">|&gt;</span> </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(snomed_code, description_short, semantic_tag) <span class="sc">|&gt;</span> </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">usage =</span> <span class="fu">sum</span>(usage), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ratio_usage =</span> usage <span class="sc">/</span> <span class="fu">sum</span>(usage)) <span class="sc">|&gt;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>usage)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Create table grouped by semantic_tag</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>group_code_semantic <span class="sc">|&gt;</span> </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(semantic_tag) <span class="sc">|&gt;</span> </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_percent</span>(</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(ratio_usage),</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">2</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">columns =</span> semantic_tag)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">md</span>(<span class="st">"**Code Usage by Semantic Tag**"</span>)</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="advdeqmgto" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#advdeqmgto table {
+<div id="ybuzuzwulo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ybuzuzwulo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#advdeqmgto thead, #advdeqmgto tbody, #advdeqmgto tfoot, #advdeqmgto tr, #advdeqmgto td, #advdeqmgto th {
+#ybuzuzwulo thead, #ybuzuzwulo tbody, #ybuzuzwulo tfoot, #ybuzuzwulo tr, #ybuzuzwulo td, #ybuzuzwulo th {
   border-style: none;
 }
 
-#advdeqmgto p {
+#ybuzuzwulo p {
   margin: 0;
   padding: 0;
 }
 
-#advdeqmgto .gt_table {
+#ybuzuzwulo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -573,12 +302,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_caption {
+#ybuzuzwulo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#advdeqmgto .gt_title {
+#ybuzuzwulo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -590,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#advdeqmgto .gt_subtitle {
+#ybuzuzwulo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -602,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#advdeqmgto .gt_heading {
+#ybuzuzwulo .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -614,13 +343,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_bottom_border {
+#ybuzuzwulo .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_col_headings {
+#ybuzuzwulo .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -635,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_col_heading {
+#ybuzuzwulo .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -655,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#advdeqmgto .gt_column_spanner_outer {
+#ybuzuzwulo .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -667,15 +396,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#advdeqmgto .gt_column_spanner_outer:first-child {
+#ybuzuzwulo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#advdeqmgto .gt_column_spanner_outer:last-child {
+#ybuzuzwulo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#advdeqmgto .gt_column_spanner {
+#ybuzuzwulo .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -687,11 +416,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#advdeqmgto .gt_spanner_row {
+#ybuzuzwulo .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#advdeqmgto .gt_group_heading {
+#ybuzuzwulo .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -717,7 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#advdeqmgto .gt_empty_group_heading {
+#ybuzuzwulo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -732,15 +461,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#advdeqmgto .gt_from_md > :first-child {
+#ybuzuzwulo .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#advdeqmgto .gt_from_md > :last-child {
+#ybuzuzwulo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#advdeqmgto .gt_row {
+#ybuzuzwulo .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -759,7 +488,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#advdeqmgto .gt_stub {
+#ybuzuzwulo .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -772,7 +501,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#advdeqmgto .gt_stub_row_group {
+#ybuzuzwulo .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -786,15 +515,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#advdeqmgto .gt_row_group_first td {
+#ybuzuzwulo .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#advdeqmgto .gt_row_group_first th {
+#ybuzuzwulo .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#advdeqmgto .gt_summary_row {
+#ybuzuzwulo .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -804,16 +533,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#advdeqmgto .gt_first_summary_row {
+#ybuzuzwulo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_first_summary_row.thick {
+#ybuzuzwulo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#advdeqmgto .gt_last_summary_row {
+#ybuzuzwulo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -823,7 +552,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_grand_summary_row {
+#ybuzuzwulo .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -833,7 +562,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#advdeqmgto .gt_first_grand_summary_row {
+#ybuzuzwulo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -843,7 +572,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_last_grand_summary_row_top {
+#ybuzuzwulo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -853,11 +582,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_striped {
+#ybuzuzwulo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#advdeqmgto .gt_table_body {
+#ybuzuzwulo .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -866,7 +595,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_footnotes {
+#ybuzuzwulo .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -880,7 +609,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_footnote {
+#ybuzuzwulo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -889,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#advdeqmgto .gt_sourcenotes {
+#ybuzuzwulo .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -903,7 +632,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#advdeqmgto .gt_sourcenote {
+#ybuzuzwulo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -911,79 +640,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#advdeqmgto .gt_left {
+#ybuzuzwulo .gt_left {
   text-align: left;
 }
 
-#advdeqmgto .gt_center {
+#ybuzuzwulo .gt_center {
   text-align: center;
 }
 
-#advdeqmgto .gt_right {
+#ybuzuzwulo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#advdeqmgto .gt_font_normal {
+#ybuzuzwulo .gt_font_normal {
   font-weight: normal;
 }
 
-#advdeqmgto .gt_font_bold {
+#ybuzuzwulo .gt_font_bold {
   font-weight: bold;
 }
 
-#advdeqmgto .gt_font_italic {
+#ybuzuzwulo .gt_font_italic {
   font-style: italic;
 }
 
-#advdeqmgto .gt_super {
+#ybuzuzwulo .gt_super {
   font-size: 65%;
 }
 
-#advdeqmgto .gt_footnote_marks {
+#ybuzuzwulo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#advdeqmgto .gt_asterisk {
+#ybuzuzwulo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#advdeqmgto .gt_indent_1 {
+#ybuzuzwulo .gt_indent_1 {
   text-indent: 5px;
 }
 
-#advdeqmgto .gt_indent_2 {
+#ybuzuzwulo .gt_indent_2 {
   text-indent: 10px;
 }
 
-#advdeqmgto .gt_indent_3 {
+#ybuzuzwulo .gt_indent_3 {
   text-indent: 15px;
 }
 
-#advdeqmgto .gt_indent_4 {
+#ybuzuzwulo .gt_indent_4 {
   text-indent: 20px;
 }
 
-#advdeqmgto .gt_indent_5 {
+#ybuzuzwulo .gt_indent_5 {
   text-indent: 25px;
 }
 
-#advdeqmgto .katex-display {
+#ybuzuzwulo .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#advdeqmgto div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ybuzuzwulo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
-<tr class="gt_col_headings header">
+<tr class="gt_heading header">
+<th colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border"><strong>Code Usage by Semantic Tag</strong></th>
+</tr>
+<tr class="gt_col_headings even">
 <th id="snomed_code" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">snomed_code</th>
 <th id="description_short" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">description_short</th>
 <th id="usage" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">usage</th>
@@ -995,367 +727,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td colspan="4" id="procedure" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">procedure</td>
 </tr>
 <tr class="gt_row_group_first even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">395072006</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Counseling for postnatal depression</td>
-<td class="gt_row gt_right" headers="procedure  usage">146100</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">23.42%</td>
+<td class="gt_row gt_right" headers="procedure  snomed_code">380201000000109</td>
+<td class="gt_row gt_left" headers="procedure  description_short">Referral to improving access to psychological therapies programme</td>
+<td class="gt_row gt_right" headers="procedure  usage">833130</td>
+<td class="gt_row gt_right" headers="procedure  ratio_usage">52.63%</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">519101000000109</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Referral for cognitive behavioural therapy</td>
-<td class="gt_row gt_right" headers="procedure  usage">82080</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">13.16%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">702545008</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Psychoeducation</td>
-<td class="gt_row gt_right" headers="procedure  usage">71155</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">11.41%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">199121000000106</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Referral for mental health self-help literature</td>
-<td class="gt_row gt_right" headers="procedure  usage">32300</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">5.18%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">313087008</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Counseling for anxiety</td>
-<td class="gt_row gt_right" headers="procedure  usage">21780</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">3.49%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">199111000000100</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Referral for guided self-help for depression</td>
-<td class="gt_row gt_right" headers="procedure  usage">15940</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">2.56%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">199101000000102</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Referral for guided self-help for anxiety</td>
-<td class="gt_row gt_right" headers="procedure  usage">14440</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">2.32%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">1057351000000106</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Signposting to depression self-help group</td>
-<td class="gt_row gt_right" headers="procedure  usage">6705</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">1.07%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">417158007</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Referral to psycho-educational group</td>
-<td class="gt_row gt_right" headers="procedure  usage">5360</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.86%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">861611000000100</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Education about anxiety</td>
-<td class="gt_row gt_right" headers="procedure  usage">4600</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.74%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">698631004</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Education about self-help group</td>
-<td class="gt_row gt_right" headers="procedure  usage">3570</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.57%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">376061000000109</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Prescription of self-help book</td>
-<td class="gt_row gt_right" headers="procedure  usage">2740</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.44%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">814131000000101</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Referral for high intensity cognitive behavioural therapy</td>
-<td class="gt_row gt_right" headers="procedure  usage">580</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.09%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">264603002</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Transcranial magnetic stimulation of brain</td>
-<td class="gt_row gt_right" headers="procedure  usage">305</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.05%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">228552002</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Problem solving training</td>
-<td class="gt_row gt_right" headers="procedure  usage">290</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.05%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">286711000000107</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Counseling for depression</td>
-<td class="gt_row gt_right" headers="procedure  usage">270</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.04%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">313019002</td>
-<td class="gt_row gt_left" headers="procedure  description_short">First treatment in a course of electroconvulsive therapy</td>
-<td class="gt_row gt_right" headers="procedure  usage">240</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.04%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">264603002</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Transcranial magnetic stimulation</td>
-<td class="gt_row gt_right" headers="procedure  usage">230</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.04%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">313020008</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Subsequent treatment in a course of electroconvulsive therapy</td>
-<td class="gt_row gt_right" headers="procedure  usage">180</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.03%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">231079005</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Multiple electroconvulsive therapy</td>
-<td class="gt_row gt_right" headers="procedure  usage">105</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.02%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">284468008</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Bilateral electroconvulsive therapy</td>
-<td class="gt_row gt_right" headers="procedure  usage">100</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.02%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">923921000000104</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Referral for depression self-help video</td>
-<td class="gt_row gt_right" headers="procedure  usage">85</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.01%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">231080008</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Multiple monitored electroconvulsive therapy</td>
-<td class="gt_row gt_right" headers="procedure  usage">40</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.01%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">710201000000106</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Giving self-help leaflet</td>
-<td class="gt_row gt_right" headers="procedure  usage">30</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.00%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="procedure  snomed_code">765601000000101</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Problem solving</td>
-<td class="gt_row gt_right" headers="procedure  usage">30</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.00%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="procedure  snomed_code">286711000000107</td>
-<td class="gt_row gt_left" headers="procedure  description_short">Counselling for depression</td>
-<td class="gt_row gt_right" headers="procedure  usage">5</td>
-<td class="gt_row gt_right" headers="procedure  ratio_usage">0.00%</td>
-</tr>
-<tr class="gt_group_heading_row even">
-<td colspan="4" id="regime/therapy" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">regime/therapy</td>
-</tr>
-<tr class="gt_row_group_first odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">228557008</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Cognitive and behavioral therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">56880</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">9.12%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">933221000000107</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Mindfulness-based therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">35425</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">5.68%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">444175001</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Guided self-help cognitive behavioral therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">27980</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">4.49%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">429329005</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Computerized cognitive behavioral therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">27270</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">4.37%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1129491000000109</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Guided self-help psychological therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">7890</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">1.26%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">302230009</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Generic cognitive behavioral therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">7730</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">1.24%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">748041000000107</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Guided self-help using computer</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">4975</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.80%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">443119008</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Behavioral activation therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">3200</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.51%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">314034001</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Psychodynamic psychotherapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">3130</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.50%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">228553007</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Cognitive therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">2100</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.34%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">443730003</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Interpersonal psychotherapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">1660</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.27%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">401162000</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Problem solving therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">1060</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.17%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">149631000000108</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Digital cognitive behavioural therapy for depression</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">1030</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.17%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">748051000000105</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Guided self-help using book</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">910</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.15%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1129491000000109</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Guided self-help</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">530</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.08%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">425680009</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Cognitive behavioral therapy by multidisciplinary team</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">480</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.08%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1659251000000100</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Group mindfulness-based cognitive therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">320</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.05%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">149521000000105</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Trauma focused cognitive behavioural therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">300</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.05%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">429048003</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Short-term psychodynamic therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">250</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.04%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">883841000000104</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Cognitive behavioural therapy parenting programme</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">195</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.03%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1423361000000109</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Mindfulness-based cognitive therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">150</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.02%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1833051000000102</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Mindfulness-based intervention</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">120</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.02%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">302242004</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Long-term psychodynamic psychotherapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">75</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.01%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">304821008</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Supportive expressive psychodynamic psychotherapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">60</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.01%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1129471000000105</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Couple therapy for depression</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">35</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.01%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1129481000000107</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Behavioural couple therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">25</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.00%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1659271000000109</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Behavioural activation group therapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">15</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.00%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1127281000000100</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Applied relaxation</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">10</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.00%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">304822001</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Psychodynamic-interpersonal psychotherapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">10</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.00%</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">1106951000000105</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Interpersonal psychotherapy for group</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">5</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.00%</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="regime/therapy  snomed_code">304820009</td>
-<td class="gt_row gt_left" headers="regime/therapy  description_short">Developmental psychodynamic psychotherapy</td>
-<td class="gt_row gt_right" headers="regime/therapy  usage">5</td>
-<td class="gt_row gt_right" headers="regime/therapy  ratio_usage">0.00%</td>
-</tr>
-<tr class="gt_group_heading_row even">
-<td colspan="4" id="finding" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">finding</td>
-</tr>
-<tr class="gt_row_group_first odd">
-<td class="gt_row gt_right" headers="finding  snomed_code">276049006</td>
-<td class="gt_row gt_left" headers="finding  description_short">Self-help group support</td>
-<td class="gt_row gt_right" headers="finding  usage">15520</td>
-<td class="gt_row gt_right" headers="finding  ratio_usage">2.49%</td>
-</tr>
-<tr class="gt_group_heading_row even">
-<td colspan="4" id="observable entity" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">observable entity</td>
-</tr>
-<tr class="gt_row_group_first odd">
-<td class="gt_row gt_right" headers="observable entity  snomed_code">247581008</td>
-<td class="gt_row gt_left" headers="observable entity  description_short">Problem solving</td>
-<td class="gt_row gt_right" headers="observable entity  usage">15125</td>
-<td class="gt_row gt_right" headers="observable entity  ratio_usage">2.42%</td>
+<td class="gt_row gt_right" headers="procedure  snomed_code">1036481000000106</td>
+<td class="gt_row gt_left" headers="procedure  description_short">Self-referral to Improving Access to Psychological Therapies programme</td>
+<td class="gt_row gt_right" headers="procedure  usage">749820</td>
+<td class="gt_row gt_right" headers="procedure  ratio_usage">47.37%</td>
 </tr>
 </tbody>
 </table>
@@ -1363,6 +744,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="plot-of-code-usage-by-semantic-tag" class="level4">
+<h4 class="anchored" data-anchor-id="plot-of-code-usage-by-semantic-tag">Plot of code usage by semantic tag</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="codelist_psy_tx_anx_dep_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 </main>
