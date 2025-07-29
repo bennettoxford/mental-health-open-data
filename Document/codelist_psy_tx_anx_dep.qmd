@@ -210,7 +210,19 @@ ggplot(top_codelist, aes(x = description, y = usage)) +
     plot.title = element_text(hjust = 1.1, size = 12, face = "bold")
   )
 
+#Obtain total IAPT code usage to be used for interpretation 
+iapt_total = codelist_summary$usage[codelist_summary$description == "Referral to improving access to psychological therapies programme (procedure)"] + codelist_summary$usage[codelist_summary$description == "Self-referral to Improving Access to Psychological Therapies programme (procedure)"]
+
+
+#Obtain total "Seen by Psychologist code"
+seen_by_psychologist = codelist_summary$usage[codelist_summary$description == "Seen by psychologist (finding)"]
+
+#Obtain total acceted for talking therapy code 
+talking_therapy = codelist_summary$usage[codelist_summary$description == "Accepted by psychological talking therapy service (finding)"]
+
 ```
+
+Top 15 most recorded psychological therapy codes in UK primary care had `r  round(sum(top_codelist$usage)/1000000, 2)` million recordings between 2013 and 2024. **Referral/Self-referral to Improving access to psychological therapies** was the most recorded code with over `r round (iapt_total/1000000, 2)` million recordings in the same period. Additionally, there were `r  round(talking_therapy/1000,0)` thousand recordings on acceptance for psychological talking therapy service. There were over `r round(seen_by_psychologist/1000, 0)` thousand recordings as **Seen by Psychologists.**
 
 ##### B. Exploration of Code Specific Patterns 
 
@@ -318,4 +330,199 @@ ggplot(iapt_usage_semantic_tag,
   theme(legend.position = "bottom",
         plot.margin = margin(t = 20, r = 40, b = 10, l = 10)) +
   guides(colour = guide_legend(ncol = 2, byrow = TRUE))
+```
+
+##### ii. Cognitive Behavioural Therapy 
+
+```{r}
+#| label: Cognitive Behavioural Therapy Pattern
+#| echo: false
+#| message: false
+#| warning: false
+
+#Check the Overview of all Cognitive Behavioural Therapy Codes 
+
+#Set search terms 
+term1 = "cognitive behavioural therapy"
+term2 = "cognitive behavioral therapy"
+term3 = "cognitive and behavioral therapy"
+term4 = "cognitive and behavioural therapy"
+term5 = "cognitive therapy"
+search_terms = c(term1, term2, term3, term4, term5)
+
+
+#Extract CTB related codes
+cbt_codes_usage <- codelist |> 
+ filter(str_detect(str_to_lower(description), str_c(str_to_lower(search_terms), collapse = "|")))
+
+cbt_codes_summary <- cbt_codes_usage |>
+  group_by(snomed_code, description) %>%
+  summarise(usage = sum(usage), .groups = "drop") %>%
+  mutate(percent_usage = usage / sum(usage)) %>%
+  arrange(desc(usage))
+
+#Generate Table of Summary for CBT Codes 
+cbt_codes_summary |>
+  gt() |>
+  cols_align(
+  align = "left",
+  columns = c(snomed_code, description))|>
+  fmt_percent(
+    columns = c(percent_usage),
+    decimals = 2
+  ) |>
+    tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels(columns = c(snomed_code, description, usage, percent_usage))
+  ) |>
+  tab_header(
+    title = md("**Overview of Cognitive Behavioural Therapy Code Usage**")
+  ) |>
+  tab_options(
+    # Title font size
+    heading.title.font.size = px(16))|>
+  tab_style(
+    style = cell_text(align = "left"),
+    locations = cells_title(groups = "title")
+  )
+```
+
+##### Top 10 Cognitive Behavioural Therapy Codes 
+
+```{r}
+#| label: Top CBT codes
+#| echo: false
+#| message: false
+#| warning: false
+
+#Slice the top 10 CBT code usage 
+top_cbt <- cbt_codes_summary %>%
+  arrange(desc(usage)) %>%
+  slice_head (n = 10) %>%
+  mutate(description = factor(description, levels = rev(description)))  # Fix order for horizontal bars
+
+# Plot a horizontal bar chart
+
+
+# Calculate dynamic upper limit
+max_value <- max(top_cbt$usage) + 10000
+
+ggplot(top_cbt, aes(x = description, y = usage)) +
+  geom_bar(stat = "identity", fill = "orange") +
+  coord_flip() +
+  geom_text(aes(label = paste0(round(usage / 1000), "k")), hjust = -0.1, size = 2)+
+  labs(
+    title = "Top 10 most used cognitive behavioural therapy codes",
+    x = "Therapies",
+    y = "Usage"
+  ) +
+  scale_y_continuous(
+    limits = c(0, max_value),
+    labels = function(x) paste0(x / 1000, "k")) +
+  theme_minimal()+
+  theme(
+    plot.margin = margin(t = 20, r = 10, b = 10, l = 10),
+    plot.title = element_text(hjust = 1.1, size = 12, face = "bold")
+  )
+```
+
+##### Pattern of CBT codes usage by clinical concepts (only top 10 codes)
+
+```{r}
+#| label: CBT Semantic Tag
+#| echo: false
+#| message: false
+#| warning: false
+
+# Extract semantic tag and add new variable
+cbt_usage_semantic_tag <- cbt_codes_usage |> 
+  mutate(
+    description_short = str_remove(description, " \\([^()]+\\)$"),
+    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
+    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
+  )
+
+#Group by semantic tag
+group_cbt_semantic <- cbt_usage_semantic_tag |> 
+  group_by(snomed_code, description_short, semantic_tag) |> 
+  summarise(usage = sum(usage), .groups = "drop") |>
+  mutate(percentage = usage / sum(usage)) |>
+  arrange(-usage)
+
+# Create table grouped by semantic_tag
+group_cbt_semantic |> 
+  group_by(semantic_tag) |> 
+  gt() |> 
+  cols_align(
+  align = "left",
+  columns = c(snomed_code, description_short))|>
+  fmt_percent(
+    columns = c(percentage),
+    decimals = 2
+  ) |> 
+    tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels(columns = c(snomed_code, description_short, usage, percentage))
+  )|>
+  tab_header(
+    title = md("**CBT code usage by clinical concepts**")
+  )|>
+    tab_options(
+    # Title font size
+    heading.title.font.size = px(16))|>
+  tab_style(
+    style = cell_text(align = "left"),
+    locations = cells_title(groups = "title")
+  )
+
+```
+
+```{r}
+#| label: Plot of 10 top CBT codes by clinical concepts
+#| echo: false
+#| message: false
+#| warning: false
+
+
+#Extract the first 5 most used CBT codes 
+search_first_four = cbt_codes_summary$snomed_code[1:5]
+
+#Filter semantic tags 
+top_cbt_semantic_tags <- cbt_usage_semantic_tag |>
+  filter(snomed_code %in% search_first_four)
+
+
+#Wrap description to enable full display in the chart
+top_cbt_semantic_tags$description <- str_wrap(top_cbt_semantic_tags$description, width = 60)
+
+# Create plot with facets using facet_wrap()
+ggplot(top_cbt_semantic_tags, 
+  aes(
+    y = usage, 
+    x = end_date,
+    colour = description
+    )) + 
+  geom_line(alpha = 0.2) + 
+  geom_point() +
+  labs(
+    title = 'Yearly counts Cognitive Behavioural Therapy Codes"',
+    x = NULL,
+    y = NULL,
+    colour = NULL,
+    caption = "Data from NHS England SNOMED Code Usage in Primary Care.") + 
+  scale_x_date(
+    date_breaks = "2 years",
+    labels = label_date_short()) +
+  scale_y_continuous(
+    labels = label_number(),
+    limits = c(0, NA)
+    ) +
+  facet_wrap(~semantic_tag, scales = "free_y") +
+  theme_bw() +
+  theme(legend.position = "bottom",
+        plot.margin = margin(t = 20, r = 40, b = 10, l = 10)) +
+  guides(colour = guide_legend(ncol = 2, byrow = TRUE))
+
+
+
 ```
