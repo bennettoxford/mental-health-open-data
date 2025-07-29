@@ -155,6 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Education about anxiety</p></li>
 <li><p>Counselling for anxiety</p></li>
 <li><p>Referral to improving access to psychological therapies program</p></li>
+<li><p>Talking therapies</p></li>
 </ul>
 </section>
 </section>
@@ -162,21 +163,969 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="results-code-lists-usage-patterns">Results: Code Lists Usage Patterns</h3>
 <p>Load codelist: <a href="https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8/" class="uri">https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8/</a> from opencodelist</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: 'hide'</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Load codelists from opencodelist</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>depr_anx_cod <span class="ot">&lt;-</span> <span class="fu">get_codelist</span>(<span class="st">"user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load codelists from opencodelist</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>depr_anx_cod <span class="ot">&lt;-</span> <span class="fu">get_codelist</span>(<span class="st">"user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="psychological-therapies-code-usage" class="level4">
-<h4 class="anchored" data-anchor-id="psychological-therapies-code-usage">Psychological therapies code usage</h4>
-</section>
-<section id="section" class="level4">
-<h4 class="anchored" data-anchor-id="section"></h4>
+<section id="a.-summary-of-psychological-therapies-code-usage" class="level5">
+<h5 class="anchored" data-anchor-id="a.-summary-of-psychological-therapies-code-usage">A. Summary of psychological therapies code usage</h5>
+<div class="cell">
+<div class="cell-output-display">
+<div id="jpdpmxkzwf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jpdpmxkzwf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jpdpmxkzwf thead, #jpdpmxkzwf tbody, #jpdpmxkzwf tfoot, #jpdpmxkzwf tr, #jpdpmxkzwf td, #jpdpmxkzwf th {
+  border-style: none;
+}
+
+#jpdpmxkzwf p {
+  margin: 0;
+  padding: 0;
+}
+
+#jpdpmxkzwf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jpdpmxkzwf .gt_title {
+  color: #333333;
+  font-size: 16px;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jpdpmxkzwf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jpdpmxkzwf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jpdpmxkzwf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jpdpmxkzwf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jpdpmxkzwf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jpdpmxkzwf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jpdpmxkzwf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jpdpmxkzwf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jpdpmxkzwf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jpdpmxkzwf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jpdpmxkzwf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jpdpmxkzwf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jpdpmxkzwf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jpdpmxkzwf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jpdpmxkzwf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#jpdpmxkzwf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#jpdpmxkzwf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jpdpmxkzwf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jpdpmxkzwf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jpdpmxkzwf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jpdpmxkzwf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jpdpmxkzwf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jpdpmxkzwf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jpdpmxkzwf .gt_left {
+  text-align: left;
+}
+
+#jpdpmxkzwf .gt_center {
+  text-align: center;
+}
+
+#jpdpmxkzwf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jpdpmxkzwf .gt_font_normal {
+  font-weight: normal;
+}
+
+#jpdpmxkzwf .gt_font_bold {
+  font-weight: bold;
+}
+
+#jpdpmxkzwf .gt_font_italic {
+  font-style: italic;
+}
+
+#jpdpmxkzwf .gt_super {
+  font-size: 65%;
+}
+
+#jpdpmxkzwf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jpdpmxkzwf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jpdpmxkzwf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jpdpmxkzwf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jpdpmxkzwf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jpdpmxkzwf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jpdpmxkzwf .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jpdpmxkzwf .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jpdpmxkzwf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="text-align: left;"><strong>Overview of Depression and Anxiety Code Usage</strong></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="snomed_code" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">snomed_code</th>
+<th id="description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">description</th>
+<th id="usage" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">usage</th>
+<th id="percent_usage" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">percent_usage</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">380201000000109</td>
+<td class="gt_row gt_left" headers="description">Referral to improving access to psychological therapies programme (procedure)</td>
+<td class="gt_row gt_right" headers="usage">833130</td>
+<td class="gt_row gt_right" headers="percent_usage">27.17%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">1036481000000106</td>
+<td class="gt_row gt_left" headers="description">Self-referral to Improving Access to Psychological Therapies programme (procedure)</td>
+<td class="gt_row gt_right" headers="usage">749820</td>
+<td class="gt_row gt_right" headers="percent_usage">24.46%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">310348003</td>
+<td class="gt_row gt_left" headers="description">Seen by psychologist (finding)</td>
+<td class="gt_row gt_right" headers="usage">645020</td>
+<td class="gt_row gt_right" headers="percent_usage">21.04%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">395072006</td>
+<td class="gt_row gt_left" headers="description">Counseling for postnatal depression (procedure)</td>
+<td class="gt_row gt_right" headers="usage">146100</td>
+<td class="gt_row gt_right" headers="percent_usage">4.77%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">863671000000106</td>
+<td class="gt_row gt_left" headers="description">Accepted by psychological talking therapy service (finding)</td>
+<td class="gt_row gt_right" headers="usage">125370</td>
+<td class="gt_row gt_right" headers="percent_usage">4.09%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">519101000000109</td>
+<td class="gt_row gt_left" headers="description">Referral for cognitive behavioural therapy (procedure)</td>
+<td class="gt_row gt_right" headers="usage">82080</td>
+<td class="gt_row gt_right" headers="percent_usage">2.68%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">702545008</td>
+<td class="gt_row gt_left" headers="description">Psychoeducation (procedure)</td>
+<td class="gt_row gt_right" headers="usage">71155</td>
+<td class="gt_row gt_right" headers="percent_usage">2.32%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">228557008</td>
+<td class="gt_row gt_left" headers="description">Cognitive and behavioral therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">56880</td>
+<td class="gt_row gt_right" headers="percent_usage">1.86%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">766511000000107</td>
+<td class="gt_row gt_left" headers="description">Psychological therapy started (situation)</td>
+<td class="gt_row gt_right" headers="usage">43850</td>
+<td class="gt_row gt_right" headers="percent_usage">1.43%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">933221000000107</td>
+<td class="gt_row gt_left" headers="description">Mindfulness-based therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">35425</td>
+<td class="gt_row gt_right" headers="percent_usage">1.16%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">199121000000106</td>
+<td class="gt_row gt_left" headers="description">Referral for mental health self-help literature (procedure)</td>
+<td class="gt_row gt_right" headers="usage">32300</td>
+<td class="gt_row gt_right" headers="percent_usage">1.05%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">444175001</td>
+<td class="gt_row gt_left" headers="description">Guided self-help cognitive behavioral therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">27980</td>
+<td class="gt_row gt_right" headers="percent_usage">0.91%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">429329005</td>
+<td class="gt_row gt_left" headers="description">Computerized cognitive behavioral therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">27270</td>
+<td class="gt_row gt_right" headers="percent_usage">0.89%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">313087008</td>
+<td class="gt_row gt_left" headers="description">Counseling for anxiety (procedure)</td>
+<td class="gt_row gt_right" headers="usage">21780</td>
+<td class="gt_row gt_right" headers="percent_usage">0.71%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">700216002</td>
+<td class="gt_row gt_left" headers="description">Seen by child and adolescent psychologist (finding)</td>
+<td class="gt_row gt_right" headers="usage">18525</td>
+<td class="gt_row gt_right" headers="percent_usage">0.60%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">199111000000100</td>
+<td class="gt_row gt_left" headers="description">Referral for guided self-help for depression (procedure)</td>
+<td class="gt_row gt_right" headers="usage">15940</td>
+<td class="gt_row gt_right" headers="percent_usage">0.52%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">276049006</td>
+<td class="gt_row gt_left" headers="description">Self-help group support (finding)</td>
+<td class="gt_row gt_right" headers="usage">15520</td>
+<td class="gt_row gt_right" headers="percent_usage">0.51%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">247581008</td>
+<td class="gt_row gt_left" headers="description">Problem solving (observable entity)</td>
+<td class="gt_row gt_right" headers="usage">15125</td>
+<td class="gt_row gt_right" headers="percent_usage">0.49%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">199101000000102</td>
+<td class="gt_row gt_left" headers="description">Referral for guided self-help for anxiety (procedure)</td>
+<td class="gt_row gt_right" headers="usage">14440</td>
+<td class="gt_row gt_right" headers="percent_usage">0.47%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">860091000000107</td>
+<td class="gt_row gt_left" headers="description">Seen by assistant psychologist (finding)</td>
+<td class="gt_row gt_right" headers="usage">12040</td>
+<td class="gt_row gt_right" headers="percent_usage">0.39%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1129491000000109</td>
+<td class="gt_row gt_left" headers="description">Guided self-help psychological therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">7890</td>
+<td class="gt_row gt_right" headers="percent_usage">0.26%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">302230009</td>
+<td class="gt_row gt_left" headers="description">Generic cognitive behavioral therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">7730</td>
+<td class="gt_row gt_right" headers="percent_usage">0.25%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1057351000000106</td>
+<td class="gt_row gt_left" headers="description">Signposting to depression self-help group (procedure)</td>
+<td class="gt_row gt_right" headers="usage">6705</td>
+<td class="gt_row gt_right" headers="percent_usage">0.22%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">417158007</td>
+<td class="gt_row gt_left" headers="description">Referral to psycho-educational group (procedure)</td>
+<td class="gt_row gt_right" headers="usage">5360</td>
+<td class="gt_row gt_right" headers="percent_usage">0.17%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">748041000000107</td>
+<td class="gt_row gt_left" headers="description">Guided self-help using computer (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">4975</td>
+<td class="gt_row gt_right" headers="percent_usage">0.16%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">861611000000100</td>
+<td class="gt_row gt_left" headers="description">Education about anxiety (procedure)</td>
+<td class="gt_row gt_right" headers="usage">4600</td>
+<td class="gt_row gt_right" headers="percent_usage">0.15%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">873901000000102</td>
+<td class="gt_row gt_left" headers="description">Seen by trainee psychologist (finding)</td>
+<td class="gt_row gt_right" headers="usage">4210</td>
+<td class="gt_row gt_right" headers="percent_usage">0.14%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">698631004</td>
+<td class="gt_row gt_left" headers="description">Education about self-help group (procedure)</td>
+<td class="gt_row gt_right" headers="usage">3570</td>
+<td class="gt_row gt_right" headers="percent_usage">0.12%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">718026005</td>
+<td class="gt_row gt_left" headers="description">Cognitive behavioral therapy for psychosis (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">3520</td>
+<td class="gt_row gt_right" headers="percent_usage">0.11%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">443119008</td>
+<td class="gt_row gt_left" headers="description">Behavioral activation therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">3200</td>
+<td class="gt_row gt_right" headers="percent_usage">0.10%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">314034001</td>
+<td class="gt_row gt_left" headers="description">Psychodynamic psychotherapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">3130</td>
+<td class="gt_row gt_right" headers="percent_usage">0.10%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">376061000000109</td>
+<td class="gt_row gt_left" headers="description">Prescription of self-help book (procedure)</td>
+<td class="gt_row gt_right" headers="usage">2740</td>
+<td class="gt_row gt_right" headers="percent_usage">0.09%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1109721000000108</td>
+<td class="gt_row gt_left" headers="description">Digital cognitive behavioural therapy for insomnia (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">2210</td>
+<td class="gt_row gt_right" headers="percent_usage">0.07%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">228553007</td>
+<td class="gt_row gt_left" headers="description">Cognitive therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">2100</td>
+<td class="gt_row gt_right" headers="percent_usage">0.07%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">443730003</td>
+<td class="gt_row gt_left" headers="description">Interpersonal psychotherapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">1660</td>
+<td class="gt_row gt_right" headers="percent_usage">0.05%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">859501000000107</td>
+<td class="gt_row gt_left" headers="description">Group cognitive behavioural therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">1160</td>
+<td class="gt_row gt_right" headers="percent_usage">0.04%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">401162000</td>
+<td class="gt_row gt_left" headers="description">Problem solving therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">1060</td>
+<td class="gt_row gt_right" headers="percent_usage">0.03%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">149631000000108</td>
+<td class="gt_row gt_left" headers="description">Digital cognitive behavioural therapy for depression (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">1030</td>
+<td class="gt_row gt_right" headers="percent_usage">0.03%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">864051000000106</td>
+<td class="gt_row gt_left" headers="description">Seen by forensic psychologist (finding)</td>
+<td class="gt_row gt_right" headers="usage">990</td>
+<td class="gt_row gt_right" headers="percent_usage">0.03%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">748051000000105</td>
+<td class="gt_row gt_left" headers="description">Guided self-help using book (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">910</td>
+<td class="gt_row gt_right" headers="percent_usage">0.03%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1097161000000100</td>
+<td class="gt_row gt_left" headers="description">Referral for cognitive behavioural therapy for psychosis (procedure)</td>
+<td class="gt_row gt_right" headers="usage">905</td>
+<td class="gt_row gt_right" headers="percent_usage">0.03%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">405779006</td>
+<td class="gt_row gt_left" headers="description">Seen by clinical psychologist (finding)</td>
+<td class="gt_row gt_right" headers="usage">740</td>
+<td class="gt_row gt_right" headers="percent_usage">0.02%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">814131000000101</td>
+<td class="gt_row gt_left" headers="description">Referral for high intensity cognitive behavioural therapy (procedure)</td>
+<td class="gt_row gt_right" headers="usage">580</td>
+<td class="gt_row gt_right" headers="percent_usage">0.02%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">1129491000000109</td>
+<td class="gt_row gt_left" headers="description">Guided self-help (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">530</td>
+<td class="gt_row gt_right" headers="percent_usage">0.02%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1107191000000102</td>
+<td class="gt_row gt_left" headers="description">Referral for digital cognitive behavioural therapy for insomnia (procedure)</td>
+<td class="gt_row gt_right" headers="usage">485</td>
+<td class="gt_row gt_right" headers="percent_usage">0.02%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">425680009</td>
+<td class="gt_row gt_left" headers="description">Cognitive behavioral therapy by multidisciplinary team (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">480</td>
+<td class="gt_row gt_right" headers="percent_usage">0.02%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1659251000000100</td>
+<td class="gt_row gt_left" headers="description">Group mindfulness-based cognitive therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">320</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">264603002</td>
+<td class="gt_row gt_left" headers="description">Transcranial magnetic stimulation of brain (procedure)</td>
+<td class="gt_row gt_right" headers="usage">305</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">149521000000105</td>
+<td class="gt_row gt_left" headers="description">Trauma focused cognitive behavioural therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">300</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">228552002</td>
+<td class="gt_row gt_left" headers="description">Problem solving training (procedure)</td>
+<td class="gt_row gt_right" headers="usage">290</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">286711000000107</td>
+<td class="gt_row gt_left" headers="description">Counseling for depression (procedure)</td>
+<td class="gt_row gt_right" headers="usage">270</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">429048003</td>
+<td class="gt_row gt_left" headers="description">Short-term psychodynamic therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">250</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">313019002</td>
+<td class="gt_row gt_left" headers="description">First treatment in a course of electroconvulsive therapy (procedure)</td>
+<td class="gt_row gt_right" headers="usage">240</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">264603002</td>
+<td class="gt_row gt_left" headers="description">Transcranial magnetic stimulation (procedure)</td>
+<td class="gt_row gt_right" headers="usage">230</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">883841000000104</td>
+<td class="gt_row gt_left" headers="description">Cognitive behavioural therapy parenting programme (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">195</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">313020008</td>
+<td class="gt_row gt_left" headers="description">Subsequent treatment in a course of electroconvulsive therapy (procedure)</td>
+<td class="gt_row gt_right" headers="usage">180</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1107181000000104</td>
+<td class="gt_row gt_left" headers="description">Signposting for digital cognitive behavioural therapy for insomnia (procedure)</td>
+<td class="gt_row gt_right" headers="usage">170</td>
+<td class="gt_row gt_right" headers="percent_usage">0.01%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">1423361000000109</td>
+<td class="gt_row gt_left" headers="description">Mindfulness-based cognitive therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">150</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1833051000000102</td>
+<td class="gt_row gt_left" headers="description">Mindfulness-based intervention (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">120</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">231079005</td>
+<td class="gt_row gt_left" headers="description">Multiple electroconvulsive therapy (procedure)</td>
+<td class="gt_row gt_right" headers="usage">105</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">284468008</td>
+<td class="gt_row gt_left" headers="description">Bilateral electroconvulsive therapy (procedure)</td>
+<td class="gt_row gt_right" headers="usage">100</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">923921000000104</td>
+<td class="gt_row gt_left" headers="description">Referral for depression self-help video (procedure)</td>
+<td class="gt_row gt_right" headers="usage">85</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">302242004</td>
+<td class="gt_row gt_left" headers="description">Long-term psychodynamic psychotherapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">75</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">1107201000000100</td>
+<td class="gt_row gt_left" headers="description">Self referral for digital cognitive behavioural therapy for insomnia (procedure)</td>
+<td class="gt_row gt_right" headers="usage">60</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">304821008</td>
+<td class="gt_row gt_left" headers="description">Supportive expressive psychodynamic psychotherapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">60</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">302234000</td>
+<td class="gt_row gt_left" headers="description">Beck's cognitive therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">45</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">231080008</td>
+<td class="gt_row gt_left" headers="description">Multiple monitored electroconvulsive therapy (procedure)</td>
+<td class="gt_row gt_right" headers="usage">40</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">1129471000000105</td>
+<td class="gt_row gt_left" headers="description">Couple therapy for depression (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">35</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">405792009</td>
+<td class="gt_row gt_left" headers="description">Formal psychological therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">35</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">710201000000106</td>
+<td class="gt_row gt_left" headers="description">Giving self-help leaflet (procedure)</td>
+<td class="gt_row gt_right" headers="usage">30</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">765601000000101</td>
+<td class="gt_row gt_left" headers="description">Problem solving (procedure)</td>
+<td class="gt_row gt_right" headers="usage">30</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">1129481000000107</td>
+<td class="gt_row gt_left" headers="description">Behavioural couple therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">25</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">868185009</td>
+<td class="gt_row gt_left" headers="description">Cognitive behavioral therapy for insomnia (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">20</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">1659271000000109</td>
+<td class="gt_row gt_left" headers="description">Behavioural activation group therapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">15</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1127281000000100</td>
+<td class="gt_row gt_left" headers="description">Applied relaxation (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">10</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">149591000000108</td>
+<td class="gt_row gt_left" headers="description">Group cognitive and behavioural therapy for bipolar disorder (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">10</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1771581000000100</td>
+<td class="gt_row gt_left" headers="description">Cognitive and behavioural therapy for bipolar disorder (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">10</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">304822001</td>
+<td class="gt_row gt_left" headers="description">Psychodynamic-interpersonal psychotherapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">10</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">1106951000000105</td>
+<td class="gt_row gt_left" headers="description">Interpersonal psychotherapy for group (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">5</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="snomed_code">286711000000107</td>
+<td class="gt_row gt_left" headers="description">Counselling for depression (procedure)</td>
+<td class="gt_row gt_right" headers="usage">5</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="snomed_code">304820009</td>
+<td class="gt_row gt_left" headers="description">Developmental psychodynamic psychotherapy (regime/therapy)</td>
+<td class="gt_row gt_right" headers="usage">5</td>
+<td class="gt_row gt_right" headers="percent_usage">0.00%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cod_summary_grouped <span class="ot">&lt;-</span> codelist_summary <span class="sc">%&gt;%</span></span>
@@ -210,7 +1159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="codelist_psy_tx_anx_dep_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="codelist_psy_tx_anx_dep_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -260,23 +1209,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">md</span>(<span class="st">"**Code Usage by Semantic Tag**"</span>)</span>
 <span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="ybuzuzwulo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ybuzuzwulo table {
+<div id="fmbsarbled" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fmbsarbled table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ybuzuzwulo thead, #ybuzuzwulo tbody, #ybuzuzwulo tfoot, #ybuzuzwulo tr, #ybuzuzwulo td, #ybuzuzwulo th {
+#fmbsarbled thead, #fmbsarbled tbody, #fmbsarbled tfoot, #fmbsarbled tr, #fmbsarbled td, #fmbsarbled th {
   border-style: none;
 }
 
-#ybuzuzwulo p {
+#fmbsarbled p {
   margin: 0;
   padding: 0;
 }
 
-#ybuzuzwulo .gt_table {
+#fmbsarbled .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -302,12 +1251,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_caption {
+#fmbsarbled .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ybuzuzwulo .gt_title {
+#fmbsarbled .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -319,7 +1268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#ybuzuzwulo .gt_subtitle {
+#fmbsarbled .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -331,7 +1280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#ybuzuzwulo .gt_heading {
+#fmbsarbled .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -343,13 +1292,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_bottom_border {
+#fmbsarbled .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_col_headings {
+#fmbsarbled .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -364,7 +1313,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_col_heading {
+#fmbsarbled .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -384,7 +1333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#ybuzuzwulo .gt_column_spanner_outer {
+#fmbsarbled .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -396,15 +1345,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#ybuzuzwulo .gt_column_spanner_outer:first-child {
+#fmbsarbled .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ybuzuzwulo .gt_column_spanner_outer:last-child {
+#fmbsarbled .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ybuzuzwulo .gt_column_spanner {
+#fmbsarbled .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -416,11 +1365,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#ybuzuzwulo .gt_spanner_row {
+#fmbsarbled .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ybuzuzwulo .gt_group_heading {
+#fmbsarbled .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -446,7 +1395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#ybuzuzwulo .gt_empty_group_heading {
+#fmbsarbled .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -461,15 +1410,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#ybuzuzwulo .gt_from_md > :first-child {
+#fmbsarbled .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ybuzuzwulo .gt_from_md > :last-child {
+#fmbsarbled .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ybuzuzwulo .gt_row {
+#fmbsarbled .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -488,7 +1437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#ybuzuzwulo .gt_stub {
+#fmbsarbled .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -501,7 +1450,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ybuzuzwulo .gt_stub_row_group {
+#fmbsarbled .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -515,15 +1464,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#ybuzuzwulo .gt_row_group_first td {
+#fmbsarbled .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ybuzuzwulo .gt_row_group_first th {
+#fmbsarbled .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ybuzuzwulo .gt_summary_row {
+#fmbsarbled .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -533,16 +1482,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ybuzuzwulo .gt_first_summary_row {
+#fmbsarbled .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_first_summary_row.thick {
+#fmbsarbled .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ybuzuzwulo .gt_last_summary_row {
+#fmbsarbled .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -552,7 +1501,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_grand_summary_row {
+#fmbsarbled .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -562,7 +1511,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ybuzuzwulo .gt_first_grand_summary_row {
+#fmbsarbled .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -572,7 +1521,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_last_grand_summary_row_top {
+#fmbsarbled .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -582,11 +1531,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_striped {
+#fmbsarbled .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ybuzuzwulo .gt_table_body {
+#fmbsarbled .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -595,7 +1544,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_footnotes {
+#fmbsarbled .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -609,7 +1558,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_footnote {
+#fmbsarbled .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -618,7 +1567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ybuzuzwulo .gt_sourcenotes {
+#fmbsarbled .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -632,7 +1581,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ybuzuzwulo .gt_sourcenote {
+#fmbsarbled .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -640,72 +1589,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ybuzuzwulo .gt_left {
+#fmbsarbled .gt_left {
   text-align: left;
 }
 
-#ybuzuzwulo .gt_center {
+#fmbsarbled .gt_center {
   text-align: center;
 }
 
-#ybuzuzwulo .gt_right {
+#fmbsarbled .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ybuzuzwulo .gt_font_normal {
+#fmbsarbled .gt_font_normal {
   font-weight: normal;
 }
 
-#ybuzuzwulo .gt_font_bold {
+#fmbsarbled .gt_font_bold {
   font-weight: bold;
 }
 
-#ybuzuzwulo .gt_font_italic {
+#fmbsarbled .gt_font_italic {
   font-style: italic;
 }
 
-#ybuzuzwulo .gt_super {
+#fmbsarbled .gt_super {
   font-size: 65%;
 }
 
-#ybuzuzwulo .gt_footnote_marks {
+#fmbsarbled .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ybuzuzwulo .gt_asterisk {
+#fmbsarbled .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ybuzuzwulo .gt_indent_1 {
+#fmbsarbled .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ybuzuzwulo .gt_indent_2 {
+#fmbsarbled .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ybuzuzwulo .gt_indent_3 {
+#fmbsarbled .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ybuzuzwulo .gt_indent_4 {
+#fmbsarbled .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ybuzuzwulo .gt_indent_5 {
+#fmbsarbled .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ybuzuzwulo .katex-display {
+#fmbsarbled .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ybuzuzwulo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#fmbsarbled div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -751,7 +1700,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="codelist_psy_tx_anx_dep_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="codelist_psy_tx_anx_dep_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

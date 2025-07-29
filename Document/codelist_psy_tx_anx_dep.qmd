@@ -98,10 +98,11 @@ This codelist is designed to maximize sensitivity by including all psychological
 ### Results: Code Lists Usage Patterns 
 
 ```{r}
+#| label: Load libraries
 #| message: false
-#| results: 'hide'
 #| warning: false
-#| echo: false 
+#| include: false
+
 
 #Load relevant libraries 
 library(opencodecounts) 
@@ -113,11 +114,10 @@ library(gt)
 Load codelist: <https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8/> from opencodelist
 
 ```{r}
-
+#| label: Load codelist
+#| echo: true
 #| message: false
-#| results: 'hide'
 #| warning: false
-#| echo: false 
 
 
 #Load codelists from opencodelist
@@ -126,28 +126,49 @@ depr_anx_cod <- get_codelist("user/Kunle_Oreagba/psychological-therapies-coding-
 
 ```
 
-#### Psychological therapies code usage
+##### A. Summary of psychological therapies code usage 
 
 ```{r}
+#| label: Table of Summary of Codelist Usage
+#| echo: false
 #| message: false
-#| results: 'hide'
 #| warning: false
-#| echo: false 
 
 #Generate summary of the codelists and usage 
 codelist_summary <- snomed_usage %>%
     filter(snomed_code %in% depr_anx_cod$code) %>%
     group_by(snomed_code, description) %>%
     summarise(usage = sum(usage), .groups = "drop") %>%
-    mutate(percent_usage = round(100 * usage / sum(usage), 1)) %>%
+    mutate(percent_usage = usage / sum(usage)) %>%
     arrange(desc(usage))
- 
- knitr::kable(codelist_summary, caption = "Summary of depression and anxiety SNOMED CT codes")
- n_dep_anx_codes <- nrow(codelist_summary)
- n_dep_anx_codes
-```
 
-#### 
+#Generate a table of code usage  
+codelist_summary |>
+  gt() |>
+  cols_align(
+  align = "left",
+  columns = c(snomed_code, description))|>
+  fmt_percent(
+    columns = c(percent_usage),
+    decimals = 2
+  ) |>
+    tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels(columns = c(snomed_code, description, usage, percent_usage))
+  ) |>
+  tab_header(
+    title = md("**Overview of Depression and Anxiety Code Usage**")
+  ) |>
+  tab_options(
+    # Title font size
+    heading.title.font.size = px(16))|>
+  tab_style(
+    style = cell_text(align = "left"),
+    locations = cells_title(groups = "title")
+  )
+
+    
+```
 
 ```{r}
 
