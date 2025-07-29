@@ -126,7 +126,7 @@ depr_anx_cod <- get_codelist("user/Kunle_Oreagba/psychological-therapies-coding-
 
 ```
 
-##### A. Summary of psychological therapies code usage 
+##### A. Summary of depression and anxiety psychological therapies code usage 
 
 ```{r}
 #| label: Table of Summary of Codelist Usage
@@ -170,36 +170,42 @@ codelist_summary |>
     
 ```
 
-```{r}
+##### Top 15 most utilized depression and anxiety psychological therapies codes
 
-#| echo: false 
-cod_summary_grouped <- codelist_summary %>%
-  mutate(description = ifelse(usage < 20000, "Others", description)) %>%
-  group_by(description) %>%
-  summarise(
-    usage = sum(usage),
-    .groups = "drop"
-  ) %>%
-  mutate(
-    percent_usage = round(100 * usage / sum(usage), 1)
-  ) %>%
+```{r}
+#| label: Top 15 most utilized codes
+#| echo: false
+#| message: false
+#| warning: false
+
+#Slice the top 15 code usage 
+top_codelist <- codelist_summary %>%
   arrange(desc(usage)) %>%
+  slice_head (n = 15) %>%
   mutate(description = factor(description, levels = rev(description)))  # Fix order for horizontal bars
 
-# Horizontal bar chart
-ggplot(cod_summary_grouped, aes(x = description, y = usage)) +
+# Plot a horizontal bar chart
+
+
+# Calculate dynamic upper limit
+y_max <- max(top_codelist$usage) + 100000
+
+ggplot(top_codelist, aes(x = description, y = usage)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   coord_flip() +
+  geom_text(aes(label = paste0(round(usage / 1000), "k")), hjust = -0.1, size = 2)+
   labs(
-    title = "Distribution of Code Usage",
+    title = "Top 15 most used codes for depression and anxiety psychological therapies",
     x = "Therapies",
     y = "Usage"
   ) +
-  scale_y_continuous(labels = function(x) paste0(x / 1000, "k")) +
+  scale_y_continuous(
+    limits = c(0, y_max),
+    labels = function(x) paste0(x / 1000, "k")) +
   theme_minimal()+
   theme(
     plot.margin = margin(t = 20, r = 10, b = 10, l = 10),
-    plot.title = element_text(hjust = 0.5, size = 12, face = "bold")
+    plot.title = element_text(hjust = 1.1, size = 12, face = "bold")
   )
 
 ```
