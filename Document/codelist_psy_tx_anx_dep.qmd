@@ -109,6 +109,8 @@ library(opencodecounts)
 library(tidyverse)
 library(scales)
 library(gt)
+library(scales)
+library(stringr)
 ```
 
 Load codelist: <https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8/> from opencodelist
@@ -210,22 +212,33 @@ ggplot(top_codelist, aes(x = description, y = usage)) +
 
 ```
 
+##### B. Exploration of Code Specific Patterns 
+
+##### i. Improving access to psychological therapies (previously coded as talking therapy)
+
 ```{r}
-# Load packages
+#| label: Semantic Tags for IAPT_Talking therapy
 #| echo: false
+#| message: false
+#| warning: false
 
-
-dep_anx_tx_cod_usage <- snomed_usage |>
+#Extract the codelist from SNOMED
+codelist <- snomed_usage |>
     filter(snomed_code %in% depr_anx_cod$code)
 
-#Extract IAPT code usage 
+#Extract IAPT and talking therapies codes 
 
-iapt_codes_usage <- dep_anx_tx_cod_usage |> 
-  filter(str_detect(str_to_lower(description), "access to psychological therapies programme"))
+#Set search terms 
+search_term1 = "access to psychological therapies programme"
+search_term2 = "psychological talking therapy"
+search_terms = c(search_term1,search_term2)
+
+iapt_codes_usage <- codelist |> 
+ filter(str_detect(str_to_lower(description), str_c(str_to_lower(search_terms), collapse = "|")))
 
 
 # Extract semantic tag and add new variable
-cod_usage_semantic_tag <- iapt_codes_usage |> 
+iapt_usage_semantic_tag <- iapt_codes_usage |> 
   mutate(
     description_short = str_remove(description, " \\([^()]+\\)$"),
     semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
@@ -233,43 +246,53 @@ cod_usage_semantic_tag <- iapt_codes_usage |>
   )
 
 #Group by semantic tag
-group_code_semantic <- cod_usage_semantic_tag |> 
+group_iapt_semantic <- iapt_usage_semantic_tag |> 
   group_by(snomed_code, description_short, semantic_tag) |> 
   summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
+  mutate(percentage = usage / sum(usage)) |>
   arrange(-usage)
 
 # Create table grouped by semantic_tag
-group_code_semantic |> 
+group_iapt_semantic |> 
   group_by(semantic_tag) |> 
   gt() |> 
+  cols_align(
+  align = "left",
+  columns = c(snomed_code, description_short))|>
   fmt_percent(
-    columns = c(ratio_usage),
+    columns = c(percentage),
     decimals = 2
   ) |> 
-  tab_style(
+    tab_style(
     style = cell_text(weight = "bold"),
-    locations = cells_body(columns = semantic_tag)
-  ) |>
+    locations = cells_column_labels(columns = c(snomed_code, description_short, usage, percentage))
+  )|>
   tab_header(
-    title = md("**Code Usage by Semantic Tag**")
+    title = md("**IAPT code usage by clinical concepts**")
+  )|>
+    tab_options(
+    # Title font size
+    heading.title.font.size = px(16))|>
+  tab_style(
+    style = cell_text(align = "left"),
+    locations = cells_title(groups = "title")
   )
 
 
 ```
 
-#### Plot of code usage by semantic tag
-
 ```{r}
+#| label: Trend by clinical concept
 #| echo: false
 #| message: false
 #| warning: false
 
+#Wrap description to enable full display in the chart
+iapt_usage_semantic_tag$description <- str_wrap(iapt_usage_semantic_tag$description, width = 60)
 
-library(scales)
 
 # Create plot with facets using facet_wrap()
-ggplot(cod_usage_semantic_tag, 
+ggplot(iapt_usage_semantic_tag, 
   aes(
     y = usage, 
     x = end_date,
@@ -278,13 +301,13 @@ ggplot(cod_usage_semantic_tag,
   geom_line(alpha = 0.2) + 
   geom_point() +
   labs(
-    title = "Yearly counts of improving access to psychological therapies programme",
+    title = 'Yearly counts of improving "Access to psychological therapies programme"',
     x = NULL,
     y = NULL,
     colour = NULL,
     caption = "Data from NHS England SNOMED Code Usage in Primary Care.") + 
   scale_x_date(
-    date_breaks = "1 year",
+    date_breaks = "2 years",
     labels = label_date_short()) +
   scale_y_continuous(
     labels = label_number(),
@@ -293,6 +316,6 @@ ggplot(cod_usage_semantic_tag,
   facet_wrap(~semantic_tag, scales = "free_y") +
   theme_bw() +
   theme(legend.position = "bottom",
-        plot.margin = margin(t = 20, r = 20, b = 20, l = 20)) +
+        plot.margin = margin(t = 20, r = 40, b = 10, l = 10)) +
   guides(colour = guide_legend(ncol = 2, byrow = TRUE))
 ```
