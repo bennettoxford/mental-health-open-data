@@ -47,15 +47,15 @@ To describe trends in coding of PROMs for mental health in English primary care,
     -   **Edinburgh postnatal depression scale** 
     -   **Geriatric Depression Scale**
 
--   **Generalised Anxiety Disorder-7 (GAD-7)** – required for:
+### Anxiety PROMs
 
+-   **Generalised Anxiety Disorder-7 (GAD-7)** – required for:
     -   Generalised anxiety disorder
     -   Mixed anxiety and depression
     -   Chronic pain (with anxiety)
     -   Also recommended as a fallback when no other anxiety-specific PROM is suitable
 
 -   **Other recommended PROMs (diagnosis-specific):**
-
     -   **Mobility Inventory (MI)** – Agoraphobia
     -   **Health Anxiety Inventory (HAI)** – Health anxiety (hypochondriasis)
     -   **Obsessive-Compulsive Inventory (OCI)** – OCD
