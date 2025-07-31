@@ -222,7 +222,7 @@ talking_therapy = codelist_summary$usage[codelist_summary$description == "Accept
 
 ```
 
-Top 15 most recorded psychological therapy codes in UK primary care had `r  round(sum(top_codelist$usage)/1000000, 2)` million recordings between 2013 and 2024. **Referral/Self-referral to Improving access to psychological therapies** was the most recorded code with over `r round (iapt_total/1000000, 2)` million recordings in the same period. Additionally, there were `r  round(talking_therapy/1000,0)` thousand recordings on acceptance for psychological talking therapy service. There were over `r round(seen_by_psychologist/1000, 0)` thousand recordings as **Seen by Psychologists.**
+Top 15 most recorded psychological therapy codes in UK primary care had a total of `r round(sum(top_codelist$usage)/1000000,2)` million recordings between 2012 and 2024. **Referral/Self-referral to Improving access to psychological therapies** was the most recorded code with over `r round (iapt_total/1000000, 2)` million recordings accounting for `r round((iapt_total/sum(codelist_summary$usage))*100, 1)` %, followed by acceptance for psychological talking therapy service with `r  round(talking_therapy/1000,0)` thousand recordings. There were over `r round(seen_by_psychologist/1000, 0)` thousand recordings as **Seen by Psychologists.**
 
 ##### B. Exploration of Code Specific Patterns 
 
@@ -332,6 +332,8 @@ ggplot(iapt_usage_semantic_tag,
   guides(colour = guide_legend(ncol = 2, byrow = TRUE))
 ```
 
+There has been an upward trend in self-referrals to Improving Access to Psychological Therapies (IAPT) since the end of the COVID-19 pandemic(2021). Similarly, the acceptance to psychological talking therapy has seen an upward trend since 2019, with a sharp increase in 2024 (84.5%) as compared to 2023.
+
 ##### ii. Cognitive Behavioural Therapy 
 
 ```{r}
@@ -425,6 +427,8 @@ ggplot(top_cbt, aes(x = description, y = usage)) +
     plot.title = element_text(hjust = 1.1, size = 12, face = "bold")
   )
 ```
+
+24 disease and non-disease-specific Cognitive Behavioural Therapy codes were identified. Referral for Cognitive Behavioural Therapy was the most recorded event with `r round (cbt_codes_summary$usage[cbt_codes_summary$snomed_code == 519101000000109]/1000,0)` thousand recordings, followed by by Cognitive and behavioural therapy with `r round(cbt_codes_summary$usage[cbt_codes_summary$snomed_code == 228557008]/1000, 0)` thousand recordings. Guided self-help CBT had `r round(cbt_codes_summary$usage[cbt_codes_summary$snomed_code == 444175001]/1000, 0)` thousand recordings, a similar frequency with Computerized CBT (`r round(cbt_codes_summary$usage[cbt_codes_summary$snomed_code == 429329005]/1000, 0)` thousand recordings). Fewer number of codings were disease specific. For instance, CBT for depression had only `r round(cbt_codes_summary$usage[cbt_codes_summary$snomed_code == 149631000000108]/1000, 0)` thousand recordings.
 
 ##### Pattern of CBT codes usage by clinical concepts (only top 10 codes)
 
@@ -526,6 +530,8 @@ ggplot(top_cbt_semantic_tags,
 
 
 ```
+
+Recordings on referrals for CBT declined between 2016 and 2021, but have since seen an increasing trend. There was a sharp increased recording of computerized CBT in 2020 compared to other years. There has been a rapid increase in CBT (therapy/regime) recordings since 2022. Recordings oon guided self-help CBT steadied between 2012 and 2020, with a slight increase since then.
 
 ##### Pattern of Seen by Psychologist Related Codes 
 
