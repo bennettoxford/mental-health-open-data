@@ -1,6 +1,16 @@
 ---
 title: "Extracting SNOMED CT semantic tags from descriptions (PROMs)"
-format: html
+toc: true
+toc-depth: 2
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: opencodecounts R pkg
+        href: https://bennettoxford.github.io/opencodecounts/
+      - text: SNOMED Code Usage
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
 editor: source
 ---
 
@@ -18,14 +28,27 @@ library(scales)
 library(here)
 
 source(here("lib", "fun_tables.R"))
+source(here("lib", "fun_data.R"))
 ```
+
+# Overview
+
+- TODO: ADD SHORT OVERVIEW
+
+# Methods
+
+- TODO: WRITE SHORT METHODS
 
 **Note:** All searches use `tolower()` on both SNOMED CT descriptions and search terms to handle inconsistent spelling and capitalisation (e.g., UK vs US spellings). This improved match rates and helped uncover valid codes that would otherwise be missed.
 
-# Worked example
+# Analysis
+
+## Patient Health Questionnaire (PHQ)
 
 ```{r}
-#| label: extract-tags
+#| label: tab-phq
+#| message: false
+#| warning: false
 
 # Filter data
 phq_codes_usage <- snomed_usage |> 
@@ -33,16 +56,7 @@ phq_codes_usage <- snomed_usage |>
 
 # Extract semantic tag and add new variable
 phq_codes_usage_semantic_tag <- phq_codes_usage |> 
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
-
-```
-
-```{r}
-#| label: tab-phq
+  get_semantic_tag()
 
 # Calculate total code usage for entire period
 phq_code_counts <- phq_codes_usage_semantic_tag |> 
@@ -117,7 +131,7 @@ ggplot(phq_codes_usage_semantic_tag, aes(
   theme_minimal()
 ```
 
-### Results and Interpretations
+### Summary
 
 PHQ-9 score dominates usage, making up over 90% of all codes. This reflects its historic inclusion in QOF around 2014, as mentioned by Jamie (GP), which likely standardised its recording. Although the QOF incentive no longer applies, PHQ-9 continues to be widely used.
 
@@ -127,7 +141,7 @@ All other codes,including PHQ-4, PHQ-15, and screening variants, remain rarely u
 
 Observable entity is the most common semantic tag. 14 phq SNOMED CT codes
 
-## Beck Anxiety Inventory - SNOMED CT code usage
+## Beck Anxiety Inventory (BDI)
 
 ```{r}
 #| label: tab-bai
@@ -140,11 +154,7 @@ search_term <- "Beck Anxiety"
 # Filter SNOMED usage data
 bai_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-    )
+  get_semantic_tag()
 
 # Create usage summary table
 bai_code_counts <- bai_usage |>
@@ -207,7 +217,7 @@ ggplot(bai_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Overall usage of BAI-related codes is low compared to other PROMs. Three distinct codes were identified: two classified as assessment scale and one as observable entity. The observable entity code — Beck Anxiety Inventory score — has seen a notable increase in use since 2020, while the assessment scale codes show inconsistent usage patterns across the past decade.
 
@@ -215,7 +225,7 @@ This shift suggests a possible move toward recording standardised scores, but wi
 
 3 SNOMED CT codes
 
-## Beck Depression Inventory - SNOMED CT code usage
+## Beck Depression Inventory (BDI)
 
 ```{r}
 #| label: tab-bdi
@@ -228,11 +238,7 @@ search_term <- "Beck Depression"
 # Filter SNOMED usage data
 bdi_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 bdi_code_counts <- bdi_usage |>
@@ -295,7 +301,7 @@ ggplot(bdi_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 The Beck Depression Inventory (BDI) is most frequently recorded using observable entity codes. These account for over 95% of total usage, with the majority from the BDI-II score. However, usage has steadily declined since a sharp drop around 2015.
 
@@ -305,7 +311,7 @@ Overall, this suggests that while BDI-II was once widely used, its use has decli
 
 5 SNOMED CT codes
 
-## GAD 2&7- SNOMED CT code usage
+## Generalised Anxiety Disorder Questionnaire (GAD)
 
 ```{r}
 #| label: tab-gad7
@@ -319,11 +325,7 @@ search_term_2 <- "Generalised anxiety disorder"
 # Filter SNOMED usage data
 gad7_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term_1)) | str_detect(tolower(description), tolower(search_term_2))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
   
 # Create usage summary table
 gad7_code_counts <- gad7_usage |>
@@ -387,7 +389,7 @@ ggplot(gad7_usage, aes(
 
 ```
 
-### Results and Interpretation
+### Summary
 
 SNOMED CT codes for Generalized Anxiety Disorder (GAD) varied by spelling and semantic tag. The most used terms were “GAD-7 7 item score” (observable entity), accounting for over 5 million records. Disorder-level codes and assessment variants were also present, though used less consistently.
 
@@ -395,7 +397,7 @@ The bar plot shows a clear preference for observable entity codes. Trends over t
 
 These patterns suggest widespread uptake of GAD PROMs but inconsistent coding practices, with observable entities emerging as the standard.
 
-## Whooley Questions - SNOMED CT code usage
+## Whooley Questions
 
 ```{r}
 #| label: tab-whooley
@@ -408,11 +410,7 @@ search_term <- "Whooley"
 # Filter SNOMED usage data
 whooley_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 whooley_summary <- whooley_usage |>
@@ -475,7 +473,7 @@ ggplot(whooley_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Usage is dominated by a single procedure code, “Assessment using Whooley depression screen”, which accounts for nearly all recorded activity. In contrast, the assessment scale and observable entity codes are used far less frequently.
 
@@ -483,7 +481,7 @@ From 2019 onward, the observable entity code (screen score) has seen consistent 
 
 This pattern suggests a strong preference for coding Whooley assessments as procedures in primary care, with increasing uptake of recording scores separately in recent years. The assessment scale appears underused or possibly deprecated. Usage of Whooley-related codes is far lower than for PHQ-9 or GAD-7, aligning with GP feedback that the tool is rarely used in practice. Nearly all activity is recorded as a procedure, with minimal use of the assessment scale or score. This may reflect limited clinical adoption or awareness.
 
-## Mobility Inventory - SNOMED CT code usage
+## Mobility Inventory for Agoraphobia
 
 ```{r}
 #| label: tab-mi
@@ -496,11 +494,7 @@ search_term <- "Mobility Inventory"
 # Filter SNOMED usage data
 mi_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 mi_summary <- mi_usage |>
@@ -563,14 +557,14 @@ ggplot(mi_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 All three codes show extremely low usage (\<65 times each). Temporal trends are flat or negligible, with a small recent uptick for “when alone” scores. This suggests that the PROM is rarely used in primary care.
 
-## Social Phobia Inventory - SNOMED CT code usage
+## Social Phobia Inventory (SPIN)
 
 ```{r}
-#| label: tab-spi
+#| label: tab-spin
 #| message: false
 #| warning: false
 
@@ -580,11 +574,7 @@ search_term <- "Social Phobia Inventory"
 # Filter SNOMED usage data
 spin_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 spin_summary <- spin_usage |>
@@ -609,7 +599,7 @@ tab_spin_code_counts
 ```
 
 ```{r}
-#| label: fig-spi-trends
+#| label: fig-spin-trends
 
 # Plot usage over time
 ggplot(spin_usage, aes(x = end_date, y = usage, colour = description)) +
@@ -648,13 +638,13 @@ ggplot(spin_usage, aes(
 
 ```
 
-### Results and Interpretation
+### Summary
 
 Three codes were identified: an assessment scale, a procedure, and an observable entity. The observable entity ("Social phobia inventory score") accounted for the majority of usage, exceeding 1,400 records. The assessment scale and procedure codes were used far less frequently, each under 300 uses.
 
 Usage trends showed an early peak in assessment scale usage (2018–2019) followed by a decline. In contrast, the observable entity rose steadily, with a marked increase from 2020 onwards. The procedure code remained static with negligible usage. This suggests a shift in coding preference rather than clinical behaviour.
 
-## Chalder Fatigue Questionnaire - SNOMED CT code usage
+## Chalder Fatigue Scale (CFQ)
 
 ```{r}
 #| label: tab-csq
@@ -667,11 +657,7 @@ search_term <- "Chalder Fatigue"
 # Filter SNOMED usage data
 cfq_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 cfq_summary <- cfq_usage |>
@@ -734,11 +720,11 @@ ggplot(cfq_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Code usage was concentrated in one observable entity (score) code (n ≈ 500), with minimal use of the assessment scale term (n = 5). The score code showed a consistent upward trend from 2021 to 2024, suggesting increasing recording in primary care. The assessment scale term remained rarely used.
 
-## Francis Irritable Bowel - SNOMED CT code usage - zero results
+## Irritable Bowel Syndrome Severity Scoring System (IBS-SSS)
 
 ```{r}
 #| label: tab-ibssss
@@ -746,17 +732,12 @@ Code usage was concentrated in one observable entity (score) code (n ≈ 500), w
 #| warning: false
 
 # Set PROM search term
-# Irritable Bowel Syndrome Severity Scoring System (IBS-SSS)
 search_term <- "Irritable Bowel Syndrome - Symptom Severity Scale"
 
 # Filter SNOMED usage data
 ibssss_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 ibssss_summary <- ibssss_usage |>
@@ -799,11 +780,11 @@ tab_ibssss_code_counts
   theme(legend.position = "bottom")
 ```
 
-### Results and Interpretation
+### Summary
 
 No SNOMED CT code usage was identified for the Francis Irritable Bowel PROM, suggesting it is not currently used or recorded in NHS England primary care datasets.
 
-## Obsessive Compulsive Inventory - SNOMED CT code usage
+## Obsessive-Compulsive Inventory (OCI)
 
 ```{r}
 #| label: tab-oci
@@ -816,11 +797,7 @@ search_term <- "Obsessive Compulsive Inventory"
 # Filter SNOMED usage data
 oci_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 oci_summary <- oci_usage |>
@@ -883,11 +860,11 @@ ggplot(oci_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Total usage shows higher recording of scores (observable entity) compared to the assessment scale itself. Temporal trends show steadily increasing usage of score codes in recent years, while assessment scale usage peaked around 2017 and declined thereafter. This suggests a preference for recording outcomes rather than referencing the assessment tool directly
 
-## Postpartum Depression Screening - SNOMED CT code usage
+## Edinburgh Postnatal Depression Scale (EPDS)
 
 ```{r}
 #| label: tab-epds
@@ -900,11 +877,7 @@ search_term <- "Postpartum Depression Screening"
 # Filter SNOMED usage data
 epds_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 epds_summary <- epds_usage |>
@@ -967,11 +940,11 @@ ggplot(epds_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Usage was extremely low, with only five records observed in each of the past three years. This suggests the PROM is rarely used in routine primary care documentation
 
-## Hamilton Depression Scale - SNOMED CT code usage - no results
+## Hamilton Depression Rating Scale (HDRS)
 
 ```{r}
 #| label: tab-hdrs
@@ -984,11 +957,7 @@ search_term <- "Hamilton rating scale"
 # Filter SNOMED usage data
 hdrs_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 hdrs_summary <- hdrs_usage |>
@@ -1032,11 +1001,11 @@ ggplot(hdrs_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-### Results and Interpretation
+### Summary
 
 No SNOMED CT code usage was identified for the Hamiltion Depression Scale PROM, suggesting it is not currently used or recorded in NHS England primary care datasets.
 
-## Hospital Anxiety and Depression Scale - SNOMED CT code usage
+## Hospital Anxiety and Depression Scale (HADS)
 
 ```{r}
 #| label: tab-hads
@@ -1049,11 +1018,7 @@ search_term <- "Hospital Anxiety and Depression Scale"
 # Filter SNOMED usage data
 hads_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 hads_summary <- hads_usage |>
@@ -1116,11 +1081,11 @@ ggplot(hads_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 HADS scores for anxiety and depression (observable entities) are widely used in primary care, each exceeding 700,000 uses by 2023. Usage has steadily increased since 2018. In contrast, the original assessment scale and declined/refusal codes were rarely used. Documentation clearly favours score-level entries.
 
-## Geriatric Depression Scale - SNOMED CT code usage
+## Geriatric Depression Scale (GDS)
 
 ```{r}
 #| label: tab-gds
@@ -1133,11 +1098,7 @@ search_term <- "Geriatric depression scale"
 # Filter SNOMED usage data
 gds_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 gds_summary <- gds_usage |>
@@ -1201,11 +1162,11 @@ ggplot(gds_usage, aes(
 
 ```
 
-### Results and Interpretation
+### Summary
 
 The main assessment scale code for GDS saw high use between 2012–2020, peaking in 2017 (\~9,000 uses), then declining sharply to under 500 annually post-2021. Recent usage shifted to observable entity codes (short form, long form, 4-item), but these remain rare (\<125/year). Procedure and additional assessment codes were also minimally used. Overall, GDS use has declined, with newer formats seeing limited uptake.
 
-## Summary of SNOMED Usage for PROMs in Primary Care
+# Discussion
 
 PHQ-9 and GAD-7 are the most widely used PROMs for depression and anxiety, with consistently high usage counts and widespread adoption of their score-level SNOMED codes.
 
