@@ -1,10 +1,21 @@
 ---
 title: "Extracting SNOMED CT semantic tags from descriptions (PROMs)"
-format: html
-editor: visual
+toc: true
+toc-depth: 2
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: opencodecounts R pkg
+        href: https://bennettoxford.github.io/opencodecounts/
+      - text: SNOMED Code Usage
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
+editor: source
 ---
 
-```{r setup}
+```{r}
+#| label: setup
 #| message: false
 #| results: 'hide'
 #| warning: false
@@ -14,14 +25,30 @@ library(opencodecounts)
 library(tidyverse) 
 library(gt) 
 library(scales)
+library(here)
 
+source(here("lib", "fun_tables.R"))
+source(here("lib", "fun_data.R"))
 ```
+
+# Overview
+
+- TODO: ADD SHORT OVERVIEW
+
+# Methods
+
+- TODO: WRITE SHORT METHODS
 
 **Note:** All searches use `tolower()` on both SNOMED CT descriptions and search terms to handle inconsistent spelling and capitalisation (e.g., UK vs US spellings). This improved match rates and helped uncover valid codes that would otherwise be missed.
 
-# Worked example
+# Analysis
 
-```{r extracting tags}
+## Patient Health Questionnaire (PHQ)
+
+```{r}
+#| label: tab-phq
+#| message: false
+#| warning: false
 
 # Filter data
 phq_codes_usage <- snomed_usage |> 
@@ -29,34 +56,30 @@ phq_codes_usage <- snomed_usage |>
 
 # Extract semantic tag and add new variable
 phq_codes_usage_semantic_tag <- phq_codes_usage |> 
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
-```
-
-```{r phq-table}
 # Calculate total code usage for entire period
-tab_phq_code_counts <- phq_codes_usage_semantic_tag |> 
-  group_by(snomed_code, description_short, semantic_tag) |> 
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+phq_code_counts <- phq_codes_usage_semantic_tag |> 
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
-tab_phq_code_counts |> 
-  group_by(semantic_tag) |> 
-  gt() |> 
-    fmt_percent(
-      columns = c(ratio_usage),
-      decimals = 3
+tab_phq_code_counts <- phq_code_counts |>
+  create_table_sem_tag(
+    title = "Summary of Patient Health Questionnaire (PHQ) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
   )
 
+gtsave(
+  tab_phq_code_counts,
+  here("output", "tables", "tab_phq_sem_tag_usage.png")
+  )
+
+tab_phq_code_counts
 ```
 
-```{r phq-plot}
+```{r}
+#| label: fig-phq-trends
+
 # Create plot with facets using facet_wrap()
 ggplot(phq_codes_usage_semantic_tag, 
   aes(
@@ -85,7 +108,8 @@ ggplot(phq_codes_usage_semantic_tag,
   guides(colour = guide_legend(ncol = 2, byrow = TRUE))
 ```
 
-```{r phq-bar-plot}
+```{r}
+#| label: fig-phq-bar
 
 ggplot(phq_codes_usage_semantic_tag, aes(
   x = fct_reorder(description_short, usage),
@@ -104,7 +128,7 @@ ggplot(phq_codes_usage_semantic_tag, aes(
   theme_minimal()
 ```
 
-### Results and Interpretations
+### Summary
 
 PHQ-9 score dominates usage, making up over 90% of all codes. This reflects its historic inclusion in QOF around 2014, as mentioned by Jamie (GP), which likely standardised its recording. Although the QOF incentive no longer applies, PHQ-9 continues to be widely used.
 
@@ -114,35 +138,43 @@ All other codes,including PHQ-4, PHQ-15, and screening variants, remain rarely u
 
 Observable entity is the most common semantic tag. 14 phq SNOMED CT codes
 
-## Beck Anxiety Inventory - SNOMED CT code usage
+## Beck Anxiety Inventory (BDI)
 
-```{r beck anx}
+```{r}
+#| label: tab-bai
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Beck Anxiety"
 
 # Filter SNOMED usage data
 bai_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-    )
+  get_semantic_tag()
+
 # Create usage summary table
-bai_summary <- bai_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+bai_code_counts <- bai_usage |>
+  summarise_code_counts()
 
 # Display formatted table
-bai_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+tab_bai_code_counts <- bai_code_counts |>
+  create_table_sem_tag(
+    title = "Summary of Beck Anxiety Inventory (BAI) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_bai_code_counts,
+  here("output", "tables", "tab_bai_sem_tag_usage.png")
+  )
+
+tab_bai_code_counts
 ```
 
-```{r beck-anx-plot}
+```{r}
+#| label: fig-bai-trends
+
 # Plot usage over time
 ggplot(bai_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -159,7 +191,9 @@ ggplot(bai_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r bai-bar-plot}
+```{r}
+#| label: fig-bai-bar
+
 ggplot(bai_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -177,7 +211,7 @@ ggplot(bai_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Overall usage of BAI-related codes is low compared to other PROMs. Three distinct codes were identified: two classified as assessment scale and one as observable entity. The observable entity code — Beck Anxiety Inventory score — has seen a notable increase in use since 2020, while the assessment scale codes show inconsistent usage patterns across the past decade.
 
@@ -185,36 +219,43 @@ This shift suggests a possible move toward recording standardised scores, but wi
 
 3 SNOMED CT codes
 
-## Beck Depression Inventory - SNOMED CT code usage
+## Beck Depression Inventory (BDI)
 
-```{r beck dep}
+```{r}
+#| label: tab-bdi
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Beck Depression"
 
 # Filter SNOMED usage data
 bdi_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
-bdi_summary <- bdi_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+bdi_code_counts <- bdi_usage |>
+  summarise_code_counts()
 
 # Display formatted table
-bdi_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+tab_bdi_code_counts <- bdi_code_counts |>
+  create_table_sem_tag(
+    title = "Summary of Beck Depression Inventory (BDI) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_bdi_code_counts,
+  here("output", "tables", "tab_bdi_sem_tag_usage.png")
+  )
+
+tab_bdi_code_counts
 ```
 
-```{r bdi-plot}
+```{r}
+#| label: fig-bdi-trends
+
 # Plot usage over time
 ggplot(bdi_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -231,7 +272,9 @@ ggplot(bdi_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r bdi-bar-plot}
+```{r}
+#| label: fig-bdi-bar
+
 ggplot(bdi_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -249,7 +292,7 @@ ggplot(bdi_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 The Beck Depression Inventory (BDI) is most frequently recorded using observable entity codes. These account for over 95% of total usage, with the majority from the BDI-II score. However, usage has steadily declined since a sharp drop around 2015.
 
@@ -259,9 +302,13 @@ Overall, this suggests that while BDI-II was once widely used, its use has decli
 
 5 SNOMED CT codes
 
-## GAD 2&7- SNOMED CT code usage
+## Generalised Anxiety Disorder Questionnaire (GAD)
 
-```{r gad}
+```{r}
+#| label: tab-gad7
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term_1 <- "Generalized Anxiety Disorder"
 search_term_2 <- "Generalised anxiety disorder"
@@ -269,27 +316,30 @@ search_term_2 <- "Generalised anxiety disorder"
 # Filter SNOMED usage data
 gad7_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term_1)) | str_detect(tolower(description), tolower(search_term_2))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
   
 # Create usage summary table
-gad7_summary <- gad7_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+gad7_code_counts <- gad7_usage |>
+  summarise_code_counts()
 
 # Display formatted table
-gad7_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+tab_gad7_code_counts <- gad7_code_counts |>
+  create_table_sem_tag(
+    title = "Summary of Beck Depression Inventory (BDI) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_gad7_code_counts,
+  here("output", "tables", "tab_gad7_sem_tag_usage.png")
+  )
+
+tab_gad7_code_counts
 ```
 
-```{r gad-plot}
+```{r}
+#| label: fig-gad7-trends
+
 # Plot usage over time
 ggplot(gad7_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -306,7 +356,8 @@ ggplot(gad7_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r gad-bar-plot}
+```{r}
+#| label: fig-gad7-bar
 
 ggplot(gad7_usage, aes(
   x = fct_reorder(description_short, usage),
@@ -326,7 +377,7 @@ ggplot(gad7_usage, aes(
 
 ```
 
-### Results and Interpretation
+### Summary
 
 SNOMED CT codes for Generalized Anxiety Disorder (GAD) varied by spelling and semantic tag. The most used terms were “GAD-7 7 item score” (observable entity), accounting for over 5 million records. Disorder-level codes and assessment variants were also present, though used less consistently.
 
@@ -334,36 +385,43 @@ The bar plot shows a clear preference for observable entity codes. Trends over t
 
 These patterns suggest widespread uptake of GAD PROMs but inconsistent coding practices, with observable entities emerging as the standard.
 
-## Whooley Questions - SNOMED CT code usage
+## Whooley Questions
 
-```{r whooley}
+```{r}
+#| label: tab-whooley
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Whooley"
 
 # Filter SNOMED usage data
 whooley_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 whooley_summary <- whooley_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
-# Display formatted table
-whooley_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+# Create table grouped by semantic_tag
+tab_whooley_code_counts <- whooley_summary |>
+  create_table_sem_tag(
+    title = "Summary of Whooley questions related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_whooley_code_counts,
+  here("output", "tables", "tab_whooley_sem_tag_usage.png")
+  )
+
+tab_whooley_code_counts
 ```
 
-```{r whooley-plot}
+```{r}
+#| label: fig-whooley-trends
+
 # Plot usage over time
 ggplot(whooley_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -380,7 +438,9 @@ ggplot(whooley_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r whooley-bar-plot}
+```{r}
+#| label: fig-whooley-bar
+
 ggplot(whooley_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -398,7 +458,7 @@ ggplot(whooley_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Usage is dominated by a single procedure code, “Assessment using Whooley depression screen”, which accounts for nearly all recorded activity. In contrast, the assessment scale and observable entity codes are used far less frequently.
 
@@ -406,36 +466,43 @@ From 2019 onward, the observable entity code (screen score) has seen consistent 
 
 This pattern suggests a strong preference for coding Whooley assessments as procedures in primary care, with increasing uptake of recording scores separately in recent years. The assessment scale appears underused or possibly deprecated. Usage of Whooley-related codes is far lower than for PHQ-9 or GAD-7, aligning with GP feedback that the tool is rarely used in practice. Nearly all activity is recorded as a procedure, with minimal use of the assessment scale or score. This may reflect limited clinical adoption or awareness.
 
-## Mobility Inventory - SNOMED CT code usage
+## Mobility Inventory for Agoraphobia
 
-```{r mi}
+```{r}
+#| label: tab-mi
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Mobility Inventory"
 
 # Filter SNOMED usage data
 mi_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 mi_summary <- mi_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
-# Display formatted table
-mi_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+# Create table grouped by semantic_tag
+tab_mi_code_counts <- mi_summary |>
+  create_table_sem_tag(
+    title = "Summary of Mobility Inventory for Agoraphobia related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_mi_code_counts,
+  here("output", "tables", "tab_mi_sem_tag_usage.png")
+  )
+
+tab_mi_code_counts
 ```
 
-```{r mi plot}
+```{r}
+#| label: fig-mi-trends
+
 # Plot usage over time
 ggplot(mi_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -452,7 +519,9 @@ ggplot(mi_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r mi-bar-plot}
+```{r}
+#| label: fig-mi-bar
+
 ggplot(mi_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -470,42 +539,49 @@ ggplot(mi_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 All three codes show extremely low usage (\<65 times each). Temporal trends are flat or negligible, with a small recent uptick for “when alone” scores. This suggests that the PROM is rarely used in primary care.
 
-## Social Phobia Inventory - SNOMED CT code usage
+## Social Phobia Inventory (SPIN)
 
-```{r soc pho}
+```{r}
+#| label: tab-spin
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Social Phobia Inventory"
 
 # Filter SNOMED usage data
-spi_usage <- snomed_usage |>
+spin_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
-spi_summary <- spi_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+spin_summary <- spin_usage |>
+  summarise_code_counts()
 
-# Display formatted table
-spi_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+# Create table grouped by semantic_tag
+tab_spin_code_counts <- spin_summary |>
+  create_table_sem_tag(
+    title = "Summary of Social Phobia Inventory (SPIN) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_spin_code_counts,
+  here("output", "tables", "tab_spin_sem_tag_usage.png")
+  )
+
+tab_spin_code_counts
 ```
 
-```{r spi-plot}
+```{r}
+#| label: fig-spin-trends
+
 # Plot usage over time
-ggplot(spi_usage, aes(x = end_date, y = usage, colour = description)) +
+ggplot(spin_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
   geom_point() +
   facet_wrap(~semantic_tag, scales = "free_y") +
@@ -520,9 +596,10 @@ ggplot(spi_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r spi-bar-plot}
+```{r}
+#| label: fig-spi-bar
 
-ggplot(spi_usage, aes(
+ggplot(spin_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
   fill = semantic_tag
@@ -540,42 +617,49 @@ ggplot(spi_usage, aes(
 
 ```
 
-### Results and Interpretation
+### Summary
 
 Three codes were identified: an assessment scale, a procedure, and an observable entity. The observable entity ("Social phobia inventory score") accounted for the majority of usage, exceeding 1,400 records. The assessment scale and procedure codes were used far less frequently, each under 300 uses.
 
 Usage trends showed an early peak in assessment scale usage (2018–2019) followed by a decline. In contrast, the observable entity rose steadily, with a marked increase from 2020 onwards. The procedure code remained static with negligible usage. This suggests a shift in coding preference rather than clinical behaviour.
 
-## Chalder Fatigue Questionnaire - SNOMED CT code usage
+## Chalder Fatigue Scale (CFQ)
 
-```{r chalder}
+```{r}
+#| label: tab-csq
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Chalder Fatigue"
 
 # Filter SNOMED usage data
 cfq_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 cfq_summary <- cfq_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
-# Display formatted table
-cfq_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+# Create table grouped by semantic_tag
+tab_cfq_code_counts <- cfq_summary |>
+  create_table_sem_tag(
+    title = "Summary of The Chalder Fatigue Scale (CFQ) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_cfq_code_counts,
+  here("output", "tables", "tab_cfq_sem_tag_usage.png")
+  )
+
+tab_cfq_code_counts
 ```
 
-```{r cfq-plot}
+```{r}
+#| label: fig-csq-trends
+
 # Plot usage over time
 ggplot(cfq_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -592,7 +676,9 @@ ggplot(cfq_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r cfq-bar-plot}
+```{r}
+#| label: fig-csq-bar
+
 ggplot(cfq_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -610,47 +696,49 @@ ggplot(cfq_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Code usage was concentrated in one observable entity (score) code (n ≈ 500), with minimal use of the assessment scale term (n = 5). The score code showed a consistent upward trend from 2021 to 2024, suggesting increasing recording in primary care. The assessment scale term remained rarely used.
 
-## Francis Irritable Bowel - SNOMED CT code usage - zero results
+## Irritable Bowel Syndrome Severity Scoring System (IBS-SSS)
 
-```{r fib}
+```{r}
+#| label: tab-ibssss
+#| message: false
+#| warning: false
+
 # Set PROM search term
-search_term <- "Francis Irritable Bowel"
+search_term <- "Irritable Bowel Syndrome - Symptom Severity Scale"
 
 # Filter SNOMED usage data
-fib_usage <- snomed_usage |>
+ibssss_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
-fib_summary <- fib_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+ibssss_summary <- ibssss_usage |>
+  summarise_code_counts()
 
-# Display formatted table
-if (nrow(fib_usage) > 0) {
-  fib_summary |> 
-    group_by(semantic_tag) |> 
-    gt() |> 
-    fmt_percent(columns = ratio_usage, decimals = 3)
-} else {
-  cat("No codes to summarise.")
-}
+# Create table grouped by semantic_tag
+tab_ibssss_code_counts <- ibssss_summary |>
+  create_table_sem_tag(
+    title = "Summary of Irritable Bowel Syndrome Severity Scoring System (IBS-SSS) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_ibssss_code_counts,
+  here("output", "tables", "tab_ibssss_sem_tag_usage.png")
+  )
+
+tab_ibssss_code_counts
 ```
 
-```{r fib-plot}
+```{r}
+#| label: fig-ibssss-trends
+
 # Plot usage over time
-if (nrow(fib_usage) > 0) {
-  ggplot(fib_usage, aes(x = end_date, y = usage, colour = description)) +
+  ggplot(ibssss_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
   geom_point() +
   facet_wrap(~semantic_tag, scales = "free_y") +
@@ -663,45 +751,49 @@ if (nrow(fib_usage) > 0) {
   scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
   theme_minimal() +
   theme(legend.position = "bottom")
-  } else {
-  cat("No usage data found for this PROM.")
-    }
 ```
 
-### Results and Interpretation
+### Summary
 
 No SNOMED CT code usage was identified for the Francis Irritable Bowel PROM, suggesting it is not currently used or recorded in NHS England primary care datasets.
 
-## Obsessive Compulsive Inventory - SNOMED CT code usage
+## Obsessive-Compulsive Inventory (OCI)
 
-```{r oci}
+```{r}
+#| label: tab-oci
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Obsessive Compulsive Inventory"
 
 # Filter SNOMED usage data
 oci_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 oci_summary <- oci_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
-# Display formatted table
-oci_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+# Create table grouped by semantic_tag
+tab_oci_code_counts <- oci_summary |>
+  create_table_sem_tag(
+    title = "Summary of Obsessive-Compulsive Inventory (OCI) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_oci_code_counts,
+  here("output", "tables", "tab_oci_sem_tag_usage.png")
+  )
+
+tab_oci_code_counts
 ```
 
-```{r oci-plot}
+```{r}
+#| label: fig-oci-trends
+
 # Plot usage over time
 ggplot(oci_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -718,7 +810,9 @@ ggplot(oci_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r oci-bar-plot}
+```{r}
+#| label: fig-oci-bar
+
 ggplot(oci_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -736,42 +830,49 @@ ggplot(oci_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Total usage shows higher recording of scores (observable entity) compared to the assessment scale itself. Temporal trends show steadily increasing usage of score codes in recent years, while assessment scale usage peaked around 2017 and declined thereafter. This suggests a preference for recording outcomes rather than referencing the assessment tool directly
 
-## Postpartum Depression Screening - SNOMED CT code usage
+## Edinburgh Postnatal Depression Scale (EPDS)
 
-```{r pds}
+```{r}
+#| label: tab-epds
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Postpartum Depression Screening"
 
 # Filter SNOMED usage data
-pds_usage <- snomed_usage |>
+epds_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
-pds_summary <- pds_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+epds_summary <- epds_usage |>
+  summarise_code_counts()
 
-# Display formatted table
-pds_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+# Create table grouped by semantic_tag
+tab_epds_code_counts <- epds_summary |>
+  create_table_sem_tag(
+    title = "Summary of Edinburgh Postnatal Depression Scale (EPDS) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_epds_code_counts,
+  here("output", "tables", "tab_epds_sem_tag_usage.png")
+  )
+
+tab_epds_code_counts
 ```
 
-```{r pds-plot}
+```{r}
+#| label: fig-epds-trends
+
 # Plot usage over time
-ggplot(pds_usage, aes(x = end_date, y = usage, colour = description)) +
+ggplot(epds_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
   geom_point() +
   facet_wrap(~semantic_tag, scales = "free_y") +
@@ -786,8 +887,10 @@ ggplot(pds_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r pds-bar-plot}
-ggplot(pds_usage, aes(
+```{r}
+#| label: fig-epds-bar
+
+ggplot(epds_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
   fill = semantic_tag
@@ -804,47 +907,50 @@ ggplot(pds_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 Usage was extremely low, with only five records observed in each of the past three years. This suggests the PROM is rarely used in routine primary care documentation
 
-## Hamilton Depression Scale - SNOMED CT code usage - no results
+## Hamilton Depression Rating Scale (HDRS)
 
-```{r hds}
+```{r}
+#| label: tab-hdrs
+#| message: false
+#| warning: false
+
 # Set PROM search term
-search_term <- "Hamilton Depression"
+search_term <- "Hamilton rating scale"
 
 # Filter SNOMED usage data
-hds_usage <- snomed_usage |>
+hdrs_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
-hds_summary <- hds_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+hdrs_summary <- hdrs_usage |>
+  summarise_code_counts()
 
-# Display formatted table
-if (nrow(prom_usage) > 0) {
-  hds_summary |> 
-    group_by(semantic_tag) |> 
-    gt() |> 
-    fmt_percent(columns = ratio_usage, decimals = 3)
-} else {
-  cat("No codes to summarise.")
-}
+# Create table grouped by semantic_tag
+tab_hdrs_code_counts <- hdrs_summary |>
+  create_table_sem_tag(
+    title = "Summary of Hamilton Depression Rating Scale (HDRS) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_hdrs_code_counts,
+  here("output", "tables", "tab_hdrs_sem_tag_usage.png")
+  )
+
+tab_hdrs_code_counts
 ```
 
-```{r hds-plot}
+```{r}
+#| label: fig-hdrs-trends
+
 # Plot usage over time
-if (nrow(hds_usage) > 0) {
-  ggplot(hds_usage, aes(x = end_date, y = usage, colour = description)) +
+
+ggplot(hdrs_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
   geom_point() +
   facet_wrap(~semantic_tag, scales = "free_y") +
@@ -857,45 +963,49 @@ if (nrow(hds_usage) > 0) {
   scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
   theme_minimal() +
   theme(legend.position = "bottom")
-  } else {
-  cat("No usage data found for this PROM.")
-    }
 ```
 
-### Results and Interpretation
+### Summary
 
 No SNOMED CT code usage was identified for the Hamiltion Depression Scale PROM, suggesting it is not currently used or recorded in NHS England primary care datasets.
 
-## Hospital Anxiety and Depression Scale - SNOMED CT code usage
+## Hospital Anxiety and Depression Scale (HADS)
 
-```{r hads}
+```{r}
+#| label: tab-hads
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Hospital Anxiety and Depression Scale"
 
 # Filter SNOMED usage data
 hads_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 hads_summary <- hads_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
-# Display formatted table
-hads_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+# Create table grouped by semantic_tag
+tab_hads_code_counts <- hads_summary |>
+  create_table_sem_tag(
+    title = "Summary of Hospital Anxiety and Depression Scale (HADS) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_hads_code_counts,
+  here("output", "tables", "tab_hads_sem_tag_usage.png")
+  )
+
+tab_hads_code_counts
 ```
 
-```{r hads-plot}
+```{r}
+#| label: fig-hads-trends
+
 # Plot usage over time
 ggplot(hads_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -912,7 +1022,9 @@ ggplot(hads_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r hads-bar-plot}
+```{r}
+#| label: fig-hads-bar
+
 ggplot(hads_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -930,40 +1042,47 @@ ggplot(hads_usage, aes(
   theme_minimal()
 ```
 
-### Results and Interpretation
+### Summary
 
 HADS scores for anxiety and depression (observable entities) are widely used in primary care, each exceeding 700,000 uses by 2023. Usage has steadily increased since 2018. In contrast, the original assessment scale and declined/refusal codes were rarely used. Documentation clearly favours score-level entries.
 
-## Geriatric Depression Scale - SNOMED CT code usage
+## Geriatric Depression Scale (GDS)
 
-```{r gds}
+```{r}
+#| label: tab-gds
+#| message: false
+#| warning: false
+
 # Set PROM search term
 search_term <- "Geriatric depression scale"
 
 # Filter SNOMED usage data
 gds_usage <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(search_term))) |>
-  mutate(
-    description_short = str_remove(description, " \\([^()]+\\)$"),
-    semantic_tag = str_extract(description, "\\(([^()]+)\\)$"),
-    semantic_tag = str_replace_all(semantic_tag, "[()]", "")
-  )
+  get_semantic_tag()
 
 # Create usage summary table
 gds_summary <- gds_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
-# Display formatted table
-gds_summary |>
-  group_by(semantic_tag) |>
-  gt() |>
-  fmt_percent(columns = ratio_usage, decimals = 3)
+# Create table grouped by semantic_tag
+tab_gds_code_counts <- gds_summary |>
+  create_table_sem_tag(
+    title = "Summary of Geriatric Depression Scale (GDS) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_gds_code_counts,
+  here("output", "tables", "tab_gds_sem_tag_usage.png")
+  )
+
+tab_gds_code_counts
 ```
 
-```{r gds-plot}
+```{r}
+#| label: fig-gds-trends
+
 # Plot usage over time
 ggplot(gds_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -980,7 +1099,9 @@ ggplot(gds_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r gds-bar-plot}
+```{r}
+#| label: fig-gds-bar
+
 ggplot(gds_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -999,11 +1120,11 @@ ggplot(gds_usage, aes(
 
 ```
 
-### Results and Interpretation
+### Summary
 
 The main assessment scale code for GDS saw high use between 2012–2020, peaking in 2017 (\~9,000 uses), then declining sharply to under 500 annually post-2021. Recent usage shifted to observable entity codes (short form, long form, 4-item), but these remain rare (\<125/year). Procedure and additional assessment codes were also minimally used. Overall, GDS use has declined, with newer formats seeing limited uptake.
 
-## Summary of SNOMED Usage for PROMs in Primary Care
+# Discussion
 
 PHQ-9 and GAD-7 are the most widely used PROMs for depression and anxiety, with consistently high usage counts and widespread adoption of their score-level SNOMED codes.
 
