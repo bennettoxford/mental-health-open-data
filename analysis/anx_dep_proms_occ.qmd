@@ -60,10 +60,7 @@ phq_codes_usage_semantic_tag <- phq_codes_usage |>
 
 # Calculate total code usage for entire period
 phq_code_counts <- phq_codes_usage_semantic_tag |> 
-  group_by(snomed_code, description_short, semantic_tag) |> 
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_phq_code_counts <- phq_code_counts |>
@@ -158,10 +155,7 @@ bai_usage <- snomed_usage |>
 
 # Create usage summary table
 bai_code_counts <- bai_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Display formatted table
 tab_bai_code_counts <- bai_code_counts |>
@@ -242,10 +236,7 @@ bdi_usage <- snomed_usage |>
 
 # Create usage summary table
 bdi_code_counts <- bdi_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Display formatted table
 tab_bdi_code_counts <- bdi_code_counts |>
@@ -329,10 +320,7 @@ gad7_usage <- snomed_usage |>
   
 # Create usage summary table
 gad7_code_counts <- gad7_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Display formatted table
 tab_gad7_code_counts <- gad7_code_counts |>
@@ -414,10 +402,7 @@ whooley_usage <- snomed_usage |>
 
 # Create usage summary table
 whooley_summary <- whooley_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_whooley_code_counts <- whooley_summary |>
@@ -498,10 +483,7 @@ mi_usage <- snomed_usage |>
 
 # Create usage summary table
 mi_summary <- mi_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_mi_code_counts <- mi_summary |>
@@ -578,10 +560,7 @@ spin_usage <- snomed_usage |>
 
 # Create usage summary table
 spin_summary <- spin_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_spin_code_counts <- spin_summary |>
@@ -661,10 +640,7 @@ cfq_usage <- snomed_usage |>
 
 # Create usage summary table
 cfq_summary <- cfq_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_cfq_code_counts <- cfq_summary |>
@@ -741,10 +717,7 @@ ibssss_usage <- snomed_usage |>
 
 # Create usage summary table
 ibssss_summary <- ibssss_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_ibssss_code_counts <- ibssss_summary |>
@@ -801,10 +774,7 @@ oci_usage <- snomed_usage |>
 
 # Create usage summary table
 oci_summary <- oci_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_oci_code_counts <- oci_summary |>
@@ -881,10 +851,7 @@ epds_usage <- snomed_usage |>
 
 # Create usage summary table
 epds_summary <- epds_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_epds_code_counts <- epds_summary |>
@@ -961,10 +928,7 @@ hdrs_usage <- snomed_usage |>
 
 # Create usage summary table
 hdrs_summary <- hdrs_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_hdrs_code_counts <- hdrs_summary |>
@@ -1022,10 +986,7 @@ hads_usage <- snomed_usage |>
 
 # Create usage summary table
 hads_summary <- hads_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_hads_code_counts <- hads_summary |>
@@ -1102,10 +1063,7 @@ gds_usage <- snomed_usage |>
 
 # Create usage summary table
 gds_summary <- gds_usage |>
-  group_by(snomed_code, description_short, semantic_tag) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage)
+  summarise_code_counts()
 
 # Create table grouped by semantic_tag
 tab_gds_code_counts <- gds_summary |>
