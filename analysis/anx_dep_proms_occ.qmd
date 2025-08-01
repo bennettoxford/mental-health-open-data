@@ -4,7 +4,8 @@ format: html
 editor: source
 ---
 
-```{r setup}
+```{r}
+#| label: setup
 #| message: false
 #| results: 'hide'
 #| warning: false
@@ -21,7 +22,8 @@ library(scales)
 
 # Worked example
 
-```{r extracting tags}
+```{r}
+#| label: extract-tags
 
 # Filter data
 phq_codes_usage <- snomed_usage |> 
@@ -37,7 +39,9 @@ phq_codes_usage_semantic_tag <- phq_codes_usage |>
 
 ```
 
-```{r phq-table}
+```{r}
+#| label: tab-phq
+
 # Calculate total code usage for entire period
 tab_phq_code_counts <- phq_codes_usage_semantic_tag |> 
   group_by(snomed_code, description_short, semantic_tag) |> 
@@ -56,7 +60,9 @@ tab_phq_code_counts |>
 
 ```
 
-```{r phq-plot}
+```{r}
+#| label: fig-phq-trends
+
 # Create plot with facets using facet_wrap()
 ggplot(phq_codes_usage_semantic_tag, 
   aes(
@@ -85,7 +91,8 @@ ggplot(phq_codes_usage_semantic_tag,
   guides(colour = guide_legend(ncol = 2, byrow = TRUE))
 ```
 
-```{r phq-bar-plot}
+```{r}
+#| label: fig-phq-bar
 
 ggplot(phq_codes_usage_semantic_tag, aes(
   x = fct_reorder(description_short, usage),
@@ -116,7 +123,9 @@ Observable entity is the most common semantic tag. 14 phq SNOMED CT codes
 
 ## Beck Anxiety Inventory - SNOMED CT code usage
 
-```{r beck anx}
+```{r}
+#| label: tab-bai
+
 # Set PROM search term
 search_term <- "Beck Anxiety"
 
@@ -142,7 +151,9 @@ bai_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r beck-anx-plot}
+```{r}
+#| label: fig-bai-trends
+
 # Plot usage over time
 ggplot(bai_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -159,7 +170,9 @@ ggplot(bai_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r bai-bar-plot}
+```{r}
+#| label: fig-bai-bar
+
 ggplot(bai_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -187,7 +200,9 @@ This shift suggests a possible move toward recording standardised scores, but wi
 
 ## Beck Depression Inventory - SNOMED CT code usage
 
-```{r beck dep}
+```{r}
+#| label: tab-bdi
+
 # Set PROM search term
 search_term <- "Beck Depression"
 
@@ -214,7 +229,9 @@ bdi_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r bdi-plot}
+```{r}
+#| label: fig-bdi-trends
+
 # Plot usage over time
 ggplot(bdi_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -231,7 +248,9 @@ ggplot(bdi_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r bdi-bar-plot}
+```{r}
+#| label: fig-bdi-bar
+
 ggplot(bdi_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -261,7 +280,9 @@ Overall, this suggests that while BDI-II was once widely used, its use has decli
 
 ## GAD 2&7- SNOMED CT code usage
 
-```{r gad}
+```{r}
+#| label: tab-gad7
+
 # Set PROM search term
 search_term_1 <- "Generalized Anxiety Disorder"
 search_term_2 <- "Generalised anxiety disorder"
@@ -289,7 +310,9 @@ gad7_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r gad-plot}
+```{r}
+#| label: fig-gad7-trends
+
 # Plot usage over time
 ggplot(gad7_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -306,7 +329,8 @@ ggplot(gad7_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r gad-bar-plot}
+```{r}
+#| label: fig-gad7-bar
 
 ggplot(gad7_usage, aes(
   x = fct_reorder(description_short, usage),
@@ -336,7 +360,9 @@ These patterns suggest widespread uptake of GAD PROMs but inconsistent coding pr
 
 ## Whooley Questions - SNOMED CT code usage
 
-```{r whooley}
+```{r}
+#| label: tab-whooley
+
 # Set PROM search term
 search_term <- "Whooley"
 
@@ -363,7 +389,9 @@ whooley_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r whooley-plot}
+```{r}
+#| label: fig-whooley-trends
+
 # Plot usage over time
 ggplot(whooley_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -380,7 +408,9 @@ ggplot(whooley_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r whooley-bar-plot}
+```{r}
+#| label: fig-whooley-bar
+
 ggplot(whooley_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -408,7 +438,9 @@ This pattern suggests a strong preference for coding Whooley assessments as proc
 
 ## Mobility Inventory - SNOMED CT code usage
 
-```{r mi}
+```{r}
+#| label: tab-mi
+
 # Set PROM search term
 search_term <- "Mobility Inventory"
 
@@ -435,7 +467,9 @@ mi_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r mi plot}
+```{r}
+#| label: fig-mi-trends
+
 # Plot usage over time
 ggplot(mi_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -452,7 +486,9 @@ ggplot(mi_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r mi-bar-plot}
+```{r}
+#| label: fig-mi-bar
+
 ggplot(mi_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -476,7 +512,9 @@ All three codes show extremely low usage (\<65 times each). Temporal trends are 
 
 ## Social Phobia Inventory - SNOMED CT code usage
 
-```{r soc pho}
+```{r}
+#| label: tab-spi
+
 # Set PROM search term
 search_term <- "Social Phobia Inventory"
 
@@ -503,7 +541,9 @@ spi_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r spi-plot}
+```{r}
+#| label: fig-spi-trends
+
 # Plot usage over time
 ggplot(spi_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -520,7 +560,8 @@ ggplot(spi_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r spi-bar-plot}
+```{r}
+#| label: fig-spi-bar
 
 ggplot(spi_usage, aes(
   x = fct_reorder(description_short, usage),
@@ -548,7 +589,9 @@ Usage trends showed an early peak in assessment scale usage (2018–2019) follow
 
 ## Chalder Fatigue Questionnaire - SNOMED CT code usage
 
-```{r chalder}
+```{r}
+#| label: tab-csq
+
 # Set PROM search term
 search_term <- "Chalder Fatigue"
 
@@ -575,7 +618,9 @@ cfq_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r cfq-plot}
+```{r}
+#| label: fig-csq-trends
+
 # Plot usage over time
 ggplot(cfq_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -592,7 +637,9 @@ ggplot(cfq_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r cfq-bar-plot}
+```{r}
+#| label: fig-csq-bar
+
 ggplot(cfq_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -616,7 +663,9 @@ Code usage was concentrated in one observable entity (score) code (n ≈ 500), w
 
 ## Francis Irritable Bowel - SNOMED CT code usage - zero results
 
-```{r fib}
+```{r}
+#| label: tab-fib
+
 # Set PROM search term
 search_term <- "Francis Irritable Bowel"
 
@@ -647,7 +696,9 @@ if (nrow(fib_usage) > 0) {
 }
 ```
 
-```{r fib-plot}
+```{r}
+#| label: fig-fib-trends
+
 # Plot usage over time
 if (nrow(fib_usage) > 0) {
   ggplot(fib_usage, aes(x = end_date, y = usage, colour = description)) +
@@ -674,7 +725,9 @@ No SNOMED CT code usage was identified for the Francis Irritable Bowel PROM, sug
 
 ## Obsessive Compulsive Inventory - SNOMED CT code usage
 
-```{r oci}
+```{r}
+#| label: tab-oci
+
 # Set PROM search term
 search_term <- "Obsessive Compulsive Inventory"
 
@@ -701,7 +754,9 @@ oci_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r oci-plot}
+```{r}
+#| label: fig-oci-trends
+
 # Plot usage over time
 ggplot(oci_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -718,7 +773,9 @@ ggplot(oci_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r oci-bar-plot}
+```{r}
+#| label: fig-oci-bar
+
 ggplot(oci_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -742,7 +799,9 @@ Total usage shows higher recording of scores (observable entity) compared to the
 
 ## Postpartum Depression Screening - SNOMED CT code usage
 
-```{r pds}
+```{r}
+#| label: tab-pds
+
 # Set PROM search term
 search_term <- "Postpartum Depression Screening"
 
@@ -769,7 +828,9 @@ pds_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r pds-plot}
+```{r}
+#| label: fig-pds-trends
+
 # Plot usage over time
 ggplot(pds_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -786,7 +847,9 @@ ggplot(pds_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r pds-bar-plot}
+```{r}
+#| label: fig-pds-bar
+
 ggplot(pds_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -810,7 +873,9 @@ Usage was extremely low, with only five records observed in each of the past thr
 
 ## Hamilton Depression Scale - SNOMED CT code usage - no results
 
-```{r hds}
+```{r}
+#| label: tab-hds
+
 # Set PROM search term
 search_term <- "Hamilton Depression"
 
@@ -841,7 +906,9 @@ hds_summary <- hds_usage |>
 # }
 ```
 
-```{r hds-plot}
+```{r}
+#| label: fig-hds-trends
+
 # Plot usage over time
 if (nrow(hds_usage) > 0) {
   ggplot(hds_usage, aes(x = end_date, y = usage, colour = description)) +
@@ -868,7 +935,9 @@ No SNOMED CT code usage was identified for the Hamiltion Depression Scale PROM, 
 
 ## Hospital Anxiety and Depression Scale - SNOMED CT code usage
 
-```{r hads}
+```{r}
+#| label: tab-hads
+
 # Set PROM search term
 search_term <- "Hospital Anxiety and Depression Scale"
 
@@ -895,7 +964,9 @@ hads_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r hads-plot}
+```{r}
+#| label: fig-hads-trends
+
 # Plot usage over time
 ggplot(hads_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -912,7 +983,9 @@ ggplot(hads_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r hads-bar-plot}
+```{r}
+#| label: fig-hads-bar
+
 ggplot(hads_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
@@ -936,7 +1009,9 @@ HADS scores for anxiety and depression (observable entities) are widely used in 
 
 ## Geriatric Depression Scale - SNOMED CT code usage
 
-```{r gds}
+```{r}
+#| label: tab-gds
+
 # Set PROM search term
 search_term <- "Geriatric depression scale"
 
@@ -963,7 +1038,9 @@ gds_summary |>
   fmt_percent(columns = ratio_usage, decimals = 3)
 ```
 
-```{r gds-plot}
+```{r}
+#| label: fig-gds-trends
+
 # Plot usage over time
 ggplot(gds_usage, aes(x = end_date, y = usage, colour = description)) +
   geom_line(alpha = 0.3) +
@@ -980,7 +1057,9 @@ ggplot(gds_usage, aes(x = end_date, y = usage, colour = description)) +
   theme(legend.position = "bottom")
 ```
 
-```{r gds-bar-plot}
+```{r}
+#| label: fig-gds-bar
+
 ggplot(gds_usage, aes(
   x = fct_reorder(description_short, usage),
   y = usage,
