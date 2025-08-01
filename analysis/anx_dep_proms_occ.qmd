@@ -1,7 +1,7 @@
 ---
 title: "Extracting SNOMED CT semantic tags from descriptions (PROMs)"
 format: html
-editor: visual
+editor: source
 ---
 
 ```{r setup}
@@ -831,14 +831,14 @@ hds_summary <- hds_usage |>
   arrange(-usage)
 
 # Display formatted table
-if (nrow(prom_usage) > 0) {
-  hds_summary |> 
-    group_by(semantic_tag) |> 
-    gt() |> 
-    fmt_percent(columns = ratio_usage, decimals = 3)
-} else {
-  cat("No codes to summarise.")
-}
+# if (nrow(prom_usage) > 0) {
+#   hds_summary |> 
+#     group_by(semantic_tag) |> 
+#     gt() |> 
+#     fmt_percent(columns = ratio_usage, decimals = 3)
+# } else {
+#   cat("No codes to summarise.")
+# }
 ```
 
 ```{r hds-plot}
