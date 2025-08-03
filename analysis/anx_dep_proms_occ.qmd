@@ -29,6 +29,8 @@ library(here)
 
 source(here("lib", "fun_tables.R"))
 source(here("lib", "fun_data.R"))
+source(here("lib", "fun_figures.R"))
+
 ```
 
 # Overview
@@ -38,6 +40,10 @@ source(here("lib", "fun_data.R"))
 # Methods
 
 - TODO: WRITE SHORT METHODS
+  - table with usage counts and ratio usage
+  - figure with trajectory over time of total counts
+  - figure with overal contribution of semantic tag
+- TODO: Add the timeframe each data point describes (e.g., July 2024 describes 2023-08-01 to 2024-07-31)
 
 **Note:** All searches use `tolower()` on both SNOMED CT descriptions and search terms to handle inconsistent spelling and capitalisation (e.g., UK vs US spellings). This improved match rates and helped uncover valid codes that would otherwise be missed.
 
@@ -79,33 +85,23 @@ tab_phq_code_counts
 
 ```{r}
 #| label: fig-phq-trends
+#| fig-cap: "Yearly counts of codes with the term 'Patient Health Questionnaire' in their description from 2011/12 to 2023/24."
+#| fig-height: 14
+#| fig-width: 8
+#| warning: false
 
-# Create plot with facets using facet_wrap()
-ggplot(phq_codes_usage_semantic_tag, 
-  aes(
-    y = usage, 
-    x = end_date,
-    colour = description
-    )) + 
-  geom_line(alpha = 0.2) + 
-  geom_point() +
-  labs(
-    title = "Yearly counts of codes with the term 'Patient Health Questionnaire' in their description",
-    x = NULL,
-    y = NULL,
-    colour = NULL,
-    caption = "Data from NHS England SNOMED Code Usage in Primary Care.") + 
-  scale_x_date(
-    date_breaks = "1 year",
-    labels = label_date_short()) +
-  scale_y_continuous(
-    labels = label_number(),
-    limits = c(0, NA)
-    ) +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  theme_bw() +
-  theme(legend.position = "bottom") +
-  guides(colour = guide_legend(ncol = 2, byrow = TRUE))
+fig_phq_trajectory <- plot_trajectory(
+  phq_codes_usage_semantic_tag,
+  ncol_legend = 1)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_phq_trajectory.png"),
+  fig_phq_trajectory,
+  height = 14,
+  width = 8
+)
+
+fig_phq_trajectory
 ```
 
 ```{r}
@@ -174,21 +170,23 @@ tab_bai_code_counts
 
 ```{r}
 #| label: fig-bai-trends
+#| fig-cap: "Yearly counts of codes with the term 'Beck Anxiety' in their description from 2011/12 to 2023/24."
+#| fig-height: 5
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(bai_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_bai_trajectory <- plot_trajectory(
+  bai_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_bai_trajectory.png"),
+  fig_bai_trajectory,
+  height = 5,
+  width = 8
+)
+
+fig_bai_trajectory
 ```
 
 ```{r}
@@ -255,21 +253,23 @@ tab_bdi_code_counts
 
 ```{r}
 #| label: fig-bdi-trends
+#| fig-cap: "Yearly counts of codes with the term 'Beck Depression' in their description from 2011/12 to 2023/24."
+#| fig-height: 7
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(bdi_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_bdi_trajectory <- plot_trajectory(
+  bdi_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_bdi_trajectory.png"),
+  fig_bdi_trajectory,
+  height = 7,
+  width = 8
+)
+
+fig_bdi_trajectory
 ```
 
 ```{r}
@@ -339,21 +339,23 @@ tab_gad7_code_counts
 
 ```{r}
 #| label: fig-gad7-trends
+#| fig-cap: "Yearly counts of codes with the term 'Generali[s|z]ed Anxiety Disorder' in their description from 2011/12 to 2023/24."
+#| fig-height: 14
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(gad7_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term_1)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_gad7_trajectory <- plot_trajectory(
+  gad7_usage,
+  ncol_legend = 1)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_gad7_trajectory.png"),
+  fig_gad7_trajectory,
+  height = 14,
+  width = 8
+)
+
+fig_gad7_trajectory
 ```
 
 ```{r}
@@ -421,21 +423,23 @@ tab_whooley_code_counts
 
 ```{r}
 #| label: fig-whooley-trends
+#| fig-cap: "Yearly counts of codes with the term 'Whooley' in their description from 2011/12 to 2023/24."
+#| fig-height: 7
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(whooley_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_whooley_trajectory <- plot_trajectory(
+  whooley_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_whooley_trajectory.png"),
+  fig_whooley_trajectory,
+  height = 7,
+  width = 8
+)
+
+fig_whooley_trajectory
 ```
 
 ```{r}
@@ -502,21 +506,23 @@ tab_mi_code_counts
 
 ```{r}
 #| label: fig-mi-trends
+#| fig-cap: "Yearly counts of codes with the term 'Mobility Inventory' in their description from 2011/12 to 2023/24."
+#| fig-height: 7
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(mi_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_mi_trajectory <- plot_trajectory(
+  mi_usage,
+  ncol_legend = 1)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_mi_trajectory.png"),
+  fig_mi_trajectory,
+  height = 7,
+  width = 8
+)
+
+fig_mi_trajectory
 ```
 
 ```{r}
@@ -579,21 +585,23 @@ tab_spin_code_counts
 
 ```{r}
 #| label: fig-spin-trends
+#| fig-cap: "Yearly counts of codes with the term 'Social Phobia Inventory' in their description from 2011/12 to 2023/24."
+#| fig-height: 7
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(spin_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_spin_trajectory <- plot_trajectory(
+  spin_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_spin_trajectory.png"),
+  fig_spin_trajectory,
+  height = 7,
+  width = 8
+)
+
+fig_spin_trajectory
 ```
 
 ```{r}
@@ -626,7 +634,7 @@ Usage trends showed an early peak in assessment scale usage (2018–2019) follow
 ## Chalder Fatigue Scale (CFQ)
 
 ```{r}
-#| label: tab-csq
+#| label: tab-cfq
 #| message: false
 #| warning: false
 
@@ -658,26 +666,28 @@ tab_cfq_code_counts
 ```
 
 ```{r}
-#| label: fig-csq-trends
+#| label: fig-cfq-trends
+#| fig-cap: "Yearly counts of codes with the term 'Chalder Fatigue' in their description from 2011/12 to 2023/24."
+#| fig-height: 5
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(cfq_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_cfq_trajectory <- plot_trajectory(
+  cfq_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_cfq_trajectory.png"),
+  fig_cfq_trajectory,
+  height = 5,
+  width = 8
+)
+
+fig_cfq_trajectory
 ```
 
 ```{r}
-#| label: fig-csq-bar
+#| label: fig-cfq-bar
 
 ggplot(cfq_usage, aes(
   x = fct_reorder(description_short, usage),
@@ -736,21 +746,23 @@ tab_ibssss_code_counts
 
 ```{r}
 #| label: fig-ibssss-trends
+#| fig-cap: "Yearly counts of codes with the term 'Irritable Bowel Syndrome - Symptom Severity Scale' in their description from 2011/12 to 2023/24."
+#| fig-height: 5
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-  ggplot(ibssss_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_ibssss_trajectory <- plot_trajectory(
+  ibssss_usage,
+  ncol_legend = 1)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_ibssss_trajectory.png"),
+  fig_ibssss_trajectory,
+  height = 5,
+  width = 8
+)
+
+fig_ibssss_trajectory
 ```
 
 ### Summary
@@ -793,21 +805,23 @@ tab_oci_code_counts
 
 ```{r}
 #| label: fig-oci-trends
+#| fig-cap: "Yearly counts of codes with the term 'Obsessive Compulsive Inventory' in their description from 2011/12 to 2023/24."
+#| fig-height: 5
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(oci_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_oci_trajectory <- plot_trajectory(
+  oci_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_oci_trajectory.png"),
+  fig_oci_trajectory,
+  height = 5,
+  width = 8
+)
+
+fig_oci_trajectory
 ```
 
 ```{r}
@@ -870,21 +884,23 @@ tab_epds_code_counts
 
 ```{r}
 #| label: fig-epds-trends
+#| fig-cap: "Yearly counts of codes with the term 'Postpartum Depression Screening' in their description from 2011/12 to 2023/24."
+#| fig-height: 2
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(epds_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_epds_trajectory <- plot_trajectory(
+  epds_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_epds_trajectory.png"),
+  fig_epds_trajectory,
+  height = 2,
+  width = 8
+)
+
+fig_epds_trajectory
 ```
 
 ```{r}
@@ -947,22 +963,23 @@ tab_hdrs_code_counts
 
 ```{r}
 #| label: fig-hdrs-trends
+#| fig-cap: "Yearly counts of codes with the term 'Hamilton rating scale' in their description from 2011/12 to 2023/24."
+#| fig-height: 5
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
+fig_hdrs_trajectory <- plot_trajectory(
+  hdrs_usage,
+  ncol_legend = 2)
 
-ggplot(hdrs_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+ggsave(
+  filename = here("output", "figures", "fig_proms_hdrs_trajectory.png"),
+  fig_hdrs_trajectory,
+  height = 5,
+  width = 8
+)
+
+fig_hdrs_trajectory
 ```
 
 ### Summary
@@ -1005,21 +1022,23 @@ tab_hads_code_counts
 
 ```{r}
 #| label: fig-hads-trends
+#| fig-cap: "Yearly counts of codes with the term 'Hospital Anxiety and Depression Scale' in their description from 2011/12 to 2023/24."
+#| fig-height: 9
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(hads_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_hads_trajectory <- plot_trajectory(
+  hads_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_hads_trajectory.png"),
+  fig_hads_trajectory,
+  height = 9,
+  width = 8
+)
+
+fig_hads_trajectory
 ```
 
 ```{r}
@@ -1082,21 +1101,23 @@ tab_gds_code_counts
 
 ```{r}
 #| label: fig-gds-trends
+#| fig-cap: "Yearly counts of codes with the term 'Geriatric depression scale' in their description from 2011/12 to 2023/24."
+#| fig-height: 7
+#| fig-width: 8
+#| warning: false
 
-# Plot usage over time
-ggplot(gds_usage, aes(x = end_date, y = usage, colour = description)) +
-  geom_line(alpha = 0.3) +
-  geom_point() +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  labs(
-    title = paste0("Usage Trends: ", str_to_title(search_term)),
-    x = NULL,
-    y = "Usage Count",
-    caption = "Data source: NHS England SNOMED Usage in Primary Care"
-  ) +
-  scale_x_date(date_breaks = "1 year", labels = label_date_short()) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+fig_gds_trajectory <- plot_trajectory(
+  gds_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_gds_trajectory.png"),
+  fig_gds_trajectory,
+  height = 7,
+  width = 8
+)
+
+fig_gds_trajectory
 ```
 
 ```{r}
