@@ -78,3 +78,19 @@ filter_terms <- function(data, search_terms) {
   data |> 
     filter(str_detect(tolower(description), pattern))
 }
+
+# Find matching group(s) from our search_terms dictionary for a single description
+match_description <- function(description, patterns) {
+  matched <- keep(
+    names(patterns),
+    ~ str_detect(description, regex(patterns[[.x]], ignore_case = TRUE))
+  )
+  if (length(matched) == 0) NA_character_ else str_c(matched, collapse = ";")
+}
+
+# Add column proms from list to dataframe
+add_proms_match <- function(data, patterns) {
+  data %>%
+    mutate(proms = map_chr(.data[["description"]], ~ match_description(.x, patterns)))
+}
+

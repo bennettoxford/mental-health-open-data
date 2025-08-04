@@ -26,12 +26,13 @@ library(tidyverse)
 library(gt) 
 library(scales)
 library(here)
+library(patchwork)
 
 source(here("lib", "fun_tables.R"))
 source(here("lib", "fun_data.R"))
 source(here("lib", "fun_figures.R"))
 
-search_teams <- list(
+search_terms <- list(
   phq = c("Patient Health Questionnaire"),
   bai = c("Beck Anxiety"),
   bdi = c("Beck Depression"),
@@ -66,6 +67,113 @@ search_teams <- list(
 
 # Analysis
 
+## General overview
+
+```{r}
+#| label: fig-all-proms
+#| fig-cap: "Yearly counts of total usage broken down by PROMs and semantic tag from 2011/12 to 2023/24."
+#| fig-height: 8
+#| fig-width: 8
+#| warning: false
+
+search_patterns <- map(search_terms, ~ str_c(.x, collapse = "|"))
+
+all_proms <- snomed_usage |> 
+  filter_terms(unlist(search_terms)) |> 
+  get_semantic_tag() |> 
+  add_proms_match(search_patterns)
+
+# Get snomed_codes for all search terms
+proms_codelists <- all_proms |> 
+  group_by(proms) |> 
+  summarise(codelist = list(unique(snomed_code))) |> 
+  deframe()
+
+df_all_proms_sem_tags <- all_proms |> 
+  group_by(semantic_tag, end_date) |> 
+  mutate(total_usage = sum(usage)) |> 
+  select(end_date, total_usage, semantic_tag) |> 
+  ungroup() |> 
+  distinct()
+
+fig_all_proms_sem_tag <- df_all_proms_sem_tags |> 
+  ggplot(
+      aes(
+        y = total_usage,
+        x = end_date,
+        colour = semantic_tag
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point() +
+    labs(
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      caption = "Data from NHS England SNOMED Code Usage in Primary Care.",
+      title = "Count of code usage by semantic tags for all PROMs"
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+    scale_color_viridis_d()
+
+df_all_proms_total_usage <- all_proms |> 
+  group_by(proms, end_date) |> 
+  mutate(total_usage = sum(usage)) |> 
+  select(end_date, total_usage, proms) |> 
+  ungroup() |> 
+  distinct()
+
+fig_all_proms_total_usage <- df_all_proms_total_usage |> 
+  ggplot(
+      aes(
+        y = total_usage,
+        x = end_date,
+        colour = proms,
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point() +
+    labs(
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      caption = NULL,
+      title = "Count of code usage by PROMs"
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom")
+
+
+fig_all_proms <- (fig_all_proms_total_usage / fig_all_proms_sem_tag) + 
+  plot_annotation(tag_levels = 'A')
+
+ggsave(
+  filename = here("output", "figures", "fig_all_proms_trajectory.png"),
+  fig_all_proms,
+  height = 8,
+  width = 8
+)
+
+fig_all_proms
+```
+
 ## Patient Health Questionnaire (PHQ)
 
 ```{r}
@@ -75,7 +183,7 @@ search_teams <- list(
 
 # Filter data
 phq_codes_usage <- snomed_usage |> 
-  filter_terms(search_teams[["phq"]])
+  filter_terms(search_terms[["phq"]])
 
 # Extract semantic tag and add new variable
 phq_codes_usage_semantic_tag <- phq_codes_usage |> 
@@ -140,7 +248,7 @@ Observable entity is the most common semantic tag. 14 phq SNOMED CT codes
 
 # Filter SNOMED usage data
 bai_usage <- snomed_usage |>
-  filter_terms(search_teams[["bai"]]) |> 
+  filter_terms(search_terms[["bai"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -200,7 +308,7 @@ This shift suggests a possible move toward recording standardised scores, but wi
 
 # Filter SNOMED usage data
 bdi_usage <- snomed_usage |>
-  filter_terms(search_teams[["bdi"]]) |> 
+  filter_terms(search_terms[["bdi"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -262,7 +370,7 @@ Overall, this suggests that while BDI-II was once widely used, its use has decli
 
 # Filter SNOMED usage data
 gad_usage <- snomed_usage |>
-  filter_terms(search_teams[["gad"]]) |> 
+  filter_terms(search_terms[["gad"]]) |> 
   get_semantic_tag()
   
 # Create usage summary table
@@ -322,7 +430,7 @@ These patterns suggest widespread uptake of GAD PROMs but inconsistent coding pr
 
 # Filter SNOMED usage data
 whooley_usage <- snomed_usage |>
-  filter_terms(search_teams[["whooley"]]) |> 
+  filter_terms(search_terms[["whooley"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -382,7 +490,7 @@ This pattern suggests a strong preference for coding Whooley assessments as proc
 
 # Filter SNOMED usage data
 mi_usage <- snomed_usage |>
-  filter_terms(search_teams[["mi"]]) |> 
+  filter_terms(search_terms[["mi"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -438,7 +546,7 @@ All three codes show extremely low usage (\<65 times each). Temporal trends are 
 
 # Filter SNOMED usage data
 spin_usage <- snomed_usage |>
-  filter_terms(search_teams[["spin"]]) |> 
+  filter_terms(search_terms[["spin"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -497,7 +605,7 @@ Usage trends showed an early peak in assessment scale usage (2018–2019) follow
 
 # Filter SNOMED usage data
 cfq_usage <- snomed_usage |>
-  filter_terms(search_teams[["cfq"]]) |> 
+  filter_terms(search_terms[["cfq"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -553,7 +661,7 @@ Code usage was concentrated in one observable entity (score) code (n ≈ 500), w
 
 # Filter SNOMED usage data
 ibssss_usage <- snomed_usage |>
-  filter_terms(search_teams[["ibssss"]]) |> 
+  filter_terms(search_terms[["ibssss"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -609,7 +717,7 @@ No SNOMED CT code usage was identified for the Francis Irritable Bowel PROM, sug
 
 # Filter SNOMED usage data
 oci_usage <- snomed_usage |>
-  filter_terms(search_teams[["oci"]]) |> 
+  filter_terms(search_terms[["oci"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -665,7 +773,7 @@ Total usage shows higher recording of scores (observable entity) compared to the
 
 # Filter SNOMED usage data
 epds_usage <- snomed_usage |>
-  filter_terms(search_teams[["epds"]]) |> 
+  filter_terms(search_terms[["epds"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -721,7 +829,7 @@ Usage was extremely low, with only five records observed in each of the past thr
 
 # Filter SNOMED usage data
 hdrs_usage <- snomed_usage |>
-  filter_terms(search_teams[["hdrs"]]) |> 
+  filter_terms(search_terms[["hdrs"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -777,7 +885,7 @@ No SNOMED CT code usage was identified for the Hamiltion Depression Scale PROM, 
 
 # Filter SNOMED usage data
 hads_usage <- snomed_usage |>
-  filter_terms(search_teams[["hads"]]) |> 
+  filter_terms(search_terms[["hads"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
@@ -833,7 +941,7 @@ HADS scores for anxiety and depression (observable entities) are widely used in 
 
 # Filter SNOMED usage data
 gds_usage <- snomed_usage |>
-  filter_terms(search_teams[["gds"]]) |> 
+  filter_terms(search_terms[["gds"]]) |> 
   get_semantic_tag()
 
 # Create usage summary table
