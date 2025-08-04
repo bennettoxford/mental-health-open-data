@@ -68,3 +68,13 @@ summarise_code_counts <- function(data) {
     arrange(-usage)
 
 }
+
+# Function to filter for search term using to lower
+filter_terms <- function(data, search_terms) {
+  # Define search pattern
+  pattern <- paste0("(", paste(tolower(search_terms), collapse = "|"), ")")
+
+  # Filter
+  data |> 
+    filter(str_detect(tolower(description), pattern))
+}
