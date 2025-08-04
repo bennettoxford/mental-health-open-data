@@ -45,7 +45,7 @@ This codelist is designed to maximize sensitivity by including all psychological
 
 -   Psychological therapies codes specific to anxiety and depression were included
 
--   Psychological therapies codes for conditions related to anxiety and depression (e.g Insomnia, bipolar disorder, psychosis) were included
+-   Psychological therapies codes for conditions related to anxiety and depression (e.g Insomnia) were included
 
 -   Generic psychological therapies codes (e.g. Cognitive Behavioural Therapy) not specific to other conditions were included
 
@@ -95,7 +95,7 @@ This codelist is designed to maximize sensitivity by including all psychological
 
 -   Talking therapies
 
-### Results: Code Lists Usage Patterns 
+### Results: Code Lists Usage Patterns
 
 ```{r}
 #| label: Load libraries
@@ -124,11 +124,11 @@ Load codelist: <https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psycho
 
 #Load codelists from opencodelist
 
-depr_anx_cod <- get_codelist("user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/2d533ab8")
+depr_anx_cod <- get_codelist("user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/3f6fc6e3")
 
 ```
 
-##### A. Summary of depression and anxiety psychological therapies code usage 
+##### A. Summary of depression and anxiety psychological therapies code usage
 
 ```{r}
 #| label: Table of Summary of Codelist Usage
@@ -224,7 +224,7 @@ talking_therapy = codelist_summary$usage[codelist_summary$description == "Accept
 
 Top 15 most recorded psychological therapy codes in UK primary care had a total of `r round(sum(top_codelist$usage)/1000000,2)` million recordings between 2012 and 2024. **Referral/Self-referral to Improving access to psychological therapies** was the most recorded code with over `r round (iapt_total/1000000, 2)` million recordings accounting for `r round((iapt_total/sum(codelist_summary$usage))*100, 1)` %, followed by acceptance for psychological talking therapy service with `r  round(talking_therapy/1000,0)` thousand recordings. There were over `r round(seen_by_psychologist/1000, 0)` thousand recordings as **Seen by Psychologists.**
 
-##### B. Exploration of Code Specific Patterns 
+##### B. Exploration of Code Specific Patterns
 
 ##### i. Improving access to psychological therapies (previously coded as talking therapy)
 
@@ -334,7 +334,7 @@ ggplot(iapt_usage_semantic_tag,
 
 There has been an upward trend in self-referrals to Improving Access to Psychological Therapies (IAPT) since the end of the COVID-19 pandemic(2021). Similarly, the acceptance to psychological talking therapy has seen an upward trend since 2019, with a sharp increase in 2024 (84.5%) as compared to 2023.
 
-##### ii. Cognitive Behavioural Therapy 
+##### ii. Cognitive Behavioural Therapy
 
 ```{r}
 #| label: Cognitive Behavioural Therapy Pattern
@@ -389,7 +389,7 @@ cbt_codes_summary |>
   )
 ```
 
-##### Top 10 Cognitive Behavioural Therapy Codes 
+##### Top 10 Cognitive Behavioural Therapy Codes
 
 ```{r}
 #| label: Top CBT codes
@@ -533,7 +533,7 @@ ggplot(top_cbt_semantic_tags,
 
 Recordings on referrals for CBT declined between 2016 and 2021, but have since seen an increasing trend. There was a sharp increased recording of computerized CBT in 2020 compared to other years. There has been a rapid increase in CBT (therapy/regime) recordings since 2022. Recordings oon guided self-help CBT steadied between 2012 and 2020, with a slight increase since then.
 
-##### Pattern of Seen by Psychologist Related Codes 
+##### Pattern of Seen by Psychologist Related Codes
 
 ```{r}
 #| label: Seen by psychologists clinical concepts
