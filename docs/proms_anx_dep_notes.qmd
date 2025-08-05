@@ -42,6 +42,10 @@ To describe trends in coding of PROMs for mental health in English primary care,
 
     -   **Beck Depression Inventory (BDI)**
     -   **Hospital Anxiety and Depression Scale – Depression subscale (HADS-D)**
+    -   **Montgomery-Asberg Depression Rating Scale (MADRS)**
+    -   **Hamilton Rating Scale for Depression score (HRSD)**
+    -   **Edinburgh postnatal depression scale** 
+    -   **Geriatric Depression Scale**
 
 ### Anxiety PROMs
 
@@ -50,6 +54,7 @@ To describe trends in coding of PROMs for mental health in English primary care,
     -   Mixed anxiety and depression
     -   Chronic pain (with anxiety)
     -   Also recommended as a fallback when no other anxiety-specific PROM is suitable
+
 -   **Other recommended PROMs (diagnosis-specific):**
     -   **Mobility Inventory (MI)** – Agoraphobia
     -   **Health Anxiety Inventory (HAI)** – Health anxiety (hypochondriasis)
@@ -60,7 +65,9 @@ To describe trends in coding of PROMs for mental health in English primary care,
     -   **Body Image Questionnaire (BIQ Weekly)** – BDD
     -   **Chalder Fatigue Questionnaire (CFQ)** – Chronic fatigue syndrome
     -   **Francis IBS Scale** – IBS
+
 -   **Additional PROMs (found in anxiety screening codelists):**
+
     -   **Beck Anxiety Inventory (BAI)**
     -   **Hospital Anxiety and Depression Scale – Anxiety subscale (HADS-A)**
 
