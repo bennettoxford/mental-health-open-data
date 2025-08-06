@@ -22,11 +22,16 @@ editor: source
 
 # Load relevant libraries 
 library(opencodecounts) 
+library(here)
 library(tidyverse)
 library(scales)
 library(gt)
 library(scales)
 library(stringr)
+
+source(here("lib", "fun_tables.R"))
+source(here("lib", "fun_data.R"))
+source(here("lib", "fun_figures.R"))
 ```
 
 # Background
@@ -97,7 +102,7 @@ We developed a codelist including psychological therapies for anxiety disorders 
 #| warning: false
 
 # Load codelists from opencodelist
-depr_anx_cod <- get_codelist(
+depr_anx_psy_tx_cod <- get_codelist(
   "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/3f6fc6e3"
   )
 ```
@@ -112,36 +117,31 @@ depr_anx_cod <- get_codelist(
 
 # Generate summary of the codelists and usage 
 codelist_summary <- snomed_usage %>%
-    filter(snomed_code %in% depr_anx_cod$code) %>%
+    filter(snomed_code %in% depr_anx_psy_tx_cod$code) %>%
     group_by(snomed_code, description) %>%
     summarise(usage = sum(usage), .groups = "drop") %>%
     mutate(percent_usage = usage / sum(usage)) %>%
     arrange(desc(usage))
 
 # Generate a table of code usage  
-codelist_summary |>
-  gt() |>
-  cols_align(
-  align = "left",
-  columns = c(snomed_code, description))|>
-  fmt_percent(
-    columns = c(percent_usage),
-    decimals = 2
-  ) |>
-    tab_style(
-    style = cell_text(weight = "bold"),
-    locations = cells_column_labels(columns = c(snomed_code, description, usage, percent_usage))
-  ) |>
-  tab_header(
-    title = md("**Overview of Depression and Anxiety Code Usage**")
-  ) |>
-  tab_options(
-    # Title font size
-    heading.title.font.size = px(16))|>
-  tab_style(
-    style = cell_text(align = "left"),
-    locations = cells_title(groups = "title")
+all_psych_tx_counts <- snomed_usage |>
+  filter(snomed_code %in% depr_anx_psy_tx_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts()
+
+# Display formatted table
+tab_all_psych_tx <- all_psych_tx_counts |>
+  create_table_sem_tag(
+    title = "Summary of selected codes for psychological therapies",
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_all_psych_tx,
+  here("output", "tables", "tab_all_psych_tx_sem_tag_usage.png")
   )
+
+tab_all_psych_tx
 ```
 
 ### Most used codes
@@ -206,7 +206,7 @@ Previously known as IAPT.
 
 # Extract the codelist from SNOMED
 codelist <- snomed_usage |>
-    filter(snomed_code %in% depr_anx_cod$code)
+    filter(snomed_code %in% depr_anx_psy_tx_cod$code)
 
 # Extract IAPT and talking therapies codes 
 
@@ -262,41 +262,25 @@ group_iapt_semantic |>
 ```
 
 ```{r}
-#| label: trend-by-clinical-concept
-#| echo: false
-#| message: false
+#| label: fig-iapt-trends
+#| fig-cap: "Yearly counts of codes with the term 'access to psychological therapies programme' or 'psychological talking therapy' in their description from 2011/12 to 2023/24."
+#| fig-height: 6
+#| fig-width: 8
 #| warning: false
 
-# Wrap description to enable full display in the chart
-iapt_usage_semantic_tag$description <- str_wrap(iapt_usage_semantic_tag$description, width = 60)
-
 # Create plot with facets using facet_wrap()
-ggplot(iapt_usage_semantic_tag, 
-  aes(
-    y = usage, 
-    x = end_date,
-    colour = description
-    )) + 
-  geom_line(alpha = 0.2) + 
-  geom_point() +
-  labs(
-    title = 'Yearly counts of improving "Access to psychological therapies programme"',
-    x = 'Year',
-    y = 'Usage',
-    colour = NULL,
-    caption = "Data from NHS England SNOMED Code Usage in Primary Care.") + 
-  scale_x_date(
-    date_breaks = "2 years",
-    labels = label_date_short()) +
-  scale_y_continuous(
-    labels = label_number(),
-    limits = c(0, NA)
-    ) +
-  facet_wrap(~semantic_tag, scales = "free_y") +
-  theme_bw() +
-  theme(legend.position = "bottom",
-        plot.margin = margin(t = 20, r = 40, b = 10, l = 10)) +
-  guides(colour = guide_legend(ncol = 2, byrow = TRUE))
+fig_psy_tx_iapt_trends <- plot_trajectory(
+  iapt_usage_semantic_tag,
+  ncol_legend = 1)
+
+ggsave(
+  filename = here("output", "figures", "fig_psy_tx_iapt_trends.png"),
+  fig_psy_tx_iapt_trends,
+  height = 6,
+  width = 8
+)
+
+fig_psy_tx_iapt_trends
 ```
 
 There has been an upward trend in self-referrals to Improving Access to Psychological Therapies (IAPT) since the end of the COVID-19 pandemic(2021). Similarly, the acceptance to psychological talking therapy has seen an upward trend since 2019, with a sharp increase in 2024 (84.5%) as compared to 2023.
