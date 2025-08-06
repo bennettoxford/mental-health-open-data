@@ -138,3 +138,18 @@ This section highlights preliminary insights on how the psychological therapies 
 
 -   Returned search terms were across regime/therapy and procedures
 Footer
+
+
+
+# Approach to categorise treatment codes
+
+## Analytical approach
+
+To analyise the code usage for psycholocal therapies, we are categorising the differnt codes into subcategories based on:
+
+- signposting/referrals
+- seen by psychologist
+- psychological therapy started/ended
+- everything else?
+- low vs high intensity
+- therapy indication (e.g., for depression, anxiety, or both)
