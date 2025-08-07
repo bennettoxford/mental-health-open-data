@@ -1,14 +1,17 @@
 ---
-title: "proms_search_match"
+title: "Check for Missing PROMs Codes"
 format: html
-editor: visual
+editor: source
 ---
 
-After doing the semantic tag search, it is important to ensure no PROMS related codes are missing from the final codelist. The aim of this document is to check which codes were found in the search that are not in the current draft of the codelist.
+After doing the semantic tag search, it is important to ensure no PROMS related codes are missing from the final codelist.
+
+The aim of this document is to check which codes were found in the search that are not in the current draft of the codelist.
 
 ### Set up
 
-```{r set_up}
+```{r}
+#| label: setup
 #| message: false
 #| results: 'hide'
 #| warning: false
@@ -19,26 +22,30 @@ library(tidyverse)
 library(gt)
 library(scales)
 library(stringr)
+
+
 ```
 
 ### PROMs-related search list
 
-This list includes all the search terms from analysis/anx_dep_proms/proms_sem_tag_extr.qmd within additions (e.g., depression screening, depression scale, body image questionnaire).
+This list includes all the search terms from analysis/anx_dep_proms/anx_dep_proms_occ.qmd within additions (e.g., depression screening, depression scale).
 
 -   Removed "beck" and "gad" from the search terms list because the results were unrelated to anxiety/depression PROMs
 
-```{r search_list}
+```{r}
+
 #PROMS related search term list
-search_terms <- c("Patient Health Questionnaire", "Beck Anxiety", "Beck Depression","Generalized Anxiety Disorder", "Generalised anxiety disorder", "Whooley", "Mobility Inventory", "Social Phobia Inventory", "Chalder Fatigue", "Obsessive Compulsive Inventory", "Postpartum Depression Screening","postnatal depression scale", "Hospital Anxiety and Depression Scale","Hamilton rating scale", "Body Image Questionnaire","Panic disorder severity scale", "Post-traumatic stress disorder checklist",  "Geriatric depression", "depression screening", "anxiety screening", "depression scale", "anxiety scale")
+search_terms <- c("Patient Health Questionnaire", "Beck Anxiety", "Beck Depression","Generalized Anxiety Disorder", "Generalised anxiety disorder", "Whooley", "Mobility Inventory", "Social Phobia Inventory", "Chalder Fatigue", "Obsessive Compulsive Inventory","Irritable Bowel Syndrome - Symptom Severity Scale" ,"Postpartum Depression Screening","postnatal depression scale", "Hospital Anxiety and Depression Scale","Hamilton rating scale", "Body Image Questionnaire","Panic disorder severity scale", "Post-traumatic stress disorder checklist",  "Geriatric depression scale", "depression screening", "anxiety screening", "depression scale", "anxiety scale")
+
 ```
 
-```{r snomed_search}
+```{r}
 #filter snomed_usage by search terms list
-search_codes <- snomed_usage |>
+all_proms <- snomed_usage |>
   filter(str_detect(tolower(description), tolower(paste(search_terms, collapse = "|"))))
 
 #summarise code usage, grouping by code and description
-codes_summary <- search_codes |>
+all_proms_summary <- all_proms |>
   group_by(snomed_code, description) |>
   summarise(usage = sum(usage), .groups = "drop") |>
   mutate(ratio_usage = usage / sum(usage)) |>
@@ -49,18 +56,18 @@ codes_summary <- search_codes |>
 
 ```{r}
 #Load and filter existing codelist
-codelist <- get_codelist("user/Lola_O/patient-reported-outcome-measures-anxiety-and-depression/62411c0f/")
+existing_codelist <- get_codelist("user/Lola_O/patient-reported-outcome-measures-anxiety-and-depression/62411c0f")
 
-codelist <- snomed_usage |>
-  filter(snomed_code %in% codelist$code)
+codelist_usage <- snomed_usage |>
+  filter(snomed_code %in% existing_codelist$code)
 
 ```
 
 ### Find codes in codelist not found in search
 
 ```{r}
-extra_codes_summary <- codelist |>
-  filter(!snomed_code %in% codes_summary$snomed_code) |>
+extra_codes_summary <- codelist_usage |>
+  filter(!snomed_code %in% all_proms_summary$snomed_code) |>
   group_by(snomed_code, description) |>
   summarise(usage = sum(usage), .groups = "drop") |>
   mutate(ratio_usage = usage / sum(usage))
@@ -76,13 +83,13 @@ extra_codes_summary |>
 
 ```
 
-These codes are non-NICE recommended PROMs found in search on opencodelists. 
+These codes are non-NICE recommended PROMs found in search on opencodelists.
 
 ### Find codes from search not yet in codelist
 
 ```{r}
-missing_codes_from_search <- codes_summary |>
-  filter(!snomed_code %in% codelist$snomed_code)
+missing_codes_from_search <- all_proms_summary |>
+  filter(!snomed_code %in% codelist_usage$snomed_code)
 
 missing_codes_from_search |>
   gt() |>
@@ -95,11 +102,13 @@ missing_codes_from_search |>
 
 ```
 
+## Summary
+
 PROMs like PHQ-2, PHQ-4, GAD-2 and their related codes have been added to the codelist already.
 
 Captured codes which need to be added to codelist:
 
--   -Edinburgh postnatal depression scale screening offered (situation)
+-   Edinburgh postnatal depression scale screening offered (situation)
 
 -   Zung's self-rating anxiety scale
 
@@ -111,6 +120,10 @@ Captured codes which need to be added to codelist:
 
 -   Obsessive compulsive inventory (assessment scale)
 
-The GAD disorder code will not be added to the code list since it is a diagnosis code, out of scope.
+-   Irritable Bowel Syndrome - Symptom Severity Scale (assessment scale)
 
-Initially exclude all child and children related codes as focus on code usage for PROMs for adult anxiety and depression
+-   Irritable Bowel Syndrome - Symptom Severity Scale score (observable entity)
+
+> The GAD disorder code will not be added to the code list since it is a diagnosis code, out of scope.
+
+> Initially exclude all child and children related codes as focus on code usage for PROMs for adult anxiety and depression
