@@ -81,20 +81,25 @@ This codelist is designed to maximize sensitivity by including all psychological
 - Generic psychological therapies codes (e.g. Cognitive Behavioural Therapy) not specific to other conditions were included
 - Common codes (based on GP's perspective) that indicated receipt of psychological therapies were included (e.g. seen by psychologists)
 - Psychological therapies codes specific to other conditions not related to anxiety and depression were excluded 
+- Inactive psychological therapies codes were excluded 
 
 ### Search terms
 
 Following the review of relevant guidelines and discussions with a GP the following search terms were used to review the description of SNOMED CT codes:
 
+- Applied Relaxation
 - Guided self-help
 - Digital cognitive behavioural therapy for depression
+- Digital cognitive behavioural therapy for anxiety 
 - Cognitive Behavioural Therapy
 - Behavioural Activation
 - Group Exercise
 - Group mindfulness and meditation
 - Interpersonal psychotherapy
 - Counselling
-- Short-term psychodynamic psychotherapy
+- Counseling 
+- Counselling for Anxiety
+- Psychodynamic psychotherapy
 - Individual problem solving
 - Behavioural couple therapy
 - Anxiety
@@ -102,10 +107,21 @@ Following the review of relevant guidelines and discussions with a GP the follow
 - Individual guided self-help
 - Individual non-facilitated self-help
 - Psycho-education
+- Problem solving 
 - Education about anxiety
 - Counselling for anxiety
+- Electroconvulsive therapy
 - Referral to improving access to psychological therapies program
-- Talking therapies
+- Talking therapy
+- Psychological therapy
+- Transcranial magnetic stimulation
+- For anxiety 
+- For depression
+- Psychologist
+- Psychiatrist 
+- Psychotherapist
+- Psychological wellbeing practitioner
+- referral to IAPT
 
 # Results
 
