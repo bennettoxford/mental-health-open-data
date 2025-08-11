@@ -65,14 +65,25 @@ This document compiles the codelist of psychological therapies for Depression an
 
 ## Codelist development
 
-A two-step approach was taken for the development of this codelist:
+We followed the following steps for the development of a codelist that includes all psychological therapy related codes that may be used for supporting and/or treating depression or anxiety diagnoses.
 
-1.  Review of relevant guidelines and existing codelists for anxiety and depression
+### Step 1. Defining search terms 
+
+To generate a lost of search terms that will be used in OpenCodeCounts and OpenCodelists, we followed these steps
+
+1. Review of relevant guidelines and existing codelists for anxiety and depression and
     - Depression support and treatment codes: [`depsupp_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depsupp_cod/20250627/)
     - Anxiety support and treatment codes: [`anxsupp_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxsupp_cod/20250627/)
-2. Review of initial codelists with a General Practitioner. The aim was to understand the approach to coding psychological therapies by GPs in EHR. This further informed the development of improved search terms and inclusion/exclusion criteria.
+2. Discussion with General Practitioner to understand the approach to coding psychological therapies by GPs in EHR to further selection of search terms inclusion/exclusion criteria.
 
-### Inclusion and exclusion
+### Step 2. Codelist development and code usage statistics
+
+To develop a final codelist informed by code usage statistics, we followed these steps, that informed each other:
+
+3. OpenCodeCounts: Define broad search terms to explore code count usage and find further codes
+4. OpenCodelists: Develop codelist based on steps 1-3 on OpenCodelists.org
+
+#### Inclusion and exclusion criteria
 
 This codelist is designed to maximize sensitivity by including all psychological therapy-related codes potentially applicable to anxiety and depression, regardless of explicit indication, specifically:
 
@@ -82,7 +93,10 @@ This codelist is designed to maximize sensitivity by including all psychological
 - Common codes (based on GP's perspective) that indicated receipt of psychological therapies were included (e.g. seen by psychologists)
 - Psychological therapies codes specific to other conditions not related to anxiety and depression were excluded 
 
-### Search terms
+
+# Results
+
+## Search terms from Step 1
 
 Following the review of relevant guidelines and discussions with a GP the following search terms were used to review the description of SNOMED CT codes:
 
@@ -107,52 +121,9 @@ Following the review of relevant guidelines and discussions with a GP the follow
 - Referral to improving access to psychological therapies program
 - Talking therapies
 
-# Results
 
-## Codelist for psychological therapies
-
-We developed a codelist including psychological therapies for anxiety disorders and depression.
-
-```{r}
-#| label: load-codelists
-#| echo: true
-#| message: false
-#| warning: false
-
-# Load codelists from opencodelist
-depr_anx_psy_tx_cod <- get_codelist(
-  "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/3f6fc6e3"
-  )
-```
-
-```{r}
-#| label: tab-summary-codelist-usage
-#| echo: false
-#| message: false
-#| warning: false
-
-# Generate summary of the codelists and usage 
-depr_anx_psy_tx_code_counts <- snomed_usage %>%
-  filter(snomed_code %in% depr_anx_psy_tx_cod$code) |> 
-  get_semantic_tag() |> 
-  summarise_code_counts()
-
-# Display formatted table
-tab_all_psy_tx <- depr_anx_psy_tx_code_counts |>
-  create_table_sem_tag(
-    title = "Summary of selected codes for psychological therapies",
-    subtitle = "Timeframe: August 2011 to July 2024"
-    )
-
-gtsave(
-  tab_all_psy_tx,
-  here("output", "tables", "tab_all_psy_tx_sem_tag_usage.png")
-  )
-
-tab_all_psy_tx
-```
-
-## NHS Talking Therapies (NHS TT)
+## OpenCodeCounts analyses of search terms
+### NHS Talking Therapies (NHS TT)
 
 Previously known as IAPT.
 
@@ -209,7 +180,7 @@ fig_psy_tx_nhstt_trends
 
 There has been an upward trend in self-referrals to Improving Access to Psychological Therapies (IAPT) since the end of the COVID-19 pandemic(2021). Similarly, the acceptance to psychological talking therapy has seen an upward trend since 2019, with a sharp increase in 2024 (84.5%) as compared to 2023.
 
-## Cognitive Behavioural Therapy (CBT)
+### Cognitive Behavioural Therapy (CBT)
 
 ```{r}
 #| label: tab-cbt-ct
@@ -271,7 +242,7 @@ ggsave(
 fig_psy_tx_cbt_ct_trends
 ```
 
-## "Seen by Psychologist"
+### Seen by mental health professional
 
 ```{r}
 #| label: tab-psych
@@ -334,4 +305,47 @@ ggsave(
 )
 
 fig_psy_tx_psych_trends
+```
+
+## Codelist for psychological therapies
+
+We developed a codelist including psychological therapies for anxiety disorders and depression.
+
+```{r}
+#| label: load-codelists
+#| echo: true
+#| message: false
+#| warning: false
+
+# Load codelists from opencodelist
+depr_anx_psy_tx_cod <- get_codelist(
+  "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/3f6fc6e3"
+  )
+```
+
+```{r}
+#| label: tab-summary-codelist-usage
+#| echo: false
+#| message: false
+#| warning: false
+
+# Generate summary of the codelists and usage 
+depr_anx_psy_tx_code_counts <- snomed_usage %>%
+  filter(snomed_code %in% depr_anx_psy_tx_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts()
+
+# Display formatted table
+tab_all_psy_tx <- depr_anx_psy_tx_code_counts |>
+  create_table_sem_tag(
+    title = "Summary of selected codes for psychological therapies",
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_all_psy_tx,
+  here("output", "tables", "tab_all_psy_tx_sem_tag_usage.png")
+  )
+
+tab_all_psy_tx
 ```
