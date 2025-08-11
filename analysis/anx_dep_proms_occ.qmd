@@ -57,7 +57,7 @@ search_terms <- list(
 
 # Overview
 
-- TODO: ADD SHORT OVERVIEW
+This document analyses national SNOMED CT coding patterns for PROMs in anxiety and depression using the opencodecounts R package. Search terms were derived from NICE guidelines and NHS Talking Therapies documentation. The aim is to identify relevant codes, examine usage patterns over time, and explore variation by SNOMED semantic tag.
 
 # Methods
 
