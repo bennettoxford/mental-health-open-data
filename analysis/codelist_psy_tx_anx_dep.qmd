@@ -137,7 +137,7 @@ We developed a codelist including psychological therapies for anxiety disorders 
 #| warning: false
 
 # Load codelists from opencodelist
-depr_anx_psy_tx_cod <- get_codelist(
+depr_anx_psy_tx_codelists <- get_codelist(
   "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/415bd34a"
   )
 ```
@@ -148,9 +148,14 @@ depr_anx_psy_tx_cod <- get_codelist(
 #| message: false
 #| warning: false
 
+
+#Filter snomed codes in the codelists 
+depr_anx_psy_tx_codes <- snomed_usage %>%
+  filter(snomed_code %in% depr_anx_psy_tx_codelists$code)
+
+
 # Generate summary of the codelists and usage 
-depr_anx_psy_tx_code_counts <- snomed_usage %>%
-  filter(snomed_code %in% depr_anx_psy_tx_cod$code) |> 
+depr_anx_psy_tx_code_counts <- depr_anx_psy_tx_codes |> 
   get_semantic_tag() |> 
   summarise_code_counts()
 
@@ -180,7 +185,7 @@ Previously known as IAPT.
 #| warning: false
 
 # Filter for codes with NHS TT search terms
-nhstt_code_usage <- snomed_usage |>
+nhstt_code_usage <- depr_anx_psy_tx_codes %>%
   filter_terms(search_terms$nhstt) |> 
   get_semantic_tag() 
   
@@ -235,7 +240,7 @@ There has been an upward trend in self-referrals to Improving Access to Psycholo
 #| warning: false
 
 # Filter for codes with NHS TT search terms
-cbt_ct_code_usage <- snomed_usage |>
+cbt_ct_code_usage <- depr_anx_psy_tx_codes |>
   filter_terms(search_terms$cbt_ct) |> 
   get_semantic_tag() 
   
@@ -297,7 +302,7 @@ fig_psy_tx_cbt_ct_trends
 #| warning: false
 
 # Filter for codes with NHS TT search terms
-psych_code_usage <- snomed_usage |>
+psych_code_usage <- depr_anx_psy_tx_codes |>
   filter_terms(search_terms$psych) |> 
   get_semantic_tag() 
   
