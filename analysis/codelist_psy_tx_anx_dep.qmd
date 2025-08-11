@@ -36,7 +36,8 @@ source(here("lib", "fun_figures.R"))
 # Define named list with search terms for broad categories
 search_terms <- list(
   nhstt = c(
-    "to improving access to psychological therapies"
+    "to improving access to psychological therapies",
+    "psychological talking therapy"
   ),
   cbt_ct = c(
     "cognitive behavioural therapy",
@@ -175,7 +176,7 @@ tab_nhstt_code_counts
 ```{r}
 #| label: fig-nhstt-trends
 #| fig-cap: "Yearly counts of codes with the term 'to improving access to psychological therapies' in their description from 2011/12 to 2023/24."
-#| fig-height: 6
+#| fig-height: 8
 #| fig-width: 8
 #| warning: false
 
@@ -187,7 +188,7 @@ fig_psy_tx_nhstt_trends <- plot_trajectory(
 ggsave(
   filename = here("output", "figures", "fig_psy_tx_nhstt_trends.png"),
   fig_psy_tx_nhstt_trends,
-  height = 6,
+  height = 8,
   width = 8
 )
 
