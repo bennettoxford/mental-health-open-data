@@ -1,0 +1,368 @@
+---
+title: "Codelist development for psychological therapies for anxiety disorders and depression "
+toc: true
+toc-depth: 2
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: opencodecounts R pkg
+        href: https://bennettoxford.github.io/opencodecounts/
+      - text: SNOMED Code Usage
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
+editor: source
+---
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+#| include: false
+
+# Load relevant libraries
+library(opencodecounts)
+library(here)
+library(tidyverse)
+library(scales)
+library(gt)
+library(scales)
+library(stringr)
+
+source(here("lib", "fun_tables.R"))
+source(here("lib", "fun_data.R"))
+source(here("lib", "fun_figures.R"))
+
+# Define named list with search terms for broad categories
+search_terms <- list(
+  nhstt = c(
+    "to improving access to psychological therapies",
+    "psychological talking therapy"
+  ),
+  cbt_ct = c(
+    "cognitive behavioural therapy",
+    "cognitive behavioral therapy",
+    "cognitive and behavioral therapy",
+    "cognitive and behavioural therapy",
+    "cognitive therapy"
+  ),
+  psych = c(
+    "psychologist",
+    "psychotherapist",
+    "psychiatrist",
+    "psychological wellbeing practitioner"
+  )
+)
+```
+
+# Background
+
+This document compiles the codelist of psychological therapies for Depression and Anxiety in the UK General practice. The codelist benefits from the NICE guideline recommendations on the management of anxiety and depression. Specific documents reviewed were:
+
+- [NICE Guidance: Depression in adults: treatment and management](https://www.nice.org.uk/guidance/ng222/chapter/Recommendations)
+- [NICE Guidance: Generalised anxiety disorder and panic disorder in adults: management](https://www.nice.org.uk/guidance/cg113/chapter/Recommendations)
+
+# Methods
+
+## Codelist development
+
+We followed the following steps for the development of a codelist that includes all psychological therapy related codes that may be used for supporting and/or treating depression or anxiety diagnoses.
+
+### Step 1. Defining search terms 
+
+To generate a lost of search terms that will be used in OpenCodeCounts and OpenCodelists, we followed these steps
+
+1. Review of relevant guidelines and existing codelists for anxiety and depression and
+    - Depression support and treatment codes: [`depsupp_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depsupp_cod/20250627/)
+    - Anxiety support and treatment codes: [`anxsupp_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxsupp_cod/20250627/)
+2. Discussion with General Practitioner to understand the approach to coding psychological therapies by GPs in EHR to further selection of search terms inclusion/exclusion criteria.
+
+### Step 2. Codelist development and code usage statistics
+
+To develop a final codelist informed by code usage statistics, we followed these steps, that informed each other:
+
+3. OpenCodeCounts: Define broad search terms to explore code count usage and find further codes
+4. OpenCodelists: Develop codelist based on steps 1-3 on OpenCodelists.org
+
+#### Inclusion and exclusion criteria
+
+This codelist is designed to maximize sensitivity by including all psychological therapy-related codes potentially applicable to anxiety and depression, regardless of explicit indication, specifically:
+
+- Psychological therapies codes specific to anxiety and depression were included
+- Psychological therapies codes for conditions related to anxiety and depression (e.g Insomnia) were included
+- Generic psychological therapies codes (e.g. Cognitive Behavioural Therapy) not specific to other conditions were included
+- Common codes (based on GP's perspective) that indicated receipt of psychological therapies were included (e.g. seen by psychologists)
+- Psychological therapies codes specific to other conditions not related to anxiety and depression were excluded 
+- Inactive psychological therapies codes were excluded 
+
+
+# Results
+
+## Search terms from Step 1
+
+Following the review of relevant guidelines and discussions with a GP the following search terms were used to review the description of SNOMED CT codes:
+
+- Applied Relaxation
+- Guided self-help
+- Digital cognitive behavioural therapy for depression
+- Digital cognitive behavioural therapy for anxiety 
+- Cognitive Behavioural Therapy
+- Behavioural Activation
+- Group Exercise
+- Group mindfulness and meditation
+- Interpersonal psychotherapy
+- Counselling
+- Counseling 
+- Counselling for Anxiety
+- Psychodynamic psychotherapy
+- Individual problem solving
+- Behavioural couple therapy
+- Anxiety
+- Depression
+- Individual guided self-help
+- Individual non-facilitated self-help
+- Psycho-education
+- Problem solving 
+- Education about anxiety
+- Counselling for anxiety
+- Electroconvulsive therapy
+- Referral to improving access to psychological therapies program
+- Talking therapy
+- Psychological therapy
+- Transcranial magnetic stimulation
+- For anxiety 
+- For depression
+- Psychologist
+- Psychiatrist 
+- Psychotherapist
+- Psychological wellbeing practitioner
+- referral to IAPT
+
+
+## OpenCodeCounts analyses of search terms
+### NHS Talking Therapies (NHS TT)
+
+Previously known as IAPT.
+
+```{r}
+#| label: tab-nhstt
+#| echo: false
+#| message: false
+#| warning: false
+
+# Filter for codes with NHS TT search terms
+nhstt_code_usage <- snomed_usage |>
+  filter_terms(search_terms$nhstt) |> 
+  get_semantic_tag() 
+  
+nhstt_code_counts_summary <- nhstt_code_usage |> 
+  summarise_code_counts()
+
+# Create table grouped by semantic_tag
+tab_nhstt_code_counts <- nhstt_code_counts_summary |>
+  create_table_sem_tag(
+    title = "Summary of NHS Talking Therapies (NHS TT) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_nhstt_code_counts,
+  here("output", "tables", "tab_nhstt_sem_tag_usage.png")
+  )
+
+tab_nhstt_code_counts
+```
+
+```{r}
+#| label: fig-nhstt-trends
+#| fig-cap: "Yearly counts of codes with the term 'to improving access to psychological therapies' in their description from 2011/12 to 2023/24."
+#| fig-height: 8
+#| fig-width: 8
+#| warning: false
+
+# Create plot
+fig_psy_tx_nhstt_trends <- plot_trajectory(
+  nhstt_code_usage,
+  ncol_legend = 1)
+
+ggsave(
+  filename = here("output", "figures", "fig_psy_tx_nhstt_trends.png"),
+  fig_psy_tx_nhstt_trends,
+  height = 8,
+  width = 8
+)
+
+fig_psy_tx_nhstt_trends
+```
+
+There has been an upward trend in self-referrals to Improving Access to Psychological Therapies (IAPT) since the end of the COVID-19 pandemic(2021). Similarly, the acceptance to psychological talking therapy has seen an upward trend since 2019, with a sharp increase in 2024 (84.5%) as compared to 2023.
+
+### Cognitive Behavioural Therapy (CBT)
+
+```{r}
+#| label: tab-cbt-ct
+#| echo: false
+#| message: false
+#| warning: false
+
+# Filter for codes with NHS TT search terms
+cbt_ct_code_usage <- snomed_usage |>
+  filter_terms(search_terms$cbt_ct) |> 
+  get_semantic_tag() 
+  
+cbt_ct_code_counts_summary <- cbt_ct_code_usage |> 
+  summarise_code_counts()
+
+# Create table grouped by semantic_tag
+tab_cbt_ct_code_counts <- cbt_ct_code_counts_summary |>
+  create_table_sem_tag(
+    title = "Summary of Cognitive Behavioural Therapy (CBT) related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_cbt_ct_code_counts,
+  here("output", "tables", "tab_nhstt_sem_tag_usage.png")
+  )
+
+tab_cbt_ct_code_counts
+```
+
+```{r}
+#| label: fig-cbt-trends
+#| fig-cap: "Yearly counts of the three codes per semantic tag with the terms related to 'cognitive behavioural therapy' from 2011/12 to 2023/24."
+#| fig-height: 6
+#| fig-width: 8
+#| warning: false
+
+# Get top 3 codes per semantic tag
+# Otherwise there are too many codes to visualise clearly
+top3_cbt_ct_codes <- cbt_ct_code_usage %>%
+  group_by(snomed_code, semantic_tag) %>%
+  summarise(total_usage = sum(usage, na.rm = TRUE)) %>%
+  group_by(semantic_tag) %>%
+  slice_max(total_usage, n = 3) %>%
+  pull(snomed_code)
+
+# Create figure 
+fig_psy_tx_cbt_ct_trends <- cbt_ct_code_usage |> 
+  filter(snomed_code %in% top3_cbt_ct_codes) |> 
+  plot_trajectory(ncol_legend = 1)
+
+ggsave(
+  filename = here("output", "figures", "fig_psy_tx_cbt_ct_trends.png"),
+  fig_psy_tx_cbt_ct_trends,
+  height = 6,
+  width = 8
+)
+
+fig_psy_tx_cbt_ct_trends
+```
+
+### Seen by mental health professional
+
+```{r}
+#| label: tab-psych
+#| echo: false
+#| message: false
+#| warning: false
+
+# Filter for codes with NHS TT search terms
+psych_code_usage <- snomed_usage |>
+  filter_terms(search_terms$psych) |> 
+  get_semantic_tag() 
+  
+psych_code_counts_summary <- psych_code_usage |> 
+  summarise_code_counts()
+
+# Create table grouped by semantic_tag
+tab_psych_code_counts <- psych_code_counts_summary |>
+  create_table_sem_tag(
+    title = "Summary of psychologist/psychotherapist/psychiatrist related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_psych_code_counts,
+  here("output", "tables", "tab_psych_sem_tag_usage.png")
+  )
+
+tab_psych_code_counts
+```
+
+```{r}
+#| label: fig-psych-trends
+#| fig-cap: "Yearly counts of the three codes per semantic tag with the terms related to 'psychologist/psychotherapist/psychiatrist' from 2011/12 to 2023/24."
+#| fig-height: 6
+#| fig-width: 8
+#| warning: false
+
+# Get top 3 codes per semantic tag
+# Otherwise there are too many codes to visualise clearly
+# Remove 'occupation' as we dont need this
+# Remove 'situation' as numbers too low
+top3_psych_codes <- psych_code_usage %>%
+  filter(!semantic_tag %in% c("occupation", "situation")) |> 
+  group_by(snomed_code, semantic_tag) %>%
+  summarise(total_usage = sum(usage, na.rm = TRUE)) %>%
+  group_by(semantic_tag) %>%
+  slice_max(total_usage, n = 3) %>%
+  pull(snomed_code)
+
+# Create figure 
+fig_psy_tx_psych_trends <- psych_code_usage |> 
+  filter(snomed_code %in% top3_psych_codes) |> 
+  plot_trajectory(ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_psy_tx_psych_trends.png"),
+  fig_psy_tx_psych_trends,
+  height = 6,
+  width = 8
+)
+
+fig_psy_tx_psych_trends
+```
+
+## Codelist for psychological therapies
+
+We developed a codelist including psychological therapies for anxiety disorders and depression.
+
+```{r}
+#| label: load-codelists
+#| echo: true
+#| message: false
+#| warning: false
+
+# Load codelists from opencodelist
+depr_anx_psy_tx_cod <- get_codelist(
+  "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/3f6fc6e3"
+  )
+```
+
+```{r}
+#| label: tab-summary-codelist-usage
+#| echo: false
+#| message: false
+#| warning: false
+
+# Generate summary of the codelists and usage 
+depr_anx_psy_tx_code_counts <- snomed_usage %>%
+  filter(snomed_code %in% depr_anx_psy_tx_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts()
+
+# Display formatted table
+tab_all_psy_tx <- depr_anx_psy_tx_code_counts |>
+  create_table_sem_tag(
+    title = "Summary of selected codes for psychological therapies",
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_all_psy_tx,
+  here("output", "tables", "tab_all_psy_tx_sem_tag_usage.png")
+  )
+
+tab_all_psy_tx
+```
