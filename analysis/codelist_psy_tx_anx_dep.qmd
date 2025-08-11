@@ -36,7 +36,8 @@ source(here("lib", "fun_figures.R"))
 # Define named list with search terms for broad categories
 search_terms <- list(
   nhstt = c(
-    "to improving access to psychological therapies"
+    "to improving access to psychological therapies",
+    "psychological talking therapy"
   ),
   cbt_ct = c(
     "cognitive behavioural therapy",
@@ -137,7 +138,7 @@ We developed a codelist including psychological therapies for anxiety disorders 
 
 # Load codelists from opencodelist
 depr_anx_psy_tx_cod <- get_codelist(
-  "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/3f6fc6e3"
+  "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/415bd34a"
   )
 ```
 
