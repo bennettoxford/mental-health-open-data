@@ -57,17 +57,16 @@ search_terms <- list(
 
 # Overview
 
-This document analyses national SNOMED CT coding patterns for PROMs in anxiety and depression using the opencodecounts R package. Search terms were derived from NICE guidelines and NHS Talking Therapies documentation. The aim is to identify relevant codes, examine usage patterns over time, and explore variation by SNOMED semantic tag.
+This document analyses national SNOMED CT coding patterns for PROMs in anxiety and depression using the opencodecounts R package. The aim is to identify relevant codes, examine usage patterns over time, and explore variation by SNOMED semantic tag.
 
 # Methods
+SNOMED CT code usage data for PROMs was extracted from the NHS England SNOMED Code Usage in Primary Care dataset (August 2011–July 2024) using the opencodecounts R package.Search terms were derived from NICE guidelines and NHS Talking Therapies documentation.
 
-- TODO: WRITE SHORT METHODS
-  - table with usage counts and ratio usage
-  - figure with trajectory over time of total counts
-  - figure with overal contribution of semantic tag
-- TODO: Add the timeframe each data point describes (e.g., July 2024 describes 2023-08-01 to 2024-07-31)
+The analysis included generating a table that summarised total usage counts for each PROM and calculated the proportion of usage by semantic tag to show how recording practices vary by code type. Yearly trajectories of total usage counts were plotted to examine trends over time and identify changes in coding patterns. The overall proportional contribution of each semantic tag across all PROMs was visualised to highlight which code types dominate recording activity.
 
-**Note:** All searches use `tolower()` on both SNOMED CT descriptions and search terms to handle inconsistent spelling and capitalisation (e.g., UK vs US spellings). This improved match rates and helped uncover valid codes that would otherwise be missed.
+In all figures and tables, each yearly data point is labelled by its end date (e.g., “July 2024” covers the period from 1 August 2023 to 31 July 2024).
+
+**Note**: All searches used tolower() on both SNOMED CT descriptions and search terms to handle inconsistent spelling and capitalisation (e.g., UK vs US spellings). This improved match rates and helped uncover valid codes that would otherwise be missed.
 
 # Analysis
 
