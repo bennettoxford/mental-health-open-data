@@ -21,9 +21,9 @@ editor: source
 #| warning: false
 #| echo: true
 
-library(opencodecounts) 
-library(tidyverse) 
-library(gt) 
+library(opencodecounts)
+library(tidyverse)
+library(gt)
 library(scales)
 library(here)
 library(patchwork)
@@ -46,8 +46,12 @@ search_terms <- list(
   epds = c("Postpartum Depression Screening"),
   hdrs = c("Hamilton rating scale"),
   hads = c("Hospital Anxiety and Depression Scale"),
-  gds = c("Geriatric depression scale")
+  gds = c("Geriatric depression scale"),
+  anx_screening = c("anxiety screening", "anxiety scale"),
+  dep_screening = c("depression screening", "depression scale")
 )
+
+
 
 ```
 
@@ -982,6 +986,115 @@ ggsave(
 )
 
 fig_gds_trajectory
+```
+
+## Anxiety screening and scale
+
+```{r}
+#| label: tab-anx-screening
+#| message: false
+#| warning: false
+
+# Filter SNOMED usage data
+anx_screening_usage <- snomed_usage |>
+  filter_terms(search_terms[["anx_screening"]]) |> 
+  get_semantic_tag()
+
+# Create usage summary table
+anx_screening_summary <- anx_screening_usage |>
+  summarise_code_counts()
+
+# Create table grouped by semantic_tag
+tab_anx_screening_code_counts <- anx_screening_summary |>
+  create_table_sem_tag(
+    title = "Summary of Anxiety Screening or Scale related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_anx_screening_code_counts,
+  here("output", "tables", "tab_anx_screening_sem_tag_usage.png")
+  )
+
+tab_anx_screening_code_counts
+```
+
+```{r}
+#| label: fig-anx_screening-trends
+#| fig-cap: "Yearly counts of codes with the term "Anxiety screening" of "Anxiety scale" in their description from 2011/12 to 2023/24."
+#| fig-height: 7
+#| fig-width: 8
+#| warning: false
+
+fig_anx_screening_trajectory <- plot_trajectory(
+  anx_screening_usage,
+  ncol_legend = 2)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_anx_screening_trajectory.png"),
+  fig_anx_screening_trajectory,
+  height = 7,
+  width = 8
+)
+
+fig_anx_screening_trajectory
+```
+
+## Depression screening and scale
+
+```{r}
+#| label: tab-dep-screening
+#| message: false
+#| warning: false
+
+# Filter SNOMED usage data
+dep_screening_usage <- snomed_usage |>
+  filter_terms(search_terms[["dep_screening"]]) |> 
+  get_semantic_tag()
+
+# Create usage summary table
+dep_screening_summary <- dep_screening_usage |>
+  summarise_code_counts()
+
+# Create table grouped by semantic_tag
+tab_dep_screening_code_counts <- dep_screening_summary |>
+  create_table_sem_tag(
+    title = "Summary of Depression Screening or Scale related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+gtsave(
+  tab_dep_screening_code_counts,
+  here("output", "tables", "tab_dep_screening_sem_tag_usage.png")
+  )
+
+tab_dep_screening_code_counts
+```
+
+```{r}
+#| label: fig-dep_screening-trends
+#| fig-cap: "Yearly counts of codes with the term "depression screening" of "depression scale" in their description from 2011/12 to 2023/24."
+#| fig-height: 7
+#| fig-width: 8
+#| warning: false
+
+# There are so many codes with very little usage
+# We decided to only visualise codes with that did not include "Child" in their description
+dep_screening_usage_filtered <- dep_screening_usage |> 
+  filter(!str_detect(description, "Child"))
+
+fig_dep_screening_trajectory <- plot_trajectory(
+  dep_screening_usage_filtered,
+  ncol_legend = 1)
+
+ggsave(
+  filename = here("output", "figures", "fig_proms_dep_screening_trajectory.png"),
+  fig_dep_screening_trajectory,
+  height = 15,
+  width = 8
+)
+
+fig_dep_screening_trajectory
 ```
 
 ### Summary
