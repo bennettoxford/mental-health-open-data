@@ -16,7 +16,7 @@ editor: source
 
 # Background 
 
-This document describes the coding patterns for psychological therapies for anxiety disorders and depression in English primary care EHR. This analysis utilized a codelist developed using NHS England’s annual SNOMED CT Code Usage in Primary Care datasets, covering the period from 1st August 2011 to 31st July 2024.See below relevant references:
+This document describes the coding patterns for psychological therapies for anxiety disorders and depression in English primary care EHR. This analysis utilized a codelist developed from NHS England’s annual SNOMED CT Code Usage in Primary Care datasets, covering the period from 1st August 2011 to 31st July 2024.See below relevant references:
 
 - [SNOMED Usage in Primary Care:](https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care)
 - [Codelists:](https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/415bd34a/)
@@ -39,9 +39,9 @@ library(gt)
 library(scales)
 library(stringr)
 
-#source(here("lib", "fun_tables.R"))
-#source(here("lib", "fun_data.R"))
-#source(here("lib", "fun_figures.R"))
+source(here("lib", "fun_tables.R"))
+source(here("lib", "fun_data.R"))
+source(here("lib", "fun_figures.R"))
 
 #Set search terms 
 
@@ -81,6 +81,58 @@ Preliminary objectives of the analysis include to:
 #| echo: true
 #| message: false
 #| warning: false
+
+#Obtain total code usage
+dep_anx_tx_total_cod_usage = dep_anx_psy_tx_usage |>
+group_by(end_date) |> 
+    summarise(usage = sum(usage), .groups = "drop") |>
+    mutate(ratio_usage = usage / sum(usage)) |>
+    arrange(-usage)
+
+```
+
+```{r}
+#| label: fig-total-trends
+#| fig-cap: "Yearly counts of psychological therapy codes' from 2011/12 to 2023/24."
+#| fig-height: 4
+#| fig-width: 8
+#| warning: false
+ 
+fig_psy_tx_dep_anx_trends = dep_anx_tx_total_cod_usage |>
+  ggplot(
+      aes(
+        y = usage,
+        x = end_date,
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point() +
+    labs(
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      caption = "Data from NHS England SNOMED Code Usage in Primary Care.",
+      title = "Yearly counts of psychological therapy codes used in primary care"
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+  scale_color_viridis_d()
+fig_psy_tx_dep_anx_trends
+
+ggsave(
+  filename = here("output", "figures", "fig_psy_tx_dep_anx_total_trends.png"),
+  fig_psy_tx_dep_anx_trends,
+  height = 4,
+  width = 8
+)
 
 ```
 
