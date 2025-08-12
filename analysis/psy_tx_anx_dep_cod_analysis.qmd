@@ -1,0 +1,67 @@
+---
+title: "Analysis of anxiety disorders and depression psychological therapies codes"
+toc: true
+toc-depth: 2
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: opencodecounts R pkg
+        href: https://bennettoxford.github.io/opencodecounts/
+      - text: SNOMED Code Usage
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
+editor: source
+---
+
+
+# Background 
+
+This document describes the coding patterns for psychological therapies for anxiety disorders and depression in English primary care EHR. This analysis utilized a codelist developed using NHS England’s annual SNOMED CT Code Usage in Primary Care datasets, covering the period from 1st August 2011 to 31st July 2024.See below relevant references:
+
+- [SNOMED Usage in Primary Care:](https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care)
+- [Codelists:](https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/415bd34a/)
+- [Opencodecounts:](https://github.com/bennettoxford/opencodecounts)
+
+Data was analysed primarily using the opencodecounts R package. 
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+#| include: false
+
+# Load relevant libraries
+library(opencodecounts)
+library(here)
+library(tidyverse)
+library(scales)
+library(gt)
+library(scales)
+library(stringr)
+
+```
+
+# Preliminary Analysis Objectives 
+Preliminary objectives of the analysis include to:
+
+- Describe the total usage of anxiety disorders and psychological therapy codes over the study period 
+- Identify the most frequently used psychological therapy codes in English Primary care 
+- Examine pattern of code usage by:
+  - Referral or signposting vs actual delivery of therapy
+  - High-intensity vs low-intensity psychological therapies
+  - Therapy indication, including specific codes for anxiety disorders, depression and cross-cutting codes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
