@@ -39,9 +39,9 @@ library(gt)
 library(scales)
 library(stringr)
 
-source(here("lib", "fun_tables.R"))
-source(here("lib", "fun_data.R"))
-source(here("lib", "fun_figures.R"))
+#source(here("lib", "fun_tables.R"))
+#source(here("lib", "fun_data.R"))
+#source(here("lib", "fun_figures.R"))
 
 #Set search terms 
 
@@ -57,19 +57,32 @@ source(here("lib", "fun_figures.R"))
 depr_anx_psy_tx_cod <- get_codelist(
   "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/415bd34a"
   )
+
+#Filter codes from the codelists 
+dep_anx_psy_tx_usage = snomed_usage |> 
+  filter(snomed_code %in% depr_anx_psy_tx_cod$code)
 ```
 
+# Preliminary Objectives 
 
-
-# Preliminary Analysis Objectives 
 Preliminary objectives of the analysis include to:
-
 - Describe the total usage of anxiety disorders and psychological therapy codes over the study period 
 - Identify the most frequently used psychological therapy codes in English Primary care 
 - Examine pattern of code usage by:
   - Referral or signposting vs actual delivery of therapy
   - High-intensity vs low-intensity psychological therapies
   - Therapy indication, including specific codes for anxiety disorders, depression and cross-cutting codes
+
+
+#Results 
+
+```{r}
+#| label: total-code-usage
+#| echo: true
+#| message: false
+#| warning: false
+
+```
 
 
 
