@@ -14,7 +14,6 @@ format:
 editor: source
 ---
 
-
 # Background 
 
 This document describes the coding patterns for psychological therapies for anxiety disorders and depression in English primary care EHR. This analysis utilized a codelist developed using NHS England’s annual SNOMED CT Code Usage in Primary Care datasets, covering the period from 1st August 2011 to 31st July 2024.See below relevant references:
@@ -40,7 +39,27 @@ library(gt)
 library(scales)
 library(stringr)
 
+source(here("lib", "fun_tables.R"))
+source(here("lib", "fun_data.R"))
+source(here("lib", "fun_figures.R"))
+
+#Set search terms 
+
 ```
+
+```{r}
+#| label: load-codelists
+#| echo: true
+#| message: false
+#| warning: false
+
+# Load codelists from opencodelist
+depr_anx_psy_tx_cod <- get_codelist(
+  "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/415bd34a"
+  )
+```
+
+
 
 # Preliminary Analysis Objectives 
 Preliminary objectives of the analysis include to:
@@ -51,7 +70,6 @@ Preliminary objectives of the analysis include to:
   - Referral or signposting vs actual delivery of therapy
   - High-intensity vs low-intensity psychological therapies
   - Therapy indication, including specific codes for anxiety disorders, depression and cross-cutting codes
-
 
 
 
