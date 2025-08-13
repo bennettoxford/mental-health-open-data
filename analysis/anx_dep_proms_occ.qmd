@@ -57,17 +57,16 @@ search_terms <- list(
 
 # Overview
 
-- TODO: ADD SHORT OVERVIEW
+This document analyses national SNOMED CT coding patterns for Patient Reported Outcome Measures (PROMs) used to assess symptom severity in anxiety disorders and depression using the _opencodecounts_ R package. The aim is to identify relevant codes, examine usage patterns over time, and explore variation by SNOMED semantic tag (e.g., assessment scale, observable entity, procedure, ...)
 
 # Methods
+SNOMED CT code usage data for PROMs was extracted from the NHS England SNOMED Code Usage in Primary Care dataset (August 2011–July 2024) using the _opencodecounts_ R package. Search terms were derived from NICE guidelines ([CG113](https://www.nice.org.uk/guidance/cg113) and [NG222](https://www.nice.org.uk/guidance/ng222)) and [NHS Talking Therapies for anxiety and depression Manual](https://www.england.nhs.uk/wp-content/uploads/2018/06/nhs-talking-therapies-manual-v7.1-updated.pdf).
 
-- TODO: WRITE SHORT METHODS
-  - table with usage counts and ratio usage
-  - figure with trajectory over time of total counts
-  - figure with overal contribution of semantic tag
-- TODO: Add the timeframe each data point describes (e.g., July 2024 describes 2023-08-01 to 2024-07-31)
+The analysis included generating a table that summarised total usage counts for each PROM and calculated the proportion of usage by semantic tag to show how recording practices vary by code type. Yearly trajectories of total usage counts were plotted to examine trends over time and identify changes in coding patterns. The overall proportional contribution of each semantic tag across all PROMs was visualised to highlight which code types dominate recording activity.
 
-**Note:** All searches use `tolower()` on both SNOMED CT descriptions and search terms to handle inconsistent spelling and capitalisation (e.g., UK vs US spellings). This improved match rates and helped uncover valid codes that would otherwise be missed.
+In all figures and tables, each yearly data point is labelled by its end date (e.g., “July 2024” covers the period from 1 August 2023 to 31 July 2024).
+
+**Note**: All searches used tolower() on both SNOMED CT descriptions and search terms to handle inconsistent spelling and capitalisation (e.g., UK vs US spellings). This improved match rates and helped uncover valid codes that would otherwise be missed.
 
 # Analysis
 
