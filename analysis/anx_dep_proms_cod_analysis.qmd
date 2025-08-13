@@ -153,4 +153,20 @@ tab_proms_procedure
 
 ```
 
+```{r}
+#| label: tab-proms-gen
+#| message: false
+#| warning: false
 
+proms_gen_table <- proms_usage |>
+  filter(snomed_code %in% proms_gen$snomed_code) |>
+  get_semantic_tag() |>
+  summarise_code_counts() |>
+  create_table_sem_tag(
+    title = "Summary of Generic PROMs SNOMED code usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+  
+proms_gen_table
+
+```
