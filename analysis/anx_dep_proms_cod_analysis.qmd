@@ -49,12 +49,32 @@ search_terms <- list(
   cfq = c("Chalder Fatigue"),
   oci = c("Obsessive Compulsive Inventory"),
   ibssss = c("Irritable Bowel Syndrome - Symptom Severity Scale"),
-  epds = c("Postpartum Depression Screening"),
+  epds = c("Postpartum Depression Screening", "Edinburgh postnatal depression scale"),
   hdrs = c("Hamilton rating scale"),
   hads = c("Hospital Anxiety and Depression Scale"),
-  gds = c("Geriatric depression scale"),
-  anx_screening = c("anxiety screening", "anxiety scale"),
-  dep_screening = c("depression screening")
+  gds = c("Geriatric depression"),
+  anx_screening = c("anxiety screening"),
+  dep_screening = c("depression screening", "Depression follow-up"),
+  dep_cards = c("Depression Cards"),
+  dep_rating = c("Brief depression rating scale"),
+  leeds = c("leeds scales"),
+  mam = c("marks and mathews"),
+  wakefield = c("wakefield"),
+  zung = c("zung"),
+  who_dep = c("World Health Organization depression scale"),
+  montgomery = c("Montgomery"),
+  euroqol = c("euroqol"),
+  hai = c("health anxiety inventory"),
+  pdss = c("panic disorder severity scale"),
+  dep_self = c("depression self rating scale"),
+  ptsd = c("Post-traumatic stress disorder checklist"),
+  cvppd9 = c("Current View Provisional Problem Description item 9 score"),
+  dass = c("Depression anxiety stress scales"),
+  dapo = c("Depression, Anxiety and Positive Outlook Scale"),
+  biq = c("Body Image Questionnaire"),
+  dep_anx = c("Depression anxiety scale"),
+  dep_intensity = c("Depression intensity scale circles score")
+  
 )
 
 #general/generic proms
@@ -64,7 +84,6 @@ proms_gen <- snomed_usage |>
   filter_terms(general_proms) |>
   filter(!grepl("Patient Health Questionnaire|Postpartum", description, ignore.case = TRUE))
 
-search_patterns <- map(search_terms, ~ str_c(.x, collapse = "|"))
 
 #retrieve proms codelist for anxiety and depression
 proms_cod <- get_codelist("user/Lola_O/patient-reported-outcome-measures-anxiety-and-depression/615e2d89/")
@@ -72,7 +91,6 @@ proms_cod <- get_codelist("user/Lola_O/patient-reported-outcome-measures-anxiety
 #filter snomed usage by codelist
 proms_usage <- snomed_usage |>
   filter(snomed_code %in% proms_cod$code)
-
 
 
 ```
@@ -170,3 +188,4 @@ proms_gen_table <- proms_usage |>
 proms_gen_table
 
 ```
+
