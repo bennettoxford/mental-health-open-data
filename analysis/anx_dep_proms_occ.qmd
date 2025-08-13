@@ -57,7 +57,7 @@ search_terms <- list(
 
 # Overview
 
-This document analyses national SNOMED CT coding patterns for PROMs in anxiety and depression using the opencodecounts R package. The aim is to identify relevant codes, examine usage patterns over time, and explore variation by SNOMED semantic tag.
+This document analyses national SNOMED CT coding patterns for Patient Reported Outcome Measures (PROMs) used to assess symptom severity in anxiety disorders and depression using the _opencodecounts_ R package. The aim is to identify relevant codes, examine usage patterns over time, and explore variation by SNOMED semantic tag (e.g., assessment scale, observable entity, procedure, ...)
 
 # Methods
 SNOMED CT code usage data for PROMs was extracted from the NHS England SNOMED Code Usage in Primary Care dataset (August 2011–July 2024) using the opencodecounts R package.Search terms were derived from NICE guidelines and NHS Talking Therapies documentation.
