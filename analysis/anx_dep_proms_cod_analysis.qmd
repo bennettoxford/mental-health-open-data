@@ -128,3 +128,29 @@ tab_proms_declined
 
 
 ```
+
+
+```{r}
+#| label: tab-proms-procedures
+#| message: false
+#| warning: false
+
+
+#only procedure codes for specific 
+proms_procedure <- proms_usage |>
+  get_semantic_tag() |>
+  filter_terms(c("procedure", "assessment scale")) |>
+  filter(!snomed_code %in% proms_gen$snomed_code)
+
+tab_proms_procedure <- proms_procedure |>
+  summarise_code_counts() |>
+  create_table_sem_tag(
+    title = "Summary of All PROMs procedure SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+tab_proms_procedure
+
+```
+
+
