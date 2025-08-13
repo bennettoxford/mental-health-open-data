@@ -1,26 +1,130 @@
 ---
 title: "Analysis of draft codelist for PROMs for anxiety and depression"
-format: html
-editor: visual
+toc: true
+toc-depth: 2
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: opencodecounts R pkg
+        href: https://bennettoxford.github.io/opencodecounts/
+      - text: SNOMED Code Usage
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
+editor: source
 ---
 
-## Quarto
+# Overview
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+# Methods
 
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+# Analysis
 
 ```{r}
-1 + 1
+#| label: setup
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| echo: true
+
+library(opencodecounts)
+library(tidyverse)
+library(gt)
+library(scales)
+library(here)
+library(patchwork)
+
+source(here("lib", "fun_tables.R"))
+source(here("lib", "fun_data.R"))
+source(here("lib", "fun_figures.R"))
+
+search_terms <- list(
+  phq = c("Patient Health Questionnaire"),
+  bai = c("Beck Anxiety"),
+  bdi = c("Beck Depression"),
+  gad = c("Generalized Anxiety Disorder", "Generalised anxiety disorder"),
+  whooley = c("Whooley"),
+  mi = c("Mobility Inventory"),
+  spin = c("Social Phobia Inventory"),
+  cfq = c("Chalder Fatigue"),
+  oci = c("Obsessive Compulsive Inventory"),
+  ibssss = c("Irritable Bowel Syndrome - Symptom Severity Scale"),
+  epds = c("Postpartum Depression Screening"),
+  hdrs = c("Hamilton rating scale"),
+  hads = c("Hospital Anxiety and Depression Scale"),
+  gds = c("Geriatric depression scale"),
+  anx_screening = c("anxiety screening", "anxiety scale"),
+  dep_screening = c("depression screening")
+)
+
+#general/generic proms
+general_proms <- c("anxiety screening","depression screening")
+
+proms_gen <- snomed_usage |>
+  filter_terms(general_proms) |>
+  filter(!grepl("Patient Health Questionnaire|Postpartum", description, ignore.case = TRUE))
+
+search_patterns <- map(search_terms, ~ str_c(.x, collapse = "|"))
+
+#retrieve proms codelist for anxiety and depression
+proms_cod <- get_codelist("user/Lola_O/patient-reported-outcome-measures-anxiety-and-depression/615e2d89/")
+
+#filter snomed usage by codelist
+proms_usage <- snomed_usage |>
+  filter(snomed_code %in% proms_cod$code)
+
+
+
 ```
 
-You can add options to executable code like this
+## Categorisation of PROMs codelist
+```{r}
+#| label: tab-proms-ob-en
+#| message: false
+#| warning: false
+#Observable entities for specific PROMs
+
+#only codes with observable entity tags
+proms_ob_en <- proms_usage |>
+  get_semantic_tag() |>                                  # Extract semantic tag and add new variable
+  filter_terms("observable entity") |>                   # filter only observable entities
+  filter(!snomed_code %in% proms_gen$snomed_code)        # filter out generic proms
+  
+# Calculate total code usage for entire period
+proms_ob_en_count<- proms_ob_en |>     
+  summarise_code_counts()                                
+
+# Create table grouped by semantic_tag - 38 PROMs with observable entities
+tab_proms_ob_en_count <- proms_ob_en_count |>
+  create_table_sem_tag(
+    title = "Summary of All PROMs observable entity SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+tab_proms_ob_en_count
+
+```
 
 ```{r}
-#| echo: false
-2 * 2
-```
+#| label: tab-proms-declined
+#| message: false
+#| warning: false
 
-The `echo: false` option disables the printing of code (only output is displayed).
+#only declined codes
+proms_declined <- proms_usage |>
+  get_semantic_tag() |>
+  filter_terms("declined") 
+
+tab_proms_declined <- proms_declined |>
+  summarise_code_counts() |>
+  create_table_sem_tag(
+    title = "Summary of All PROMs declined related SNOMED codes usage",
+    subtitle = "Timeframe: August 2011 to July 2024"
+  )
+
+
+tab_proms_declined
+
+
+
+```
