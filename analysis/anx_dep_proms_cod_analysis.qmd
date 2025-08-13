@@ -189,3 +189,58 @@ proms_gen_table
 
 ```
 
+#Visualisations
+
+#Figure 1. Yearly trends in total code usage for all PROMs related to anxiety disorders and depression in adults from 2011/12 to 2023/24
+```{r}
+#| label: fig-all-proms
+#| fig-cap: "Yearly counts of total usage broken down by PROMs and semantic tag from 2011/12 to 2023/24."
+#| fig-height: 8
+#| fig-width: 8
+#| warning: false
+
+search_patterns <- map(search_terms, ~ str_c(.x, collapse = "|"))
+
+all_proms <- proms_usage |>
+  get_semantic_tag() |>
+  add_proms_match(search_patterns) 
+
+df_all_proms_total_usage <- all_proms |> 
+  group_by(proms, end_date) |> 
+  mutate(total_usage = sum(usage)) |> 
+  select(end_date, total_usage, proms) |> 
+  ungroup() |> 
+  distinct()
+
+fig_all_proms_total_usage <- df_all_proms_total_usage |> 
+  ggplot(
+      aes(
+        y = total_usage,
+        x = end_date,
+        colour = proms,
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point() +
+    labs(
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      caption = NULL,
+      title = "Count of code usage by PROMs"
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom")
+
+fig_all_proms_total_usage
+
+```
+
