@@ -14,7 +14,7 @@ format:
 editor: source
 ---
 
-# Background 
+## Background 
 
 This document describes the coding patterns for psychological therapies for anxiety disorders and depression in English primary care EHR. This analysis utilized a codelist developed from NHS England’s annual SNOMED CT Code Usage in Primary Care datasets, covering the period from 1st August 2011 to 31st July 2024.See below relevant references:
 
@@ -45,17 +45,60 @@ source(here("lib", "fun_figures.R"))
 
 #Set search terms 
 
+search_by_referral_service <- list(
+    referral = c(
+    "referral",
+    "self-referral",
+    "signposting"
+  ),
+  
+  service = c(
+    "to improving access to psychological therapies",
+    "psychological talking therapy",
+    "counsel",
+    "psychoeducation",
+    "cognitive behavioural therapy",
+    "cognitive behavioral therapy",
+    "cognitive and behavioral therapy",
+    "cognitive and behavioural therapy",
+    "cognitive therapy",
+    "seen by",
+    "admission by",
+    "liaison with",
+    "therapy started",
+    "psychological therapy",
+    "electroconvulsive",
+    "discharge by",
+    "problem solving",
+    "under care",
+    "self-help",
+    "education",
+    "behavioral activation therapy",
+    "psychodynamic psychotherapy",
+    "interpersonal psychotherapy",
+    "dynamic interpersonal therapy",
+    "psychodynamic therapy",
+    "transcranial magnetic",
+    "mindfulness",
+    "psychotherapy",
+    "couple therapy",
+    "behavioural activation",
+    "applied relaxation"
+    
+  )
+)
+
 ```
 
 ```{r}
 #| label: load-codelists
-#| echo: true
+#| echo: false
 #| message: false
 #| warning: false
 
 # Load codelists from opencodelist
 depr_anx_psy_tx_cod <- get_codelist(
-  "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/415bd34a"
+  "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/6a9bc643"
   )
 
 #Filter codes from the codelists 
@@ -63,9 +106,10 @@ dep_anx_psy_tx_usage = snomed_usage |>
   filter(snomed_code %in% depr_anx_psy_tx_cod$code)
 ```
 
-# Preliminary Objectives 
+## Preliminary Objectives 
 
 Preliminary objectives of the analysis include to:
+
 - Describe the total usage of anxiety disorders and psychological therapy codes over the study period 
 - Identify the most frequently used psychological therapy codes in English Primary care 
 - Examine pattern of code usage by:
@@ -74,11 +118,12 @@ Preliminary objectives of the analysis include to:
   - Therapy indication, including specific codes for anxiety disorders, depression and cross-cutting codes
 
 
-#Results 
+## Results 
+### Total code usage for anxiety disorders and depression psychological therapies
 
 ```{r}
 #| label: total-code-usage
-#| echo: true
+#| echo: false
 #| message: false
 #| warning: false
 
@@ -91,8 +136,10 @@ group_by(end_date) |>
 
 ```
 
+
 ```{r}
 #| label: fig-total-trends
+#| echo: false
 #| fig-cap: "Yearly counts of psychological therapy codes' from 2011/12 to 2023/24."
 #| fig-height: 4
 #| fig-width: 8
@@ -112,7 +159,7 @@ fig_psy_tx_dep_anx_trends = dep_anx_tx_total_cod_usage |>
       y = NULL,
       colour = NULL,
       caption = "Data from NHS England SNOMED Code Usage in Primary Care.",
-      title = "Yearly counts of psychological therapy codes used in primary care"
+      #title = "Yearly counts of psychological therapy codes used in primary care"
     ) +
     scale_x_date(
       date_breaks = "1 year",
@@ -137,6 +184,128 @@ ggsave(
 ```
 
 
+### Top 15 most frequently used codes
+```{r}
+#| label: tab-most-used-codes
+#| echo: false
+#| message: false
+#| warning: false
+top = 15
+dep_anx_tx_top_codes = dep_anx_psy_tx_usage |>
+group_by(snomed_code, description) |> 
+    summarise(usage = sum(usage), .groups = "drop") |>
+    mutate(ratio_usage = usage / sum(usage)) |>
+    arrange(-usage) |>
+  slice_head(n = top)
+
+
+tab_dep_anx_tx_top_codes = dep_anx_tx_top_codes |>
+  gt() |>
+    fmt_percent(
+      columns = c(ratio_usage),
+      decimals = 1
+    ) |>
+    tab_style(
+      style = list(
+        cell_text(font = "Courier New")
+      ),
+      locations = cells_body(columns = snomed_code)
+    ) |>
+    cols_label(
+      snomed_code = "SNOMED code",
+      description = "Description",
+      usage = "Usage",
+      ratio_usage = "%"
+    ) |>
+    tab_style(
+      style = cell_text(weight = "bold"),
+      locations = cells_column_labels(columns = everything())
+    ) |>
+    cols_align(
+      align = "left",
+      columns = snomed_code
+    ) |>
+    tab_options(table.width = "100%") |>
+    tab_source_note(
+      source_note = md(
+        "Data scource: NHS England SNOMED Usage in Primary Care."
+      )
+    )
+
+gtsave(
+  tab_dep_anx_tx_top_codes,
+  here("output", "tables", "tab_dep_anx_tx_top_codes.png")
+  )
+
+tab_dep_anx_tx_top_codes
+
+```
+
+
+### Usage trend by referral/signposting vs actual service offering
+
+```{r}
+#| label: fig-trends_referral_service
+#| echo: false
+#| fig-cap: "Comparison of yealy counts of psychological therapy codes for referrals and actual service ' from 2011/12 to 2023/24."
+#| fig-height: 4
+#| fig-width: 8
+#| warning: false
+search_patterns_referrals <- map(search_by_referral_service, ~ str_c(.x, collapse = "|"))
+
+psy_tx_referral_cat = dep_anx_psy_tx_usage |>
+  filter_terms(unlist(search_by_referral_service))|>
+  add_proms_match(search_patterns_referrals)|>
+  
+#Some description that contains word referral and actual service are categorized twice e.g. referral;service
+  
+#Addressing by replacing referral;service with referral
+  
+  mutate(proms = str_replace(proms, "referral;service", "referral"))|>
+  group_by(end_date, proms) |> 
+  summarise(usage = sum(usage), .groups = "drop") |>
+  mutate(ratio_usage = usage / sum(usage)) |>
+  arrange(end_date)
+
+fig_psy_tx_service_referral_trends = psy_tx_referral_cat |>
+  ggplot(
+      aes(
+        y = usage,
+        x = end_date,
+        colour = proms
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point() +
+    labs(
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      caption = "Data from NHS England SNOMED Code Usage in Primary Care.",
+      #title = "Yearly counts of psychological therapy codes used in primary care"
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+  scale_color_viridis_d()
+fig_psy_tx_service_referral_trends
+
+ggsave(
+  filename = here("output", "figures", "fig_psy_tx_service_referral_trends.png"),
+  fig_psy_tx_service_referral_trends,
+  height = 4,
+  width = 8
+)
+
+
+```
 
 
 
