@@ -297,7 +297,56 @@ fig_proms_scores_trends
 
 ```
 
-
+#Table 1. Top 10 codes of PROMs for anxiety disorders and depression in adults from 2011/12 to 2023/24
 ```{r}
+#| label: tab-top-10-code
+#| message: false
+#| warning: false
+
+top_10_proms <- proms_usage |>
+  get_semantic_tag() |>
+  add_proms_match(search_patterns) |>
+  group_by(proms) |>
+  summarise(total_usage = sum(usage), .groups = "drop") |>
+  slice_max(total_usage, n = 10, with_ties = FALSE)
+ 
+top_10_proms_codes <- proms_usage |>
+  group_by(snomed_code, description) |>
+  summarise(total_usage = sum(usage), .groups = "drop") |>
+  slice_max(total_usage, n = 10, with_ties = FALSE)
+
+tab_top_10_proms_codes <- top_10_proms_codes |>
+    gt() |>
+  tab_header(
+    title = "Top 10 codes of PROMs for anxiety disorders and depression in adults",
+      subtitle = "from 2011/12 to 2023/24"
+  ) |>
+    tab_style(
+      style = list(
+        cell_text(font = "Courier New")
+      ),
+      locations = cells_body(columns = snomed_code)
+    ) |>
+    cols_label(
+      snomed_code = "SNOMED code",
+      description = "Description",
+      total_usage = "Total Usage"
+    ) |>
+    tab_style(
+      style = cell_text(weight = "bold"),
+      locations = cells_column_labels(columns = everything())
+    ) |>
+    cols_align(
+      align = "left",
+      columns = snomed_code
+    ) |>
+    tab_options(table.width = "100%") |>
+    tab_source_note(
+      source_note = md(
+        "Data source: NHS England SNOMED Usage in Primary Care."
+      )
+    )
+
+tab_top_10_proms_codes
 
 ```
