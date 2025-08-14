@@ -194,7 +194,7 @@ proms_gen_table
 #Figure 1. Yearly trends in total code usage for all PROMs related to anxiety disorders and depression in adults from 2011/12 to 2023/24
 ```{r}
 #| label: fig-all-proms
-#| fig-cap: "Yearly counts of total usage broken down by PROMs and semantic tag from 2011/12 to 2023/24."
+#| fig-cap: "Figure 1. Yearly trends in total code usage for all PROMs related to anxiety disorders and depression in adults from 2011/12 to 2023/24."
 #| fig-height: 8
 #| fig-width: 8
 #| warning: false
@@ -244,3 +244,60 @@ fig_all_proms_total_usage
 
 ```
 
+#Figure 2. Yearly trends in codes for PROM scores for anxiety disorders and depression in adults by questionnaire from 2011/12 to 2023/24
+
+```{r}
+#| label: fig-proms-scores
+#| fig-cap: "Figure 2. Yearly trends in codes for PROM scores for anxiety disorders and depression in adults by questionnaire from 2011/12 to 2023/24"
+#| fig-height: 8
+#| fig-width: 14
+#| warning: false
+
+proms_scores <- proms_ob_en |>
+  add_proms_match(search_patterns)
+
+df_proms_scores <- proms_scores |> 
+  group_by(proms, end_date) |> 
+  mutate(total_usage = sum(usage)) |> 
+  select(end_date, total_usage, proms) |> 
+  ungroup() |> 
+  distinct()
+  
+fig_proms_scores_trends <- df_proms_scores |>
+  ggplot(
+      aes(
+        y = total_usage,
+        x = end_date,
+        colour = proms,
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point() +
+    labs(
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      caption = NULL,
+      title = NULL
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom")
+  
+  
+fig_proms_scores_trends
+
+
+```
+
+
+```{r}
+
+```
