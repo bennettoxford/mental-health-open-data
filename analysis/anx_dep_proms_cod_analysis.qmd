@@ -203,7 +203,9 @@ search_patterns <- map(search_terms, ~ str_c(.x, collapse = "|"))
 
 all_proms <- proms_usage |>
   get_semantic_tag() |>
-  add_proms_match(search_patterns) 
+  add_proms_match(search_patterns) |>
+  mutate(proms = str_replace(proms, "epds;dep_screening", "epds")) |>
+  mutate(proms = str_replace(proms, "phq;dep_screening", "phq"))
 
 df_all_proms_total_usage <- all_proms |> 
   group_by(proms, end_date) |> 
@@ -254,7 +256,9 @@ fig_all_proms_total_usage
 #| warning: false
 
 proms_scores <- proms_ob_en |>
-  add_proms_match(search_patterns)
+  add_proms_match(search_patterns) |>
+  mutate(proms = str_replace(proms, "epds;dep_screening", "epds")) |>
+  mutate(proms = str_replace(proms, "phq;dep_screening", "phq"))
 
 df_proms_scores <- proms_scores |> 
   group_by(proms, end_date) |> 
