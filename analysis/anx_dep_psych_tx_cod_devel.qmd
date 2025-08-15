@@ -167,7 +167,7 @@ tab_nhstt_code_counts <- nhstt_code_counts_summary |>
 
 gtsave(
   tab_nhstt_code_counts,
-  here("output", "tables", "tab_nhstt_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "psych_tx", "tab_nhstt_sem_tag_usage.png")
   )
 
 tab_nhstt_code_counts
@@ -186,7 +186,7 @@ fig_psy_tx_nhstt_trends <- plot_trajectory(
   ncol_legend = 1)
 
 ggsave(
-  filename = here("output", "figures", "fig_psy_tx_nhstt_trends.png"),
+  filename = here("output", "figures", "cod_devel", "psych_tx", "fig_psy_tx_nhstt_trends.png"),
   fig_psy_tx_nhstt_trends,
   height = 8,
   width = 8
@@ -222,7 +222,7 @@ tab_cbt_ct_code_counts <- cbt_ct_code_counts_summary |>
 
 gtsave(
   tab_cbt_ct_code_counts,
-  here("output", "tables", "tab_nhstt_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "psych_tx", "tab_nhstt_sem_tag_usage.png")
   )
 
 tab_cbt_ct_code_counts
@@ -250,7 +250,7 @@ fig_psy_tx_cbt_ct_trends <- cbt_ct_code_usage |>
   plot_trajectory(ncol_legend = 1)
 
 ggsave(
-  filename = here("output", "figures", "fig_psy_tx_cbt_ct_trends.png"),
+  filename = here("output", "figures", "cod_devel", "psych_tx", "fig_psy_tx_cbt_ct_trends.png"),
   fig_psy_tx_cbt_ct_trends,
   height = 6,
   width = 8
@@ -284,7 +284,7 @@ tab_psych_code_counts <- psych_code_counts_summary |>
 
 gtsave(
   tab_psych_code_counts,
-  here("output", "tables", "tab_psych_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "psych_tx", "tab_psych_sem_tag_usage.png")
   )
 
 tab_psych_code_counts
@@ -315,7 +315,7 @@ fig_psy_tx_psych_trends <- psych_code_usage |>
   plot_trajectory(ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_psy_tx_psych_trends.png"),
+  filename = here("output", "figures", "cod_devel", "psych_tx", "fig_psy_tx_psych_trends.png"),
   fig_psy_tx_psych_trends,
   height = 6,
   width = 8
@@ -361,7 +361,7 @@ tab_all_psy_tx <- depr_anx_psy_tx_code_counts |>
 
 gtsave(
   tab_all_psy_tx,
-  here("output", "tables", "tab_all_psy_tx_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "psych_tx", "tab_all_psy_tx_sem_tag_usage.png")
   )
 
 tab_all_psy_tx

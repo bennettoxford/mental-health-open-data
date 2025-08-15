@@ -1,7 +1,7 @@
 ---
 title: "Depression and anxiety diagnosis code usage"
 format: html
-editor: visual
+editor: source
 ---
 
 ## Load packages
@@ -172,7 +172,7 @@ fig_depr_cod_trends <- ggplot(depression_coding_trend, aes(y = usage, x = end_da
   theme_bw()
 
 ggsave(
-  filename = here("output", "figures", "fig_depr_cod_trends.png"),
+  filename = here("output", "figures", "cod_devel", "dx", "fig_depr_cod_trends.png"),
   fig_depr_cod_trends,
   height = 4,
   width = 8
@@ -216,7 +216,7 @@ fig_anx_cod_trends <- ggplot(anxiety_coding_trend, aes(y = usage, x = end_date))
   theme_bw()
 
 ggsave(
-  filename = here("output", "figures", "fig_anx_cod_trends.png"),
+  filename = here("output", "figures", "cod_devel", "dx", "fig_anx_cod_trends.png"),
   fig_anx_cod_trends,
   height = 4,
   width = 8
@@ -282,7 +282,7 @@ fig_depr_anx_cod_trends <- ggplot(
   theme(legend.position = "bottom")
 
 ggsave(
-  filename = here("output", "figures", "fig_depr_anx_cod_trends.png"),
+  filename = here("output", "figures", "cod_devel", "dx", "fig_depr_anx_cod_trends.png"),
   fig_depr_anx_cod_trends,
   height = 4.5,
   width = 8

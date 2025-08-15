@@ -168,7 +168,7 @@ fig_all_proms <- (fig_all_proms_total_usage / fig_all_proms_sem_tag) +
   plot_annotation(tag_levels = 'A')
 
 ggsave(
-  filename = here("output", "figures", "fig_all_proms_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_all_proms_trajectory.png"),
   fig_all_proms,
   height = 8,
   width = 8
@@ -205,7 +205,7 @@ tab_phq_code_counts <- phq_code_counts |>
 
 gtsave(
   tab_phq_code_counts,
-  here("output", "tables", "tab_phq_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_phq_sem_tag_usage.png")
   )
 
 tab_phq_code_counts
@@ -223,7 +223,7 @@ fig_phq_trajectory <- plot_trajectory(
   ncol_legend = 1)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_phq_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_phq_trajectory.png"),
   fig_phq_trajectory,
   height = 14,
   width = 8
@@ -267,7 +267,7 @@ tab_bai_code_counts <- bai_code_counts |>
 
 gtsave(
   tab_bai_code_counts,
-  here("output", "tables", "tab_bai_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_bai_sem_tag_usage.png")
   )
 
 tab_bai_code_counts
@@ -285,7 +285,7 @@ fig_bai_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_bai_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_bai_trajectory.png"),
   fig_bai_trajectory,
   height = 5,
   width = 8
@@ -327,7 +327,7 @@ tab_bdi_code_counts <- bdi_code_counts |>
 
 gtsave(
   tab_bdi_code_counts,
-  here("output", "tables", "tab_bdi_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_bdi_sem_tag_usage.png")
   )
 
 tab_bdi_code_counts
@@ -345,7 +345,7 @@ fig_bdi_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_bdi_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_bdi_trajectory.png"),
   fig_bdi_trajectory,
   height = 7,
   width = 8
@@ -389,7 +389,7 @@ tab_gad_code_counts <- gad_code_counts |>
 
 gtsave(
   tab_gad_code_counts,
-  here("output", "tables", "tab_gad_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_gad_sem_tag_usage.png")
   )
 
 tab_gad_code_counts
@@ -407,7 +407,7 @@ fig_gad_trajectory <- plot_trajectory(
   ncol_legend = 1)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_gad_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_gad_trajectory.png"),
   fig_gad_trajectory,
   height = 14,
   width = 8
@@ -449,7 +449,7 @@ tab_whooley_code_counts <- whooley_summary |>
 
 gtsave(
   tab_whooley_code_counts,
-  here("output", "tables", "tab_whooley_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_whooley_sem_tag_usage.png")
   )
 
 tab_whooley_code_counts
@@ -467,7 +467,7 @@ fig_whooley_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_whooley_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_whooley_trajectory.png"),
   fig_whooley_trajectory,
   height = 7,
   width = 8
@@ -509,7 +509,7 @@ tab_mi_code_counts <- mi_summary |>
 
 gtsave(
   tab_mi_code_counts,
-  here("output", "tables", "tab_mi_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_mi_sem_tag_usage.png")
   )
 
 tab_mi_code_counts
@@ -527,7 +527,7 @@ fig_mi_trajectory <- plot_trajectory(
   ncol_legend = 1)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_mi_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_mi_trajectory.png"),
   fig_mi_trajectory,
   height = 7,
   width = 8
@@ -565,7 +565,7 @@ tab_spin_code_counts <- spin_summary |>
 
 gtsave(
   tab_spin_code_counts,
-  here("output", "tables", "tab_spin_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_spin_sem_tag_usage.png")
   )
 
 tab_spin_code_counts
@@ -583,7 +583,7 @@ fig_spin_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_spin_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_spin_trajectory.png"),
   fig_spin_trajectory,
   height = 7,
   width = 8
@@ -624,7 +624,7 @@ tab_cfq_code_counts <- cfq_summary |>
 
 gtsave(
   tab_cfq_code_counts,
-  here("output", "tables", "tab_cfq_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_cfq_sem_tag_usage.png")
   )
 
 tab_cfq_code_counts
@@ -642,7 +642,7 @@ fig_cfq_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_cfq_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_cfq_trajectory.png"),
   fig_cfq_trajectory,
   height = 5,
   width = 8
@@ -680,7 +680,7 @@ tab_ibssss_code_counts <- ibssss_summary |>
 
 gtsave(
   tab_ibssss_code_counts,
-  here("output", "tables", "tab_ibssss_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_ibssss_sem_tag_usage.png")
   )
 
 tab_ibssss_code_counts
@@ -698,7 +698,7 @@ fig_ibssss_trajectory <- plot_trajectory(
   ncol_legend = 1)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_ibssss_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_ibssss_trajectory.png"),
   fig_ibssss_trajectory,
   height = 5,
   width = 8
@@ -736,7 +736,7 @@ tab_oci_code_counts <- oci_summary |>
 
 gtsave(
   tab_oci_code_counts,
-  here("output", "tables", "tab_oci_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_oci_sem_tag_usage.png")
   )
 
 tab_oci_code_counts
@@ -754,7 +754,7 @@ fig_oci_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_oci_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_oci_trajectory.png"),
   fig_oci_trajectory,
   height = 5,
   width = 8
@@ -792,7 +792,7 @@ tab_epds_code_counts <- epds_summary |>
 
 gtsave(
   tab_epds_code_counts,
-  here("output", "tables", "tab_epds_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_epds_sem_tag_usage.png")
   )
 
 tab_epds_code_counts
@@ -810,7 +810,7 @@ fig_epds_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_epds_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_epds_trajectory.png"),
   fig_epds_trajectory,
   height = 2,
   width = 8
@@ -848,7 +848,7 @@ tab_hdrs_code_counts <- hdrs_summary |>
 
 gtsave(
   tab_hdrs_code_counts,
-  here("output", "tables", "tab_hdrs_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_hdrs_sem_tag_usage.png")
   )
 
 tab_hdrs_code_counts
@@ -866,7 +866,7 @@ fig_hdrs_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_hdrs_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_hdrs_trajectory.png"),
   fig_hdrs_trajectory,
   height = 5,
   width = 8
@@ -904,7 +904,7 @@ tab_hads_code_counts <- hads_summary |>
 
 gtsave(
   tab_hads_code_counts,
-  here("output", "tables", "tab_hads_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_hads_sem_tag_usage.png")
   )
 
 tab_hads_code_counts
@@ -922,7 +922,7 @@ fig_hads_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_hads_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_hads_trajectory.png"),
   fig_hads_trajectory,
   height = 9,
   width = 8
@@ -960,7 +960,7 @@ tab_gds_code_counts <- gds_summary |>
 
 gtsave(
   tab_gds_code_counts,
-  here("output", "tables", "tab_gds_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_gds_sem_tag_usage.png")
   )
 
 tab_gds_code_counts
@@ -978,7 +978,7 @@ fig_gds_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_gds_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_gds_trajectory.png"),
   fig_gds_trajectory,
   height = 7,
   width = 8
@@ -1012,7 +1012,7 @@ tab_anx_screening_code_counts <- anx_screening_summary |>
 
 gtsave(
   tab_anx_screening_code_counts,
-  here("output", "tables", "tab_anx_screening_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_anx_screening_sem_tag_usage.png")
   )
 
 tab_anx_screening_code_counts
@@ -1020,7 +1020,7 @@ tab_anx_screening_code_counts
 
 ```{r}
 #| label: fig-anx_screening-trends
-#| fig-cap: "Yearly counts of codes with the term "Anxiety screening" of "Anxiety scale" in their description from 2011/12 to 2023/24."
+#| fig-cap: "Yearly counts of codes with the term 'Anxiety screening' of 'Anxiety scale' in their description from 2011/12 to 2023/24."
 #| fig-height: 7
 #| fig-width: 8
 #| warning: false
@@ -1030,7 +1030,7 @@ fig_anx_screening_trajectory <- plot_trajectory(
   ncol_legend = 2)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_anx_screening_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_anx_screening_trajectory.png"),
   fig_anx_screening_trajectory,
   height = 7,
   width = 8
@@ -1064,7 +1064,7 @@ tab_dep_screening_code_counts <- dep_screening_summary |>
 
 gtsave(
   tab_dep_screening_code_counts,
-  here("output", "tables", "tab_dep_screening_sem_tag_usage.png")
+  here("output", "tables", "cod_devel", "proms", "tab_dep_screening_sem_tag_usage.png")
   )
 
 tab_dep_screening_code_counts
@@ -1072,7 +1072,7 @@ tab_dep_screening_code_counts
 
 ```{r}
 #| label: fig-dep_screening-trends
-#| fig-cap: "Yearly counts of codes with the term "depression screening" of "depression scale" in their description from 2011/12 to 2023/24."
+#| fig-cap: "Yearly counts of codes with the term 'depression screening' of 'depression scale' in their description from 2011/12 to 2023/24."
 #| fig-height: 7
 #| fig-width: 8
 #| warning: false
@@ -1087,7 +1087,7 @@ fig_dep_screening_trajectory <- plot_trajectory(
   ncol_legend = 1)
 
 ggsave(
-  filename = here("output", "figures", "fig_proms_dep_screening_trajectory.png"),
+  filename = here("output", "figures", "cod_devel", "proms", "fig_proms_dep_screening_trajectory.png"),
   fig_dep_screening_trajectory,
   height = 15,
   width = 8
