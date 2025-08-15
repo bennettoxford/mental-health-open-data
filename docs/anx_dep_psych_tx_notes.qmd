@@ -1,155 +1,74 @@
 ---
-title: "Psychological therapies for Depression and Anxiety"
-format: 
-    html:
-      code-link: true
-      toc: true 
-      toc-depth: 2
-      toc-title: "Table of Contents"
+title: "Notes for psychological support and treatment for anxiety disorders and depression"
+toc: true
+toc-depth: 2
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: opencodecounts R pkg
+        href: https://bennettoxford.github.io/opencodecounts/
+      - text: SNOMED Code Usage
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
 editor: source
 ---
 
-# About this document
 
-This document compiles the list of recommended psychological therapies for Depression and Anxiety in the UK General practice. It benefits from relevant guidance from NICE for management and treatment of depression and anxiety, including:
+# About this Document
 
--   [Depression in adults: treatment and management](https://www.nice.org.uk/guidance/ng222/chapter/Recommendations)
--   [Generalised anxiety disorder and panic disorder in adults: management](https://www.nice.org.uk/guidance/cg113/chapter/Recommendations)
+This document summarises recommended psychological therapies for depression and anxiety disorders in UK general practice, drawing on NICE guidance:
 
-Further, it highlights how psychological therapies are coded in SNOMED-CT using [Opencodelist](https://www.opencodelists.org), a platform based on OpenSafely for sharing and creating codelists.
+- [Depression in adults: treatment and management](https://www.nice.org.uk/guidance/ng222/chapter/Recommendations)
+- [Generalised anxiety disorder and panic disorder in adults: management](https://www.nice.org.uk/guidance/cg113/chapter/Recommendations)
 
-## Psychological therapies for Depression
+It also outlines how these therapies are coded in SNOMED-CT, using [OpenCodelists](https://www.opencodelists.org), a platform for creating and sharing codelists.
 
-The psychological therapies below are offered uniquely or in combinations for management of depression, and sometimes with anti-depressant based on severity, needs and patient's preference
+## Psychological Therapies for Depression
 
--   **Guided self-help**: Printed or digital self-help materials on key psychological therapies including cognitive behavioural therapy
+Therapies may be offered alone or in combination, sometimes alongside antidepressants, depending on severity, needs, and patient preference:
 
--   **Cognitive Behavioural Therapy (CBT)**: Focuses on how thoughts and beliefs could be modified to reshape behaviour. CBT is offered either individually or in group depending on patient's preference
+- **Guided self-help** – Printed or digital materials, often based on cognitive behavioural therapy.
+- **Cognitive Behavioural Therapy (CBT)** – Modifies thoughts and beliefs to influence behaviour; offered individually or in groups.
+- **Behavioural Activation** – Identifies activity patterns affecting mood; develops strategies to reduce avoidance and improve mood.
+- **Group Exercise** – Physical activity with peer support.
+- **Group Mindfulness/Meditation** – Programmes such as mindfulness-based cognitive therapy to increase awareness of thoughts and feelings.
+- **Interpersonal Psychotherapy** – Addresses interpersonal factors contributing to depression.
+- **Counselling** – Supports emotional processing, coping, and problem-solving.
+- **Short-Term Psychodynamic Psychotherapy (STPP)** – Explores difficult feelings in relationships and stressful contexts.
+- **Individual Problem Solving** – Identifies problems and develops alternative solutions.
+- **Behavioural Couples Therapy** – Resolves relationship issues linked to depression.
+- **Electroconvulsive Therapy (ECT)** – Uses controlled electrical currents to trigger brief seizures.
+- **Transcranial Magnetic Stimulation (TMS)** – Uses magnetic fields to stimulate brain areas involved in mood regulation.
 
--   **Behavioural Activation**: Recommended for recognising patterns in activities that affect mood and avoidance, and developing practical plans to reduce avoidance and improve mood. It can be provided individually or in group
+## Psychological Therapies for Anxiety disorders (GAD and Panic Disorder)
 
--   **Group Exercise**: Focuses on group physical activity to benefit from peer support
+NICE recommends a stepped-care model, escalating from low- to high-intensity interventions based on severity:
 
--   **Group mindfulness and meditation**: Uses a programme such as mindfulness-based cognitive therapy. It is designed to increase awareness and recognition of thoughts and feelings
+**Low-intensity (first-line after monitoring):**
+- Individual guided self-help
+- Individual non-facilitated self-help
+- Psychoeducation
 
--   **Interpersonal psychotherapy**: Focuses on identifying how interpersonal relationships or circumstances are related to feelings of depression and modifying interpersonal responses
+**High-intensity:**
+- Cognitive Behavioural Therapy
+- Applied Relaxation – Teaches muscle relaxation techniques for anxiety-triggering situations.
 
--   **Counselling**: Helps emotional processing, identification of solutions and coping mechanisms
+## Coding of Psychological Therapies in SNOMED-CT
 
--   **Short-term psychodynamic psychotherapy (STPP)**: Useful for recognising difficult feelings in significant relationships and and stressful situations
+Preliminary review shows:
 
--   **Individual problem solving**: Targets identification of problems, generating and implementing alternative solutions
+- Search terms for therapies such as CBT, Behavioural Activation, Exercise Therapy, Interpersonal Psychotherapy, and Applied Relaxation are **not diagnosis-specific** for anxiety disorders or depression.
+- Codes are recorded across both **regime/therapy** and **procedure** categories.
+- This means therapy coding patterns should be interpreted cautiously.
 
--   **Behavioural couples therapy**: Targets solving relationship challenges contributing to depression
+## Approach to Categorising Treatment Codes
 
--   **Electroconvulsive therapy**: It involves sending small electrical current through the brain to intentionally trigger a brief seizure
+For analysing code usage, therapy-related SNOMED-CT codes will be grouped into subcategories:
 
--   **Transcranial Magnetic Therapy**: Uses magnetic field to stimulate nerve cells in the brain, especially those involved in mood regulation
-
-## Psychological therapies for Anxiety (Generalised Anxiety Disorder and Panic Disorder)
-
-A step-care model is recommended by NICE for the management of anxiety. The model recommends range of low-intensity to high-intensity psychological therapies based on severity
-
-Low-intensity therapies (first-line intervention following monitoring)
-
--   **Individual guided self-help**
-
--   **Individual non-facilitated self-help**
-
--   **Psycho-education**
-
-High-intensity therapies
-
--   **Cognitive Behavioural Therapy**
-
--   **Applied Relaxation**: Involves learning muscle relaxation techniques during anxiousness or in situations that could trigger anxiousness
-
-## Coding of psychological therapies within SNOMED-CT
-
-This section highlights preliminary insights on how the psychological therapies are coded in SNOMED-CT
-
--   Returned search terms for therapies such as CBT, Behavioural Activation, Exercise therapy, Interpersonal psychotherapy and applied relaxation are not specific to anxiety or depression. This implies that pattern of coding for psychological therapies should be interpreted cautiously
-
--   Returned search terms were across regime/therapy and procedures
-
-
-# From `docs/psy_tx_anx_dep_notes.qmd`
-
-# About this document
-
-This document compiles the list of recommended psychological therapies for Depression and Anxiety in the UK General practice. It benefits from relevant guidance from NICE for management and treatment of depression and anxiety, including:
-
--   [Depression in adults: treatment and management](https://www.nice.org.uk/guidance/ng222/chapter/Recommendations)
--   [Generalised anxiety disorder and panic disorder in adults: management](https://www.nice.org.uk/guidance/cg113/chapter/Recommendations)
-
-Further, it highlights how psychological therapies are coded in SNOMED-CT using [Opencodelist](https://www.opencodelists.org), a platform based on OpenSafely for sharing and creating codelists.
-
-## Psychological therapies for Depression
-
-The psychological therapies below are offered uniquely or in combinations for management of depression, and sometimes with anti-depressant based on severity, needs and patient's preference
-
--   **Guided self-help**: Printed or digital self-help materials on key psychological therapies including cognitive behavioural therapy
-
--   **Cognitive Behavioural Therapy (CBT)**: Focuses on how thoughts and beliefs could be modified to reshape behaviour. CBT is offered either individually or in group depending on patient's preference
-
--   **Behavioural Activation**: Recommended for recognising patterns in activities that affect mood and avoidance, and developing practical plans to reduce avoidance and improve mood. It can be provided individually or in group
-
--   **Group Exercise**: Focuses on group physical activity to benefit from peer support
-
--   **Group mindfulness and meditation**: Uses a programme such as mindfulness-based cognitive therapy. It is designed to increase awareness and recognition of thoughts and feelings
-
--   **Interpersonal psychotherapy**: Focuses on identifying how interpersonal relationships or circumstances are related to feelings of depression and modifying interpersonal responses
-
--   **Counselling**: Helps emotional processing, identification of solutions and coping mechanisms
-
--   **Short-term psychodynamic psychotherapy (STPP)**: Useful for recognising difficult feelings in significant relationships and and stressful situations
-
--   **Individual problem solving**: Targets identification of problems, generating and implementing alternative solutions
-
--   **Behavioural couples therapy**: Targets solving relationship challenges contributing to depression
-
--   **Electroconvulsive therapy**: It involves sending small electrical current through the brain to intentionally trigger a brief seizure
-
--   **Transcranial Magnetic Therapy**: Uses magnetic field to stimulate nerve cells in the brain, especially those involved in mood regulation
-
-## Psychological therapies for Anxiety (Generalised Anxiety Disorder and Panic Disorder)
-
-A step-care model is recommended by NICE for the management of anxiety. The model recommends range of low-intensity to high-intensity psychological therapies based on severity
-
-Low-intensity therapies (first-line intervention following monitoring)
-
--   **Individual guided self-help**
-
--   **Individual non-facilitated self-help**
-
--   **Psycho-education**
-
-High-intensity therapies
-
--   **Cognitive Behavioural Therapy**
-
--   **Applied Relaxation**: Involves learning muscle relaxation techniques during anxiousness or in situations that could trigger anxiousness
-
-## Coding of psychological therapies within SNOMED-CT
-
-This section highlights preliminary insights on how the psychological therapies are coded in SNOMED-CT
-
--   Returned search terms for therapies such as CBT, Behavioural Activation, Exercise therapy, Interpersonal psychotherapy and applied relaxation are not specific to anxiety or depression. This implies that pattern of coding for psychological therapies should be interpreted cautiously
-
--   Returned search terms were across regime/therapy and procedures
-Footer
-
-
-
-# Approach to categorise treatment codes
-
-## Analytical approach
-
-To analyise the code usage for psycholocal therapies, we are categorising the differnt codes into subcategories based on:
-
-- signposting/referrals
-- seen by psychologist
-- psychological therapy started/ended
-- everything else?
-- low vs high intensity
-- therapy indication (e.g., for depression, anxiety, or both)
+- Signposting/referrals
+- Seen by psychologist
+- Therapy started/ended
+- Other/unspecified
+- Low vs high intensity
+- Indication-specific (e.g., depression, anxiety disorders, or both)
