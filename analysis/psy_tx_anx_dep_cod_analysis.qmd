@@ -1,0 +1,315 @@
+---
+title: "Analysis of anxiety disorders and depression psychological therapy codes"
+toc: true
+toc-depth: 2
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: opencodecounts R pkg
+        href: https://bennettoxford.github.io/opencodecounts/
+      - text: SNOMED Code Usage
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
+editor: source
+---
+
+## Background 
+
+This document describes the coding patterns for psychological therapies for anxiety disorders and depression in English primary care EHR. The analysis utilised a codelist developed from NHS England’s annual SNOMED CT Code Usage in Primary Care datasets, covering the period from 1st August 2011 to 31st July 2024. See below relevant references:
+
+- [SNOMED Usage in Primary Care:](https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care)
+- [Codelists:](https://www.opencodelists.org/codelist/user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/415bd34a/)
+- [Opencodecounts:](https://github.com/bennettoxford/opencodecounts)
+
+Data were analysed primarily with opencodecounts and a suite of other R packages. 
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+#| include: false
+
+# Load relevant libraries
+library(opencodecounts)
+library(here)
+library(tidyverse)
+library(scales)
+library(gt)
+library(scales)
+library(stringr)
+
+source(here("lib", "fun_tables.R"))
+source(here("lib", "fun_data.R"))
+source(here("lib", "fun_figures.R"))
+
+#Set search terms 
+
+search_terms_referral_service <- list(
+    referral = c(
+    "referral",
+    "self-referral",
+    "signposting"
+  ),
+  
+  service = c(
+    "to improving access to psychological therapies",
+    "psychological talking therapy",
+    "counsel",
+    "psychoeducation",
+    "cognitive behavioural therapy",
+    "cognitive behavioral therapy",
+    "cognitive and behavioral therapy",
+    "cognitive and behavioural therapy",
+    "cognitive therapy",
+    "seen by",
+    "admission by",
+    "liaison with",
+    "therapy started",
+    "psychological therapy",
+    "electroconvulsive",
+    "discharge by",
+    "problem solving",
+    "under care",
+    "self-help",
+    "education",
+    "behavioral activation therapy",
+    "psychodynamic psychotherapy",
+    "interpersonal psychotherapy",
+    "dynamic interpersonal therapy",
+    "psychodynamic therapy",
+    "transcranial magnetic",
+    "mindfulness",
+    "psychotherapy",
+    "couple therapy",
+    "behavioural activation",
+    "applied relaxation"
+    
+  )
+)
+
+```
+
+```{r}
+#| label: load-codelists
+#| echo: false
+#| message: false
+#| warning: false
+
+# Load codelists from opencodelist
+depr_anx_psy_tx_cod <- get_codelist(
+  "user/Kunle_Oreagba/psychological-therapies-coding-for-anxiety-and-depression/6a9bc643"
+  )
+
+#Filter codes from the codelists 
+psy_tx_cod_usage = snomed_usage |> 
+  filter(snomed_code %in% depr_anx_psy_tx_cod$code)
+```
+
+## Preliminary Analysis Objectives 
+
+Preliminary objectives of the analysis include to:
+
+- Describe the total usage of anxiety disorders and psychological therapy codes over the study period (1st August 2011 to 31st July 2024)
+- Identify the most frequently used psychological therapy codes in English Primary care 
+- Examine pattern of code usage by:
+  - Referral or signposting codes vs codes indicating actual delivery of therapy
+  - High-intensity vs low-intensity psychological therapy codes
+  - Therapy indication, including specific codes for anxiety disorders, depression and cross-cutting codes
+
+
+## Results 
+### Total code usage for anxiety disorders and depression psychological therapies
+
+```{r}
+#| label: fig-total-trends
+#| echo: false
+#| fig-cap: "Yearly counts of psychological therapy codes' from 2011/12 to 2023/24."
+#| fig-height: 4
+#| fig-width: 8
+#| warning: false
+
+#Obtain total code usage
+psy_tx_total_cod_usage = psy_tx_cod_usage |>
+group_by(end_date) |> 
+    summarise(usage = sum(usage), .groups = "drop") |>
+    mutate(ratio_usage = usage / sum(usage)) |>
+    arrange(-usage)
+
+
+#Plot usage trend over time 
+fig_psy_tx_total_usage_trend = psy_tx_total_cod_usage |>
+  ggplot(
+      aes(
+        y = usage,
+        x = end_date,
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point() +
+    labs(
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      caption = "Data from NHS England SNOMED Code Usage in Primary Care.",
+      title = "Yearly counts of psychological therapy codes used in primary care"
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+  scale_color_viridis_d()
+fig_psy_tx_total_usage_trend
+
+ggsave(
+  filename = here("output", "figures", "fig_psy_tx_dep_anx_total_trends.png"),
+  fig_psy_tx_total_usage_trend,
+  height = 4,
+  width = 8
+)
+
+```
+
+
+
+### Top 15 most frequently used codes
+```{r}
+#| label: tab-most-used-codes
+#| echo: false
+#| message: false
+#| warning: false
+
+
+top = 15
+psy_tx_top_codes = psy_tx_cod_usage |>
+group_by(snomed_code, description) |> 
+    summarise(usage = sum(usage), .groups = "drop") |>
+    mutate(ratio_usage = usage / sum(usage)) |>
+    arrange(-usage) |>
+  slice_head(n = top)
+
+
+tab_psy_tx_top_codes = psy_tx_top_codes |>
+  gt() |>
+    fmt_percent(
+      columns = c(ratio_usage),
+      decimals = 1
+    ) |>
+    tab_style(
+      style = list(
+        cell_text(font = "Courier New")
+      ),
+      locations = cells_body(columns = snomed_code)
+    ) |>
+    cols_label(
+      snomed_code = "SNOMED code",
+      description = "Description",
+      usage = "Usage",
+      ratio_usage = "%"
+    ) |>
+    tab_style(
+      style = cell_text(weight = "bold"),
+      locations = cells_column_labels(columns = everything())
+    ) |>
+    cols_align(
+      align = "left",
+      columns = snomed_code
+    ) |>
+    tab_options(table.width = "100%") |>
+    tab_source_note(
+      source_note = md(
+        "Data scource: NHS England SNOMED Usage in Primary Care."
+      )
+    )
+
+gtsave(
+  tab_psy_tx_top_codes,
+  here("output", "tables", "tab_psy_tx_top_codes.png")
+  )
+
+tab_psy_tx_top_codes
+
+```
+
+
+### Usage trend by referral/signposting vs actual service offering
+
+```{r}
+#| label: fig-trends_referral_service
+#| echo: false
+#| fig-cap: "Comparison of yealy counts of psychological therapy codes for referrals and actual service ' from 2011/12 to 2023/24."
+#| fig-height: 4
+#| fig-width: 8
+#| warning: false
+
+search_patterns_referrals <- map(search_terms_referral_service, ~ str_c(.x, collapse = "|"))
+
+psy_tx_cat_referral_service = psy_tx_cod_usage |>
+  filter_terms(unlist(search_terms_referral_service))|>
+  add_proms_match(search_patterns_referrals)|>
+  
+#Some description that contains word referral and actual service are concatenated e.g. referral;service
+  
+#Addressing this by replacing referral;service with referral
+  
+  mutate(proms = str_replace(proms, "referral;service", "referral"))|>
+  group_by(end_date, proms) |> 
+  summarise(usage = sum(usage), .groups = "drop") |>
+  mutate(ratio_usage = usage / sum(usage)) |>
+  arrange(end_date)
+
+fig_psy_tx_service_referral_trends = psy_tx_cat_referral_service |>
+  ggplot(
+      aes(
+        y = usage,
+        x = end_date,
+        colour = proms
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point() +
+    labs(
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      caption = "Data from NHS England SNOMED Code Usage in Primary Care.",
+      title = "Yearly counts of codes for psychological therapy referral or signposting and indication of \nservice"
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom") 
+fig_psy_tx_service_referral_trends
+
+ggsave(
+  filename = here("output", "figures", "fig_psy_tx_service_referral_trends.png"),
+  fig_psy_tx_service_referral_trends,
+  height = 4,
+  width = 8
+)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
