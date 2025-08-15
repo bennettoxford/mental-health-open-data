@@ -1,6 +1,16 @@
 ---
-title: "Depression and anxiety diagnosis code usage"
-format: html
+title: "Codelist development for and anxiety disorders and depression diagnoses"
+toc: true
+toc-depth: 2
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: opencodecounts R pkg
+        href: https://bennettoxford.github.io/opencodecounts/
+      - text: SNOMED Code Usage
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
 editor: source
 ---
 

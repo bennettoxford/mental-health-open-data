@@ -1,5 +1,5 @@
 ---
-title: "Analysis of anxiety disorders and depression psychological therapy codes"
+title: "Codelist analysis for psychological support and treatment for anxiety disorders and depression"
 toc: true
 toc-depth: 2
 format:
@@ -168,7 +168,7 @@ fig_psy_tx_total_usage_trend = psy_tx_total_cod_usage |>
 fig_psy_tx_total_usage_trend
 
 ggsave(
-  filename = here("output", "figures", "fig_psy_tx_dep_anx_total_trends.png"),
+  filename = here("output", "figures", "cod_analysis", "psych_tx", "fig_psych_tx_dep_anx_total_trends.png"),
   fig_psy_tx_total_usage_trend,
   height = 4,
   width = 8
@@ -230,7 +230,7 @@ tab_psy_tx_top_codes = psy_tx_top_codes |>
 
 gtsave(
   tab_psy_tx_top_codes,
-  here("output", "tables", "tab_psy_tx_top_codes.png")
+  here("output", "tables", "cod_analysis", "psych_tx", "tab_psych_tx_top_codes.png")
   )
 
 tab_psy_tx_top_codes
@@ -294,7 +294,7 @@ fig_psy_tx_service_referral_trends = psy_tx_cat_referral_service |>
 fig_psy_tx_service_referral_trends
 
 ggsave(
-  filename = here("output", "figures", "fig_psy_tx_service_referral_trends.png"),
+  filename = here("output", "figures", "cod_analysis", "psych_tx", "fig_psych_tx_service_referral_trends.png"),
   fig_psy_tx_service_referral_trends,
   height = 4,
   width = 8
