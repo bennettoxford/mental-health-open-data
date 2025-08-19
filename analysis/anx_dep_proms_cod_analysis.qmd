@@ -39,7 +39,7 @@ proms_anx_cod <- get_codelist(
 )
 
 proms_dep_cod <- get_codelist(
-  "user/Lola_O/patient-reported-outcome-measures-for-depression/1f6d6ca4/"
+  "user/Lola_O/patient-reported-outcome-measures-for-depression/2ceb2c72/"
 )
 
 # Get data for both codelists and extract semantic tag
@@ -50,13 +50,26 @@ proms_anx_dep_usage <- snomed_usage |>
     description_short = strip_semantic_tag(description),
     proms_anx_cod = snomed_code %in% proms_anx_cod$code,
     proms_dep_cod = snomed_code %in% proms_dep_cod$code
-  ) |> 
+  ) |>
   select(
-    start_date, end_date,
-    snomed_code, description, usage,
-    description_short, semantic_tag,
-    proms_anx_cod, proms_dep_cod
+    start_date,
+    end_date,
+    snomed_code,
+    description,
+    usage,
+    description_short,
+    semantic_tag,
+    proms_anx_cod,
+    proms_dep_cod
   )
+
+# Use the most recent description for all codes
+proms_anx_dep_usage <- proms_anx_dep_usage |>
+  group_by(snomed_code) %>%
+  arrange(desc(end_date), .by_group = TRUE) %>%
+  mutate(description_short = first(description_short)) %>%
+  ungroup() |> 
+  arrange(desc(end_date), snomed_code)
 ```
 
 # Overview
@@ -71,8 +84,13 @@ proms_anx_dep_usage <- snomed_usage |>
 
 - TODO: Add short description of analysis
 
+## Table
 
 ```{r}
+#| label: tab-top5-proms-anx-dep
+#| echo: false
+#| message: false
+#| warning: false
 
 top5_proms_anx_dep_usage <- proms_anx_dep_usage |> 
   group_by(snomed_code) |> 
@@ -101,7 +119,8 @@ description_dict <- c(
   "Patient Health Questionnaire Nine Item score" = "PHQ-9 score",
   "Edinburgh postnatal depression scale score" = "EPDS score",
   "Assessment using Whooley depression screen" = "Whooley depression screening",
-  "Edinburgh postnatal depression scale" = "EPDS assessment"
+  "Edinburgh postnatal depression scale" = "EPDS assessment",
+  "Depression screening using questions" = "Depression screening"
 )
 
 tab_top5_proms_anx_dep_usage <- top5_proms_anx_dep_usage |> 
@@ -146,7 +165,7 @@ tab_top5_proms_anx_dep_usage <- top5_proms_anx_dep_usage |>
     locations = cells_column_labels(columns = description_short)
   ) |>
   tab_footnote(
-    footnote = "Percentage usage for anxiety disorders and depression separately.",
+    footnote = "Percentage usage of PROMs anxiety disorders and depression separately.",
     locations = cells_column_labels(columns = ratio_usage)
   )
 
