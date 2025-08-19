@@ -22,8 +22,8 @@ editor: source
 #| echo: true
 #| cache: true
 
-library(opencodecounts)
 library(tidyverse)
+library(opencodecounts)
 library(gt)
 library(scales)
 library(here)
@@ -119,8 +119,7 @@ description_dict <- c(
   "Patient Health Questionnaire Nine Item score" = "PHQ-9 score",
   "Edinburgh postnatal depression scale score" = "EPDS score",
   "Assessment using Whooley depression screen" = "Whooley depression screening",
-  "Edinburgh postnatal depression scale" = "EPDS assessment",
-  "Depression screening using questions" = "Depression screening"
+  "Edinburgh postnatal depression scale" = "EPDS assessment"
 )
 
 tab_top5_proms_anx_dep_usage <- top5_proms_anx_dep_usage |> 
@@ -183,7 +182,7 @@ tab_top5_proms_anx_dep_usage
 #| label: fig-total-trends
 #| echo: false
 #| fig-cap: "Yearly counts of PROMs for anxiety disorders and depression from 2011/12 to 2023/24."
-#| fig-height: 2
+#| fig-height: 6
 #| fig-width: 8
 #| warning: false
 
@@ -217,8 +216,7 @@ df_fig_proms_anx_dep_usage <- proms_anx_dep_usage |>
       levels = c("proms_anx_cod", "proms_dep_cod"),
       labels = c("Anxiety disorders", "Depression")
     )
-  ) |> 
-    ungroup
+  )
 
 fig_proms_anx_dep <- df_fig_proms_anx_dep_usage |> 
     ggplot(
