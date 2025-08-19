@@ -14,18 +14,13 @@ format:
 editor: source
 ---
 
-# Overview
-
-# Methods
-
-# Analysis
-
 ```{r}
 #| label: setup
 #| message: false
 #| results: 'hide'
 #| warning: false
 #| echo: true
+#| cache: true
 
 library(opencodecounts)
 library(tidyverse)
@@ -38,302 +33,93 @@ source(here("lib", "fun_tables.R"))
 source(here("lib", "fun_data.R"))
 source(here("lib", "fun_figures.R"))
 
-search_terms <- list(
-  phq = c("Patient Health Questionnaire"),
-  bai = c("Beck Anxiety"),
-  bdi = c("Beck Depression"),
-  gad = c("Generalized Anxiety Disorder", "Generalised anxiety disorder"),
-  whooley = c("Whooley"),
-  mi = c("Mobility Inventory"),
-  spin = c("Social Phobia Inventory"),
-  cfq = c("Chalder Fatigue"),
-  oci = c("Obsessive Compulsive Inventory"),
-  ibssss = c("Irritable Bowel Syndrome - Symptom Severity Scale"),
-  epds = c("Postpartum Depression Screening", "Edinburgh postnatal depression scale"),
-  hdrs = c("Hamilton rating scale"),
-  hads = c("Hospital Anxiety and Depression Scale"),
-  gds = c("Geriatric depression"),
-  anx_screening = c("anxiety screening"),
-  dep_screening = c("depression screening", "Depression follow-up"),
-  dep_cards = c("Depression Cards"),
-  dep_rating = c("Brief depression rating scale"),
-  leeds = c("leeds scales"),
-  mam = c("marks and mathews"),
-  wakefield = c("wakefield"),
-  zung = c("zung"),
-  who_dep = c("World Health Organization depression scale"),
-  montgomery = c("Montgomery"),
-  euroqol = c("euroqol"),
-  hai = c("health anxiety inventory"),
-  pdss = c("panic disorder severity scale"),
-  dep_self = c("depression self rating scale"),
-  ptsd = c("Post-traumatic stress disorder checklist"),
-  cvppd9 = c("Current View Provisional Problem Description item 9 score"),
-  dass = c("Depression anxiety stress scales"),
-  dapo = c("Depression, Anxiety and Positive Outlook Scale"),
-  biq = c("Body Image Questionnaire"),
-  dep_anx = c("Depression anxiety scale"),
-  dep_intensity = c("Depression intensity scale circles score")
-  
+# Load codelists
+proms_anx_cod <- get_codelist(
+  "user/Lola_O/patient-reported-outcome-measures-for-anxiety-disorders/387cdfd9/"
 )
 
-#general/generic proms
-general_proms <- c("anxiety screening","depression screening")
+proms_dep_cod <- get_codelist(
+  "user/Lola_O/patient-reported-outcome-measures-for-depression/1f6d6ca4/"
+)
 
-proms_gen <- snomed_usage |>
-  filter_terms(general_proms) |>
-  filter(!grepl("Patient Health Questionnaire|Postpartum", description, ignore.case = TRUE))
-
-
-#retrieve proms codelist for anxiety and depression
-proms_cod <- get_codelist("user/Lola_O/patient-reported-outcome-measures-anxiety-and-depression/615e2d89/")
-
-#filter snomed usage by codelist
-proms_usage <- snomed_usage |>
-  filter(snomed_code %in% proms_cod$code)
-
-
-```
-
-## Categorisation of PROMs codelist
-```{r}
-#| label: tab-proms-ob-en
-#| message: false
-#| warning: false
-#Observable entities for specific PROMs
-
-#only codes with observable entity tags
-proms_ob_en <- proms_usage |>
-  get_semantic_tag() |>                                  # Extract semantic tag and add new variable
-  filter_terms("observable entity") |>                   # filter only observable entities
-  filter(!snomed_code %in% proms_gen$snomed_code)        # filter out generic proms
-  
-# Calculate total code usage for entire period
-proms_ob_en_count<- proms_ob_en |>     
-  summarise_code_counts()                                
-
-# Create table grouped by semantic_tag - 38 PROMs with observable entities
-tab_proms_ob_en_count <- proms_ob_en_count |>
-  create_table_sem_tag(
-    title = "Summary of All PROMs observable entity SNOMED codes usage",
-    subtitle = "Timeframe: August 2011 to July 2024"
+# Get data for both codelists and extract semantic tag
+proms_anx_dep_usage <- snomed_usage |>
+  filter(snomed_code %in% c(proms_anx_cod$code, proms_dep_cod$code)) |>
+  mutate(
+    semantic_tag = extract_semantic_tag(description),
+    description_short = strip_semantic_tag(description),
+    proms_anx_cod = snomed_code %in% proms_anx_cod$code,
+    proms_dep_cod = snomed_code %in% proms_dep_cod$code
+  ) |> 
+  select(
+    start_date, end_date,
+    snomed_code, description, usage,
+    description_short, semantic_tag,
+    proms_anx_cod, proms_dep_cod
   )
-
-tab_proms_ob_en_count
-
 ```
 
-```{r}
-#| label: tab-proms-declined
-#| message: false
-#| warning: false
+# Overview
 
-#only declined codes
-proms_declined <- proms_usage |>
-  get_semantic_tag() |>
-  filter_terms("declined") 
+- TODO: Add short overivew
 
-tab_proms_declined <- proms_declined |>
-  summarise_code_counts() |>
-  create_table_sem_tag(
-    title = "Summary of All PROMs declined related SNOMED codes usage",
-    subtitle = "Timeframe: August 2011 to July 2024"
-  )
+# Methods
 
+- TODO: Add short methods
 
-tab_proms_declined
+# Analysis
 
-
-
-```
+- TODO: Add short description of analysis
 
 
 ```{r}
-#| label: tab-proms-procedures
-#| message: false
-#| warning: false
 
-
-#only procedure codes for specific 
-proms_procedure <- proms_usage |>
-  get_semantic_tag() |>
-  filter_terms(c("procedure", "assessment scale")) |>
-  filter(!snomed_code %in% proms_gen$snomed_code)
-
-tab_proms_procedure <- proms_procedure |>
-  summarise_code_counts() |>
-  create_table_sem_tag(
-    title = "Summary of All PROMs procedure SNOMED codes usage",
-    subtitle = "Timeframe: August 2011 to July 2024"
-  )
-
-tab_proms_procedure
-
-```
-
-```{r}
-#| label: tab-proms-gen
-#| message: false
-#| warning: false
-
-proms_gen_table <- proms_usage |>
-  filter(snomed_code %in% proms_gen$snomed_code) |>
-  get_semantic_tag() |>
-  summarise_code_counts() |>
-  create_table_sem_tag(
-    title = "Summary of Generic PROMs SNOMED code usage",
-    subtitle = "Timeframe: August 2011 to July 2024"
-  )
-  
-proms_gen_table
-
-```
-
-#Visualisations
-
-#Figure 1. Yearly trends in total code usage for all PROMs related to anxiety disorders and depression in adults from 2011/12 to 2023/24
-```{r}
-#| label: fig-all-proms
-#| fig-cap: "Figure 1. Yearly trends in total code usage for all PROMs related to anxiety disorders and depression in adults from 2011/12 to 2023/24."
-#| fig-height: 8
-#| fig-width: 8
-#| warning: false
-
-search_patterns <- map(search_terms, ~ str_c(.x, collapse = "|"))
-
-all_proms <- proms_usage |>
-  get_semantic_tag() |>
-  add_proms_match(search_patterns) |>
-  mutate(proms = str_replace(proms, "epds;dep_screening", "epds")) |>
-  mutate(proms = str_replace(proms, "phq;dep_screening", "phq"))
-
-df_all_proms_total_usage <- all_proms |> 
-  group_by(proms, end_date) |> 
+top5_proms_anx_dep_usage <- proms_anx_dep_usage |> 
+  group_by(snomed_code) |> 
   mutate(total_usage = sum(usage)) |> 
-  select(end_date, total_usage, proms) |> 
+  select(
+    snomed_code, description_short, semantic_tag, proms_anx_cod, proms_dep_cod,
+    total_usage
+    ) |> 
+  distinct(snomed_code, .keep_all = TRUE) |> 
   ungroup() |> 
-  distinct()
+  pivot_longer(
+    cols = c("proms_anx_cod", "proms_dep_cod"),
+    names_to = "codelist") |>
+  filter(value == TRUE) |> 
+  group_by(codelist) |> 
+  mutate(ratio_usage = total_usage / sum(total_usage)) |> 
+  slice_max(order_by = total_usage, n = 5)
 
-fig_all_proms_total_usage <- df_all_proms_total_usage |> 
-  ggplot(
-      aes(
-        y = total_usage,
-        x = end_date,
-        colour = proms,
-      )
-    ) +
-    geom_line(alpha = 0.2) +
-    geom_point() +
-    labs(
-      x = NULL,
-      y = NULL,
-      colour = NULL,
-      caption = NULL,
-      title = "Count of code usage by PROMs"
-    ) +
-    scale_x_date(
-      date_breaks = "1 year",
-      labels = label_date_short()
-    ) +
-    scale_y_continuous(
-      labels = label_number(accuracy = 1),
-      limits = c(0, NA)
-    ) +
-    theme_bw() +
-    theme(legend.position = "bottom")
+description_dict <- c(
+  "Generalized Anxiety Disorder 7 item score" = "GAD-7 score",
+  "Generalized anxiety disorder 7 item score" = "GAD-7 score", 
+  "Generalised anxiety disorder 2 scale score" = "GAD-2 score",
+  "Generalised anxiety disorder 2 scale" = "GAD-2 assessment",
+  "Hospital Anxiety and Depression scale: anxiety score" = "HADS anxiety score ",
+  "Hospital Anxiety and Depression scale: depression score" = "HADS depression score",
+  "Patient Health Questionnaire Nine Item score" = "PHQ-9 score",
+  "Edinburgh postnatal depression scale score" = "EPDS score",
+  "Assessment using Whooley depression screen" = "Whooley depression screening",
+  "Edinburgh postnatal depression scale" = "EPDS assessment"
+)
 
-fig_all_proms_total_usage
-
-```
-
-#Figure 2. Yearly trends in codes for PROM scores for anxiety disorders and depression in adults by questionnaire from 2011/12 to 2023/24
-
-```{r}
-#| label: fig-proms-scores
-#| fig-cap: "Figure 2. Yearly trends in codes for PROM scores for anxiety disorders and depression in adults by questionnaire from 2011/12 to 2023/24"
-#| fig-height: 8
-#| fig-width: 14
-#| warning: false
-
-proms_scores <- proms_ob_en |>
-  add_proms_match(search_patterns) |>
-  mutate(proms = str_replace(proms, "epds;dep_screening", "epds")) |>
-  mutate(proms = str_replace(proms, "phq;dep_screening", "phq"))
-
-df_proms_scores <- proms_scores |> 
-  group_by(proms, end_date) |> 
-  mutate(total_usage = sum(usage)) |> 
-  select(end_date, total_usage, proms) |> 
-  ungroup() |> 
-  distinct()
-  
-fig_proms_scores_trends <- df_proms_scores |>
-  ggplot(
-      aes(
-        y = total_usage,
-        x = end_date,
-        colour = proms,
-      )
-    ) +
-    geom_line(alpha = 0.2) +
-    geom_point() +
-    labs(
-      x = NULL,
-      y = NULL,
-      colour = NULL,
-      caption = NULL,
-      title = NULL
-    ) +
-    scale_x_date(
-      date_breaks = "1 year",
-      labels = label_date_short()
-    ) +
-    scale_y_continuous(
-      labels = label_number(accuracy = 1),
-      limits = c(0, NA)
-    ) +
-    theme_bw() +
-    theme(legend.position = "bottom")
-  
-  
-fig_proms_scores_trends
-
-
-```
-
-#Table 1. Top 10 codes of PROMs for anxiety disorders and depression in adults from 2011/12 to 2023/24
-```{r}
-#| label: tab-top-10-code
-#| message: false
-#| warning: false
- 
-top_10_proms_codes <- proms_usage |>
-  group_by(snomed_code, description) |>
-  summarise(usage = sum(usage), .groups = "drop") |>
-  mutate(ratio_usage = usage / sum(usage)) |>
-  arrange(-usage) |>
-  slice_head(n = 10)
-
-tab_top_10_proms_codes <- top_10_proms_codes |>
-    gt() |>
-  tab_header(
-    title = "Top 10 codes of PROMs for anxiety disorders and depression in adults",
-      subtitle = "from 2011/12 to 2023/24"
-  ) |>
-  fmt_percent(
-      columns = c(ratio_usage),
-      decimals = 1
-    ) |>
-    tab_style(
-      style = list(
-        cell_text(font = "Courier New")
-      ),
-      locations = cells_body(columns = snomed_code)
-    ) |>
+tab_top5_proms_anx_dep_usage <- top5_proms_anx_dep_usage |> 
+  select(-value) |> 
+  mutate(
+    semantic_tag = str_to_sentence(semantic_tag),
+    description_short = recode(description_short, !!!description_dict),
+    codelist = factor(
+      codelist,
+      levels = c("proms_anx_cod", "proms_dep_cod"),
+      labels = c("Anxiety disorders", "Depression"))
+    ) |> 
+  gt() |>
     cols_label(
       snomed_code = "SNOMED code",
-      description = "Description",
-      usage = "Total Usage",
+      description_short = "Description",
+      semantic_tag = "Semantic tag",
+      total_usage = "Usage",
       ratio_usage = "%"
     ) |>
     tab_style(
@@ -344,13 +130,30 @@ tab_top_10_proms_codes <- top_10_proms_codes |>
       align = "left",
       columns = snomed_code
     ) |>
-    tab_options(table.width = "100%") |>
-    tab_source_note(
-      source_note = md(
-        "Data source: NHS England SNOMED Usage in Primary Care."
-      )
-    )
+    tab_style(
+      style = list(
+        cell_text(font = "Courier New")
+      ),
+      locations = cells_body(columns = snomed_code)
+    ) |>
+    fmt_number(total_usage, decimals = 0) |> 
+    fmt_percent(
+      columns = c(ratio_usage),
+      decimals = 1
+    ) |>
+  tab_footnote(
+    footnote = "GAD = Generalized Anxiety Disorder; HADS = Hospital Anxiety and Depression scale; PHQ = Patient Health Questionnaire; EPDS = Edinburgh postnatal depression scale.",
+    locations = cells_column_labels(columns = description_short)
+  ) |>
+  tab_footnote(
+    footnote = "Percentage usage for anxiety disorders and depression separately.",
+    locations = cells_column_labels(columns = ratio_usage)
+  )
 
-tab_top_10_proms_codes
+gtsave(
+  tab_top5_proms_anx_dep_usage,
+  here("output", "tables", "cod_analysis", "proms", "tab_top5_proms_usage.png")
+  )
 
+tab_top5_proms_anx_dep_usage
 ```
