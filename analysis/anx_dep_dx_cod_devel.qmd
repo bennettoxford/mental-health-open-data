@@ -210,3 +210,179 @@ ggsave(
 
 fig_depr_anx_cod_trends
 ```
+
+# Survey
+
+| Condition | Diagnostic status | Classification system | Assessment tool | Survey phase | Reference period |
+|-----------|-------------------|----------------------|----------------|--------------|------------------|
+| Generalised anxiety disorder (GAD) | Present to diagnostic criteria | International Statistical Classification of Diseases and Related Health Problems 10th Revision (ICD-10) (World Health Organization 1993) | Clinical Interview Schedule – Revised (CIS-R) (Lewis et al. 1992) | 1 | Past week |
+| Common mental health condition (CMHC) not otherwise specified (NOS) | Present to diagnostic | ICD-10 | CIS-R | 1 | Past week |
+| Obsessive and compulsive disorder (OCD) | Present to diagnostic criteria | ICD-10 | CIS-R | 1 | Past week |
+| Depressive episode | Present to diagnostic criteria | ICD-10 | CIS-R | 1 | Past week |
+| Panic disorder | Present to diagnostic criteria | ICD-10 | CIS-R | 1 | Past week |
+| Phobia | Present to diagnostic criteria | ICD-10 | CIS-R | 1 | Past week |
+| Posttraumatic stress disorder (PTSD) | Screen positive | Diagnostic and Statistical Manual of Mental Disorders-IV (DSM-IV, American Psychiatric Association 1994) | PTSD Check List (Blanchard et al 1996) | 1 | Past week |
+
+
+```{r}
+
+search_terms <- list(
+  gad = c(
+    "generalised anxiety",
+    "generalized anxiety",
+    "GAD",
+    "anxiety disorder",
+    "persistent anxiety",
+    "excessive worry",
+    "chronic anxiety"
+  ),
+  cmhc_nos = c(
+    "mental disorder",
+    "psychiatric disorder",
+    "mental health condition",
+    "psychological disorder",
+    "behavioural disorder",
+    "emotional disorder",
+    "unspecified mental"
+  ),
+  ocd = c(
+    "obsessive compulsive",
+    "OCD",
+    "obsession",
+    "compulsion",
+    "repetitive behaviour",
+    "intrusive thought",
+    "ritualistic behaviour"
+  ),
+  dep = c(
+    "depression",
+    "depressive episode",
+    "major depression",
+    "unipolar depression",
+    "mood disorder",
+    "depressive disorder",
+    "melancholia",
+    "dysthymia"
+  ),
+  panic = c(
+    "panic disorder",
+    "panic attack",
+    "agoraphobia",
+    "acute anxiety",
+    "episodic anxiety"
+  ),
+  phobia = c(
+    "phobia",
+    "phobic disorder",
+    "specific phobia",
+    "social phobia",
+    "agoraphobia",
+    "fear disorder",
+    "anxiety phobia"
+  ),
+  ptsd = c(
+    "posttraumatic stress",
+    "post-traumatic stress",
+    "PTSD",
+    "trauma disorder",
+    "stress reaction",
+    "acute stress",
+    "combat stress"
+  )
+)
+
+# Create smaller dataframe with unique SNOMED CT code/description mapping
+snomed_code_desc <- snomed_usage |> 
+  select(end_date, snomed_code, description) |> 
+  group_by(snomed_code) |> 
+  arrange(desc(end_date), .by_group = TRUE) |> 
+  mutate(description = first(description)) |> 
+  ungroup() |> 
+  arrange(desc(end_date), snomed_code) |> 
+  select(-end_date) |> 
+  distinct()
+
+# Write function to find matching codes for multiple search terms
+# THIS ONLY GETS THE CODES
+find_matching_codes <- function(description_data, search_terms) {
+ 
+ create_search_pattern <- function(terms) {
+   paste0("\\b(", paste(terms, collapse = "|"), ")\\b")
+ }
+ 
+ find_matching_rows <- function(data, pattern) {
+   grepl(pattern, data$description, ignore.case = TRUE)
+ }
+ 
+ extract_codes <- function(data, matches) {
+   data$snomed_code[matches]
+ }
+ 
+ find_codes_for_terms <- function(description_data, terms) {
+   pattern <- create_search_pattern(terms)
+   matches <- find_matching_rows(description_data, pattern)
+   extract_codes(description_data, matches)
+ }
+ 
+ map(search_terms, ~find_codes_for_terms(description_data, .x))
+}
+
+matching_codes <- find_matching_snomed_codes(snomed_code_desc, search_terms)
+matching_codes
+
+# THIS GETS THE CODES AND DESCRIPTIONS
+find_matching_codes <- function(snomed_usage, search_terms) {
+ 
+ create_search_pattern <- function(terms) {
+   paste0("\\b(", paste(terms, collapse = "|"), ")\\b")
+ }
+ 
+ find_matching_rows <- function(data, pattern) {
+   grepl(pattern, data$description, ignore.case = TRUE)
+ }
+ 
+ extract_codes_and_descriptions <- function(data, matches) {
+   matched_data <- data[matches, ]
+   setNames(matched_data$snomed_code, matched_data$description)
+ }
+ 
+ find_codes_for_terms <- function(snomed_data, terms) {
+   pattern <- create_search_pattern(terms)
+   matches <- find_matching_rows(snomed_data, pattern)
+   extract_codes_and_descriptions(snomed_data, matches)
+ }
+ 
+ map(search_terms, ~find_codes_for_terms(snomed_usage, .x))
+}
+
+matching_codes_desc <- find_matching_snomed_codes(snomed_usage, search_terms)
+matching_codes_desc
+
+convert_to_tibble <- function(matching_codes) {
+ map2_dfr(matching_codes, names(matching_codes), function(codes, category) {
+   tibble(
+     search_category = category,
+     snomed_code = codes,
+     description = names(codes)
+   )
+ })
+}
+
+matching_codes_tibble <- convert_to_tibble(matching_codes_desc)
+
+df_psych_dx_terms <- matching_codes_tibble |> 
+  mutate(
+    semantic_tag = extract_semantic_tag(description),
+    description = strip_semantic_tag(description)
+  )
+
+# NO IDEA WHY I NEED DIStiNCt HErE? 
+# why are there multiple identical rows?
+# This gets the df down from 1,699 to 242
+df_psych_dx_terms <- df_psych_dx_terms |> 
+  filter(semantic_tag == "disorder") |> 
+  distinct()
+
+df_psych_dx_terms |> 
+  filter(search_category == "gad")
+```
