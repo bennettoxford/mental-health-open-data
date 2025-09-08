@@ -213,16 +213,95 @@ fig_depr_anx_cod_trends
 
 # Survey
 
-| Condition | Diagnostic status | Classification system | Assessment tool | Survey phase | Reference period |
-|-----------|-------------------|----------------------|----------------|--------------|------------------|
-| Generalised anxiety disorder (GAD) | Present to diagnostic criteria | International Statistical Classification of Diseases and Related Health Problems 10th Revision (ICD-10) (World Health Organization 1993) | Clinical Interview Schedule – Revised (CIS-R) (Lewis et al. 1992) | 1 | Past week |
-| Common mental health condition (CMHC) not otherwise specified (NOS) | Present to diagnostic | ICD-10 | CIS-R | 1 | Past week |
-| Obsessive and compulsive disorder (OCD) | Present to diagnostic criteria | ICD-10 | CIS-R | 1 | Past week |
-| Depressive episode | Present to diagnostic criteria | ICD-10 | CIS-R | 1 | Past week |
-| Panic disorder | Present to diagnostic criteria | ICD-10 | CIS-R | 1 | Past week |
-| Phobia | Present to diagnostic criteria | ICD-10 | CIS-R | 1 | Past week |
-| Posttraumatic stress disorder (PTSD) | Screen positive | Diagnostic and Statistical Manual of Mental Disorders-IV (DSM-IV, American Psychiatric Association 1994) | PTSD Check List (Blanchard et al 1996) | 1 | Past week |
+[Methods - Adult Psychiatric Morbidity Survey: Survey of Mental Health and Wellbeing, England, 2023/4](https://digital.nhs.uk/data-and-information/publications/statistical/adult-psychiatric-morbidity-survey/survey-of-mental-health-and-wellbeing-england-2023-24/method)
 
+```{r}
+
+condition_names <- list(
+  gad = "Generalised anxiety disorder (GAD)",
+  cmhc_nos = "Common mental health condition (CMHC) not otherwise specified (NOS)",
+  ocd = "Obsessive and compulsive disorder (OCD)",
+  dep = "Depressive episode",
+  pd = "Panic disorder",
+  phobia = "Phobia",
+  ptsd = "Posttraumatic stress disorder (PTSD)"
+)
+
+measures_mental_health_conditions <- list(
+  gad = list(
+    condition = "Generalised anxiety disorder (GAD)",
+    diagnostic_status = "Present to diagnostic criteria",
+    classification_system = "ICD-10",
+    assessment_tool = "CIS-R",
+    survey_phase = "1",
+    reference_period = "Past week"
+  ),
+  cmhc_nos = list(
+    condition = "Common mental health condition (CMHC) not otherwise specified (NOS)",
+    diagnostic_status = "Present to diagnostic criteria",
+    classification_system = "ICD-10",
+    assessment_tool = "CIS-R",
+    survey_phase = "1",
+    reference_period = "Past week"
+  ),
+  ocd = list(
+    condition = "Obsessive and compulsive disorder (OCD)",
+    diagnostic_status = "Present to diagnostic criteria",
+    classification_system = "ICD-10",
+    assessment_tool = "CIS-R",
+    survey_phase = "1",
+    reference_period = "Past week"
+  ),
+  dep = list(
+    condition = "Depressive episode",
+    diagnostic_status = "Present to diagnostic criteria",
+    classification_system = "ICD-10",
+    assessment_tool = "CIS-R",
+    survey_phase = "1",
+    reference_period = "Past week"
+  ),
+  pd = list(
+    condition = "Panic disorder",
+    diagnostic_status = "Present to diagnostic criteria",
+    classification_system = "ICD-10",
+    assessment_tool = "CIS-R",
+    survey_phase = "1",
+    reference_period = "Past week"
+  ),
+  phobia = list(
+    condition = "Phobia",
+    diagnostic_status = "Present to diagnostic criteria",
+    classification_system = "ICD-10",
+    assessment_tool = "CIS-R",
+    survey_phase = "1",
+    reference_period = "Past week"
+  ),
+  ptsd = list(
+    condition = "Posttraumatic stress disorder (PTSD)",
+    diagnostic_status = "Screen positive",
+    classification_system = "DSM-IV",
+    assessment_tool = "PTSD Check List",
+    survey_phase = "1",
+    reference_period = "Past week"
+  )
+)
+
+df_measures_mental_health_conditions <- map_dfr(mental_health_conditions, ~.x, .id = "condition_tag")
+
+gt(df_measures_mental_health_conditions) |> 
+  cols_label(
+    condition = "Condition",
+    diagnostic_status = "Diagnostic status",
+    classification_system = "Classification system",
+    assessment_tool = "Assessment tool",
+    survey_phase = "Survey phase",
+    reference_period = "Reference period"
+  ) |> 
+  cols_hide(condition_tag)
+```
+
+
+## Search terms 
 
 ```{r}
 
@@ -264,7 +343,7 @@ search_terms <- list(
     "melancholia",
     "dysthymia"
   ),
-  panic = c(
+  pd = c(
     "panic disorder",
     "panic attack",
     "agoraphobia",
@@ -291,6 +370,18 @@ search_terms <- list(
   )
 )
 
+
+search_terms <- list(
+  gad = c(
+    "generalised anxiety",
+    "chronic anxiety"
+  ),
+  ptsd = c(
+    "posttraumatic stress",
+    "combat stress"
+  )
+)
+
 # Create smaller dataframe with unique SNOMED CT code/description mapping
 snomed_code_desc <- snomed_usage |> 
   select(end_date, snomed_code, description) |> 
@@ -302,87 +393,80 @@ snomed_code_desc <- snomed_usage |>
   select(-end_date) |> 
   distinct()
 
-# Write function to find matching codes for multiple search terms
-# THIS ONLY GETS THE CODES
-find_matching_codes <- function(description_data, search_terms) {
- 
- create_search_pattern <- function(terms) {
-   paste0("\\b(", paste(terms, collapse = "|"), ")\\b")
- }
- 
- find_matching_rows <- function(data, pattern) {
-   grepl(pattern, data$description, ignore.case = TRUE)
- }
- 
- extract_codes <- function(data, matches) {
-   data$snomed_code[matches]
- }
- 
- find_codes_for_terms <- function(description_data, terms) {
-   pattern <- create_search_pattern(terms)
-   matches <- find_matching_rows(description_data, pattern)
-   extract_codes(description_data, matches)
- }
- 
- map(search_terms, ~find_codes_for_terms(description_data, .x))
+
+
+create_category_regex_pattern <- function(category_terms) {
+  str_c("(?i)", str_c(category_terms, collapse = "|"))
 }
 
-matching_codes <- find_matching_snomed_codes(snomed_code_desc, search_terms)
-matching_codes
-
-# THIS GETS THE CODES AND DESCRIPTIONS
-find_matching_codes <- function(snomed_usage, search_terms) {
- 
- create_search_pattern <- function(terms) {
-   paste0("\\b(", paste(terms, collapse = "|"), ")\\b")
- }
- 
- find_matching_rows <- function(data, pattern) {
-   grepl(pattern, data$description, ignore.case = TRUE)
- }
- 
- extract_codes_and_descriptions <- function(data, matches) {
-   matched_data <- data[matches, ]
-   setNames(matched_data$snomed_code, matched_data$description)
- }
- 
- find_codes_for_terms <- function(snomed_data, terms) {
-   pattern <- create_search_pattern(terms)
-   matches <- find_matching_rows(snomed_data, pattern)
-   extract_codes_and_descriptions(snomed_data, matches)
- }
- 
- map(search_terms, ~find_codes_for_terms(snomed_usage, .x))
+identify_matching_terms <- function(text, category_terms) {
+  matches_term <- function(term) {
+    str_detect(text, regex(term, ignore_case = TRUE))
+  }
+  
+  category_terms[map_lgl(category_terms, matches_term)]
 }
 
-matching_codes_desc <- find_matching_snomed_codes(snomed_usage, search_terms)
-matching_codes_desc
-
-convert_to_tibble <- function(matching_codes) {
- map2_dfr(matching_codes, names(matching_codes), function(codes, category) {
-   tibble(
-     search_category = category,
-     snomed_code = codes,
-     description = names(codes)
-   )
- })
+format_matching_terms <- function(text, category_terms) {
+  matching_terms <- identify_matching_terms(text, category_terms)
+  
+  if (length(matching_terms) == 0) {
+    return(NA_character_)
+  }
+  
+  str_c(matching_terms, collapse = "; ")
 }
 
-matching_codes_tibble <- convert_to_tibble(matching_codes_desc)
+add_category_columns <- function(matched_rows, category_name, category_terms) {
+  matched_rows |>
+    mutate(
+      search_category = category_name,
+      matching_term = map_chr(description, ~format_matching_terms(.x, category_terms)),
+      .before = 1
+    )
+}
 
-df_psych_dx_terms <- matching_codes_tibble |> 
+search_category <- function(data, category_name, category_pattern, category_terms) {
+  matched_idx <- str_detect(data$description, category_pattern)
+  
+  if (!any(matched_idx)) {
+    return(NULL)
+  }
+  
+  data[matched_idx, ] |>
+    add_category_columns(category_name, category_terms)
+}
+
+find_matching_codes <- function(data, search_terms) {
+  patterns <- map(search_terms, create_category_regex_pattern)
+  
+  map_dfr(names(patterns), ~search_category(
+    data,
+    category_name = .x,
+    category_pattern = patterns[[.x]],
+    category_terms = search_terms[[.x]]
+  ))
+}
+
+
+matching_codes_tibble <- find_matching_codes(snomed_code_desc, search_terms)
+
+matching_codes_tibble |> 
   mutate(
     semantic_tag = extract_semantic_tag(description),
     description = strip_semantic_tag(description)
   )
 
-# NO IDEA WHY I NEED DIStiNCt HErE? 
-# why are there multiple identical rows?
-# This gets the df down from 1,699 to 242
-df_psych_dx_terms <- df_psych_dx_terms |> 
-  filter(semantic_tag == "disorder") |> 
-  distinct()
+matching_codes_tibble |> View()
 
-df_psych_dx_terms |> 
-  filter(search_category == "gad")
+
+extract_codes_by_category <- function(matching_codes_tibble) {
+  matching_codes_tibble |>
+    group_by(search_category) |>
+    summarise(codes = list(snomed_code)) |>
+    deframe()
+}
+
+codes_by_category <- extract_codes_by_category(matching_codes_tibble)
+codes_by_category
 ```
