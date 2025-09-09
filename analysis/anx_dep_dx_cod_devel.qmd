@@ -11,19 +11,15 @@ format:
         href: https://bennettoxford.github.io/opencodecounts/
       - text: SNOMED Code Usage
         href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
-execute:
-  cache: true
 editor: source
 ---
-
-# Load packages
 
 ```{r}
 #| label: setup
 #| message: false
 #| results: 'hide'
 #| warning: false
-#| echo: true
+#| echo: false
 
 library(opencodecounts) 
 library(tidyverse)
@@ -31,6 +27,7 @@ library(scales)
 library(gt)
 library(here)
 
+source(here("lib", "fun_search_terms.R"))
 source(here("lib", "fun_tables.R"))
 source(here("lib", "fun_data.R"))
 source(here("lib", "fun_figures.R"))
@@ -46,11 +43,11 @@ We search all SNOMED CT descriptions for terms that we want to review for possib
 #| label: load-codelists
 
 depr_cod <- get_codelist(
-  "nhsd-primary-care-domain-refsets/depr_cod/20241205"
+  "https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depr_cod/20241205"
 )
 
 anx_cod <- get_codelist(
-  "nhsd-primary-care-domain-refsets/anxiety-diagnostic-codes/20241205"
+  "https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxiety-diagnostic-codes/20241205"
 )
 
 # Remove all codes that are in our codelist
@@ -79,8 +76,7 @@ snomed_usage_without_anx_cod_review <- snomed_usage_without_anx_cod |>
 The below table summarises the frequency of each code from 2011/12 to 2023/24 included in the depression codelist.
 There were *n* = `r nrow(snomed_usage_without_depr_cod_review)` codes with the term `"depression"` in their description that are not in our codelist.
 These codes could be reviewed by a clinical expert to determine if they should be included here.
-For now, we will assume that they are not relevant as they have not been included in the NHSD refset.
-
+For now, we will assume that they are not relevant as they have not been included in the NHS refset.
 
 ```{r}
 #| label: tab-depr-cod-counts
@@ -111,8 +107,7 @@ tab_depr_cod_counts
 ### Anxiety disorders
 
 The below table summarises the frequency of each code from 2011/12 to 2023/24 included in the anxiety codelist.
-There were *n* = `r nrow(snomed_usage_without_anx_cod_review)` codes with the term `"anxiety"` in their description that are not in our codelist. These codes could be reviewed by a clinical expert to determine if they should be included here. For now, we will assume that they are not relevant as they have not been included in the NHSD refset.
-
+There were *n* = `r nrow(snomed_usage_without_anx_cod_review)` codes with the term `"anxiety"` in their description that are not in our codelist. These codes could be reviewed by a clinical expert to determine if they should be included here. For now, we will assume that they are not relevant as they have not been included in the NHS refset.
 
 ```{r}
 #| label: tab-anx-cod-counts
@@ -211,15 +206,15 @@ ggsave(
 fig_depr_anx_cod_trends
 ```
 
-# Survey
+# APM Survey 
 
-[Methods - Adult Psychiatric Morbidity Survey: Survey of Mental Health and Wellbeing, England, 2023/4](https://digital.nhs.uk/data-and-information/publications/statistical/adult-psychiatric-morbidity-survey/survey-of-mental-health-and-wellbeing-england-2023-24/method)
+In the [Adult Psychiatric Morbidity Survey: Survey of Mental Health and Wellbeing, England, 2023/4](https://digital.nhs.uk/data-and-information/publications/statistical/adult-psychiatric-morbidity-survey/survey-of-mental-health-and-wellbeing-england-2023-24/methods) the following mental health conditions are assessed in [Chapter 1: Common mental health conditions](https://digital.nhs.uk/data-and-information/publications/statistical/adult-psychiatric-morbidity-survey/survey-of-mental-health-and-wellbeing-england-2023-24/common-mental-health-conditions) and [Chapter 3: Posttraumatic stress disorder](https://digital.nhs.uk/data-and-information/publications/statistical/adult-psychiatric-morbidity-survey/survey-of-mental-health-and-wellbeing-england-2023-24/posttraumatic-stress-disorder) of the survey.
 
 ```{r}
 
 condition_names <- list(
   gad = "Generalised anxiety disorder (GAD)",
-  cmhc_nos = "Common mental health condition (CMHC) not otherwise specified (NOS)",
+  cmhc_nos = "Common mental health condition (NOS)",
   ocd = "Obsessive and compulsive disorder (OCD)",
   dep = "Depressive episode",
   pd = "Panic disorder",
@@ -286,7 +281,7 @@ measures_mental_health_conditions <- list(
   )
 )
 
-df_measures_mental_health_conditions <- map_dfr(mental_health_conditions, ~.x, .id = "condition_tag")
+df_measures_mental_health_conditions <- map_dfr(measures_mental_health_conditions, ~.x, .id = "condition_tag")
 
 gt(df_measures_mental_health_conditions) |> 
   cols_label(
@@ -300,10 +295,14 @@ gt(df_measures_mental_health_conditions) |>
   cols_hide(condition_tag)
 ```
 
-
 ## Search terms 
 
 ```{r}
+#| label: define-search-terms
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| echo: false
 
 search_terms <- list(
   gad = c(
@@ -366,19 +365,8 @@ search_terms <- list(
     "trauma disorder",
     "stress reaction",
     "acute stress",
-    "combat stress"
-  )
-)
-
-
-search_terms <- list(
-  gad = c(
-    "generalised anxiety",
-    "chronic anxiety"
-  ),
-  ptsd = c(
-    "posttraumatic stress",
-    "combat stress"
+    "combat stress",
+    "post-trauma"
   )
 )
 
@@ -393,72 +381,13 @@ snomed_code_desc <- snomed_usage |>
   select(-end_date) |> 
   distinct()
 
-
-
-create_category_regex_pattern <- function(category_terms) {
-  str_c("(?i)", str_c(category_terms, collapse = "|"))
-}
-
-identify_matching_terms <- function(text, category_terms) {
-  matches_term <- function(term) {
-    str_detect(text, regex(term, ignore_case = TRUE))
-  }
-  
-  category_terms[map_lgl(category_terms, matches_term)]
-}
-
-format_matching_terms <- function(text, category_terms) {
-  matching_terms <- identify_matching_terms(text, category_terms)
-  
-  if (length(matching_terms) == 0) {
-    return(NA_character_)
-  }
-  
-  str_c(matching_terms, collapse = "; ")
-}
-
-add_category_columns <- function(matched_rows, category_name, category_terms) {
-  matched_rows |>
-    mutate(
-      search_category = category_name,
-      matching_term = map_chr(description, ~format_matching_terms(.x, category_terms)),
-      .before = 1
-    )
-}
-
-search_category <- function(data, category_name, category_pattern, category_terms) {
-  matched_idx <- str_detect(data$description, category_pattern)
-  
-  if (!any(matched_idx)) {
-    return(NULL)
-  }
-  
-  data[matched_idx, ] |>
-    add_category_columns(category_name, category_terms)
-}
-
-find_matching_codes <- function(data, search_terms) {
-  patterns <- map(search_terms, create_category_regex_pattern)
-  
-  map_dfr(names(patterns), ~search_category(
-    data,
-    category_name = .x,
-    category_pattern = patterns[[.x]],
-    category_terms = search_terms[[.x]]
-  ))
-}
-
-
 matching_codes_tibble <- find_matching_codes(snomed_code_desc, search_terms)
 
-matching_codes_tibble |> 
-  mutate(
-    semantic_tag = extract_semantic_tag(description),
-    description = strip_semantic_tag(description)
-  )
-
-matching_codes_tibble |> View()
-
+# matching_codes_tibble |> 
+#   mutate(
+#     semantic_tag = extract_semantic_tag(description),
+#     description = strip_semantic_tag(description)
+#   )
 
 extract_codes_by_category <- function(matching_codes_tibble) {
   matching_codes_tibble |>
@@ -468,5 +397,335 @@ extract_codes_by_category <- function(matching_codes_tibble) {
 }
 
 codes_by_category <- extract_codes_by_category(matching_codes_tibble)
-codes_by_category
+# codes_by_category
+
+
+add_category_flags <- function(data, codes_by_category) {
+  existing_cols <- colnames(data)
+  new_cols <- names(codes_by_category)
+  conflicts <- intersect(existing_cols, new_cols)
+  
+  if (length(conflicts) > 0) {
+    stop("Column names already exist in data: ", 
+         str_c(conflicts, collapse = ", "))
+  }
+
+  df_with_category_flags <- data |>
+    bind_cols(
+      map_dfc(codes_by_category, ~data$snomed_code %in% .x) |>
+        set_names(names(codes_by_category))
+    )
+  
+  df_with_category_flags |>
+    filter(if_any(all_of(new_cols))) |> 
+    arrange(across(all_of(new_cols), desc), snomed_code, desc(start_date))
+}
+
+# snomed_usage |> 
+#   add_category_flags(codes_by_category)
+  
+
+# search_summary_df <- create_search_summary_df(matching_codes_tibble, snomed_usage)
+# search_summary_df <- search_summary_df |> 
+#   mutate(search_category = recode(search_category, !!!condition_names))
+
+# search_summary_table <- create_gt_table(search_summary_df)
+# search_summary_table
+```
+
+
+```{r}
+#| column: page
+#| out-width: "100%"
+#| warning: false
+
+processed_matching_codes <- process_matching_codes(
+  matching_codes_tibble,
+  snomed_usage,
+  condition_names,
+  exclude_semantic_tags = c(
+    "observable entity",
+    "assessment scale",
+    "regime/therapy",
+    "procedure",
+    "qualifier value",
+    "physical object"
+  )
+)
+
+interactive_table <- create_interactive_table_with_export(
+  processed_matching_codes
+)
+
+interactive_table
+```
+
+## Total code usage
+
+::: {.panel-tabset}
+
+### GAD
+
+Codelist draft:
+
+```{r}
+#| label: tab-gad-cod-counts
+#| message: false
+#| warning: false
+
+"https://www.opencodelists.org/codelist/user/milanwiedemann/gad/1b8281dc"
+
+depr_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% depr_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_depr_cod_counts <- depr_cod_counts |>
+  create_table_sem_tag(
+    title = md("Top 15 depression diagnosis codes (`depr_cod`)"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_depr_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_depr_gad_usage.png")
+  )
+
+tab_depr_cod_counts
+```
+
+### CMHC NOS
+
+Codelist draft:
+
+```{r}
+#| label: tab-cmhc-nos-cod-counts
+#| message: false
+#| warning: false
+
+"https://www.opencodelists.org/codelist/user/milanwiedemann/cmhc-nos/02730ea7/"
+
+depr_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% depr_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_depr_cod_counts <- depr_cod_counts |>
+  create_table_sem_tag(
+    title = md("Top 15 depression diagnosis codes (`depr_cod`)"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_depr_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_cmhc_nos_cod_usage.png")
+  )
+
+tab_depr_cod_counts
+```
+
+### Depressive episode
+
+Codelist draft:
+
+```{r}
+#| label: tab-dep-e-cod-counts
+#| message: false
+#| warning: false
+
+"https://www.opencodelists.org/codelist/user/milanwiedemann/depre/5054283c/"
+
+depr_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% depr_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_depr_cod_counts <- depr_cod_counts |>
+  create_table_sem_tag(
+    title = md("Top 15 depression diagnosis codes (`depr_cod`)"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_depr_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_dep_e_cod_usage.png")
+  )
+
+tab_depr_cod_counts
+```
+
+### Panic disorder
+
+Codelist draft:
+
+```{r}
+#| label: tab-pd-cod-counts
+#| message: false
+#| warning: false
+
+"https://www.opencodelists.org/codelist/user/milanwiedemann/pd/3744b507/"
+
+depr_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% depr_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_depr_cod_counts <- depr_cod_counts |>
+  create_table_sem_tag(
+    title = md("Top 15 depression diagnosis codes (`depr_cod`)"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_depr_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_pd_cod_usage.png")
+  )
+
+tab_depr_cod_counts
+```
+
+### Phobia
+
+Codelist draft:
+
+```{r}
+#| label: tab-cmh-phobia-cod-counts
+#| message: false
+#| warning: false
+
+# In development here
+"https://www.opencodelists.org/builder/1e3541d2/"
+
+depr_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% depr_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_depr_cod_counts <- depr_cod_counts |>
+  create_table_sem_tag(
+    title = md("Top 15 depression diagnosis codes (`depr_cod`)"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_depr_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_phobia_cod_usage.png")
+  )
+
+tab_depr_cod_counts
+```
+
+### PTSD
+
+Codelist draft:
+
+```{r}
+#| label: tab-cmh-ptsd-cod-counts
+#| message: false
+#| warning: false
+
+ptsd_cod <- get_codelist(
+  "https://www.opencodelists.org/codelist/opensafely/posttraumatic-stress-disorder-ptsd/168e7933/"
+)
+
+ptsd_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% ptsd_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_ptsd_cod_counts <- ptsd_cod_counts |>
+  create_table_sem_tag(
+    title = md("Top 15 PTSD diagnosis codes"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_ptsd_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_ptsd_cod_usage.png")
+  )
+
+tab_ptsd_cod_counts
+```
+
+:::
+
+## Trends over time
+
+The below figure shows the coding of anxiety disorders and depression diagnoses, as specified in the NHS Primary Care Domain Refsets ([anx_cod](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxiety-diagnostic-codes/20241205/), [depr_cod](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depr_cod/20241205/)).
+
+
+```{r}
+#| label: all-cod-trends-
+#| fig-cap: "Yearly counts of diagnoistic codes."
+#| fig-height: 4.5
+#| fig-width: 8
+#| warning: false
+
+all_cod_usage <- snomed_usage |> 
+  mutate(
+    ptsd_cod = snomed_code %in% ptsd_cod$code,
+    anx_cod = snomed_code %in% anx_cod$code
+    ) |> 
+  pivot_longer(
+    cols = c(ptsd_cod, anx_cod),
+    names_to = "codelist") |> 
+  filter(value == TRUE) |> 
+  group_by(end_date, codelist) |> 
+  summarise(count = sum(usage, na.rm = TRUE))
+
+fig_all_cod_trends <- all_cod_usage |> 
+  mutate(codelist = factor(
+    codelist,
+    levels = c("ptsd_cod", "anx_cod"), 
+    labels = c("PTSD", "Anxiety"))) |> 
+  ggplot(
+      aes(
+        y = count,
+        x = end_date,
+        colour = codelist,
+        shape = codelist
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point() +
+    labs(
+      title = "Yearly counts of anxiety disorder and depression diagnoistic codes",
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      shape = NULL,
+      caption = "Data from NHS England SNOMED Code Usage in Primary Care."
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+    scale_colour_viridis_d(end = .8)
+
+ggsave(
+  filename = here("output", "figures", "cod_devel", "dx", "fig_depr_anx_cod_trends.png"),
+  fig_depr_anx_cod_trends,
+  height = 4,
+  width = 8
+)
+
+fig_all_cod_trends
 ```
