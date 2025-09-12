@@ -359,3 +359,152 @@ create_interactive_table_with_export <- function(processed_codes_tibble) {
     ")))
   )
 }
+
+# Code here 
+search_terms <- list(
+  gad = c(
+    "generalised anxiety",
+    "generalized anxiety",
+    "GAD",
+    "anxiety disorder",
+    "persistent anxiety",
+    "excessive worry",
+    "chronic anxiety"
+  ),
+  cmhc_nos = c(
+    "mental disorder",
+    "psychiatric disorder",
+    "mental health condition",
+    "psychological disorder",
+    "behavioural disorder",
+    "emotional disorder",
+    "unspecified mental"
+  ),
+  ocd = c(
+    "obsessive compulsive",
+    "OCD",
+    "obsession",
+    "compulsion",
+    "repetitive behaviour",
+    "intrusive thought",
+    "ritualistic behaviour"
+  ),
+  dep = c(
+    "depression",
+    "depressive episode",
+    "major depression",
+    "unipolar depression",
+    "mood disorder",
+    "depressive disorder",
+    "melancholia",
+    "dysthymia"
+  ),
+  pd = c(
+    "panic disorder",
+    "panic attack",
+    "agoraphobia",
+    "acute anxiety",
+    "episodic anxiety"
+  ),
+  phobia = c(
+    "phobia",
+    "phobic disorder",
+    "specific phobia",
+    "social phobia",
+    "agoraphobia",
+    "fear disorder",
+    "anxiety phobia"
+  ),
+  ptsd = c(
+    "posttraumatic stress",
+    "post-traumatic stress",
+    "PTSD",
+    "trauma disorder",
+    "stress reaction",
+    "acute stress",
+    "combat stress",
+    "post-trauma"
+  )
+)
+
+# Create smaller dataframe with unique SNOMED CT code/description mapping
+snomed_code_desc <- snomed_usage |> 
+  select(end_date, snomed_code, description) |> 
+  group_by(snomed_code) |> 
+  arrange(desc(end_date), .by_group = TRUE) |> 
+  mutate(description = first(description)) |> 
+  ungroup() |> 
+  arrange(desc(end_date), snomed_code) |> 
+  select(-end_date) |> 
+  distinct()
+
+matching_codes_tibble <- find_matching_codes(snomed_code_desc, search_terms)
+
+# matching_codes_tibble |> 
+#   mutate(
+#     semantic_tag = extract_semantic_tag(description),
+#     description = strip_semantic_tag(description)
+#   )
+
+extract_codes_by_category <- function(matching_codes_tibble) {
+  matching_codes_tibble |>
+    group_by(search_category) |>
+    summarise(codes = list(snomed_code)) |>
+    deframe()
+}
+
+codes_by_category <- extract_codes_by_category(matching_codes_tibble)
+# codes_by_category
+
+
+add_category_flags <- function(data, codes_by_category) {
+  existing_cols <- colnames(data)
+  new_cols <- names(codes_by_category)
+  conflicts <- intersect(existing_cols, new_cols)
+  
+  if (length(conflicts) > 0) {
+    stop("Column names already exist in data: ", 
+         str_c(conflicts, collapse = ", "))
+  }
+
+  df_with_category_flags <- data |>
+    bind_cols(
+      map_dfc(codes_by_category, ~data$snomed_code %in% .x) |>
+        set_names(names(codes_by_category))
+    )
+  
+  df_with_category_flags |>
+    filter(if_any(all_of(new_cols))) |> 
+    arrange(across(all_of(new_cols), desc), snomed_code, desc(start_date))
+}
+
+# snomed_usage |> 
+#   add_category_flags(codes_by_category)
+  
+
+# search_summary_df <- create_search_summary_df(matching_codes_tibble, snomed_usage)
+# search_summary_df <- search_summary_df |> 
+#   mutate(search_category = recode(search_category, !!!condition_names))
+
+# search_summary_table <- create_gt_table(search_summary_df)
+# search_summary_table
+
+processed_matching_codes <- process_matching_codes(
+  matching_codes_tibble,
+  snomed_usage,
+  condition_names,
+  exclude_semantic_tags = c(
+    "observable entity",
+    "assessment scale",
+    "regime/therapy",
+    "procedure",
+    "qualifier value",
+    "physical object"
+  )
+)
+
+interactive_table <- create_interactive_table_with_export(
+  processed_matching_codes
+)
+
+interactive_table
