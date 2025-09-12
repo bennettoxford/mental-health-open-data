@@ -28,6 +28,10 @@ create_table_sem_tag <- function(data, title = NULL, subtitle = NULL) {
     mutate(semantic_tag = str_to_sentence(semantic_tag)) |>
     group_by(semantic_tag) |>
     gt() |>
+    fmt_number(
+      columns = c(usage),
+      decimals = 0
+    ) |> 
     fmt_percent(
       columns = c(ratio_usage),
       decimals = 3

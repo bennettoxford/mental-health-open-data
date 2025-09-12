@@ -11,6 +11,8 @@ format:
         href: https://bennettoxford.github.io/opencodecounts/
       - text: SNOMED Code Usage
         href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
+      - text: AMPS 2023/4
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/adult-psychiatric-morbidity-survey/survey-of-mental-health-and-wellbeing-england-2023-24
 editor: source
 ---
 
@@ -78,6 +80,12 @@ ptsd_cod <- get_codelist(
   "https://www.opencodelists.org/codelist/opensafely/posttraumatic-stress-disorder-ptsd/168e7933/"
 )
 ```
+
+# Overview
+
+This report assesses the suitability of NHS England Primary Care Domain Reference Sets for identifying diagnoses of common mental health conditions, specifically anxiety diagnoses and depression, and compares them with codelists constructed to match the definitions used in the [Adult Psychiatric Morbidity Survey: Survey of Mental Health and Wellbeing, England, 2023/4](https://digital.nhs.uk/data-and-information/publications/statistical/adult-psychiatric-morbidity-survey/survey-of-mental-health-and-wellbeing-england-2023-24).
+
+The analysis proceeds in two stages. First, the coverage and usage of the NHS Refsets are assessed using data from the NHS England SNOMED Code Usage in Primary Care dataset. Second, condition-specific codelists are constructed to mirror APMS diagnostic definitions, and usage patterns of these lists are evaluated over time.
 
 # NHS Primary Care Refsets
 
@@ -153,6 +161,24 @@ fig_depr_anx_cod_trends
 ```
 
 ## Analysis of individual codes
+
+```{r}
+#| label: overlap-refset-counts
+#| message: false
+#| warning: false
+
+overlap <- intersect(depr_cod$code, anx_cod$code)
+
+snomed_usage |> 
+  filter(snomed_code %in% overlap) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  create_table_sem_tag(
+    title = md("Codes appearing in both the NHS Refsets for depression and anxiety diagnoses"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+  ) |> 
+  cols_hide(ratio_usage)
+```
 
 ::: {.panel-tabset}
 
