@@ -1,0 +1,100 @@
+---
+title: "Notes for PROMs for anxiety disorders and depression"
+toc: true
+toc-depth: 2
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: opencodecounts R pkg
+        href: https://bennettoxford.github.io/opencodecounts/
+      - text: SNOMED Code Usage
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/mi-snomed-code-usage-in-primary-care
+editor: source
+---
+
+# PROMs Project Overview
+
+This document compiles relevant patient-reported outcome measures (PROMs) for depression and anxiety disorders used in NHS Talking Therapies in England.
+The main sources are Table 8 of the [NHS Talking Therapies Manual](https://www.england.nhs.uk/wp-content/uploads/2023/07/NHS-Talking-Therapies-manual-v4.pdf) and NICE guidelines, supplemented with additional PROMs identified through SNOMED codelists (e.g., BDI, BAI, HADS) to support future EHR-based research.
+
+## Aims
+
+To describe trends in coding of PROMs for mental health in English primary care, informing future EHR research and integration of NHS Talking Therapies data into the OpenSAFELY platform.
+
+- Explore coding patterns for PROMs such as PHQ-9 (depression severity), GAD-7 (anxiety), and similar tools
+- Investigate recording frequency, trends over time, and regional variation
+- Assess feasibility of using GP-coded PROMs for large-scale outcomes research
+
+## PROMs Lists
+
+### Depression PROMs
+
+- **PHQ-9** – required for assessing depression symptoms across multiple conditions, including depression, mixed anxiety and depression, chronic pain, specific phobias, agoraphobia, OCD, panic disorder, PTSD, social anxiety, body dysmorphic disorder (BDD), IBS, chronic fatigue syndrome, and MUS.
+- **PHQ-15** – optional alternative for MUS
+- **Additional PROMs from depression screening codelists**:
+    - Beck Depression Inventory (BDI)
+    - Hospital Anxiety and Depression Scale – Depression subscale (HADS-D)
+    - Montgomery-Asberg Depression Rating Scale (MADRS)
+    - Hamilton Rating Scale for Depression (HRSD)
+    - Edinburgh Postnatal Depression Scale
+    - Geriatric Depression Scale
+
+### Anxiety disorders PROMs
+
+- **GAD-7** – required for generalised anxiety disorder, mixed anxiety and depression, chronic pain (with anxiety), and recommended when no other anxiety-specific PROM is suitable
+- **Other diagnosis-specific PROMs**:
+    - Mobility Inventory (MI) – Agoraphobia
+    - Health Anxiety Inventory (HAI) – Health anxiety
+    - Obsessive-Compulsive Inventory (OCI) – OCD
+    - Panic Disorder Severity Scale (PDSS) – Panic disorder
+    - PTSD Checklist for DSM-5 (PCL-5) – PTSD
+    - Social Phobia Inventory (SPIN) – Social anxiety
+    - Body Image Questionnaire (BIQ Weekly) – BDD
+    - Chalder Fatigue Questionnaire (CFQ) – Chronic fatigue syndrome
+    - Francis IBS Scale – IBS
+- **Additional PROMs from anxiety screening codelists**:
+    - Beck Anxiety Inventory (BAI)
+    - Hospital Anxiety and Depression Scale – Anxiety subscale (HADS-A)
+
+## Summary of NICE Guidelines – Depression & GAD
+
+### Generalised Anxiety Disorder (GAD)
+- Structured assessment and diagnosis pathway
+- Two core screening questions followed by GAD-7 if positive
+- Validated PROMs recommended early in care
+- Standardisation reduces variation
+
+### Depression
+- Uses Whooley screening questions, but guidance is more implicit
+- PHQ-9 applied after clinical recognition, not for case-finding
+- Less structured than GAD pathway, with more reliance on clinician judgement
+- Focus on treatment rather than assessment tools
+
+### Observations & Implications
+- Less standardisation in depression assessment may delay or miss diagnoses, especially in underserved groups
+- PROMs more embedded in GAD guidance than in depression
+- Both guidelines mention CBT, IPT, behavioural activation, self-help, and stepped care
+
+## Notes for Codelist Building
+- GAD-related PROMs (e.g. GAD-7) have clearer entry points in clinical pathways
+- Depression PROMs (e.g. PHQ-9) often recorded post-diagnosis
+- PROMs may appear as observable entities or procedures in SNOMED-CT
+- Include psychological therapy and referral codes as procedures
+
+## Summary of OpenCodelists Search
+
+### Search terms with limited results
+- PHQ-9
+- GAD-7  
+
+These did not return structured codelists; PROMs may be embedded in other lists or uncategorised.
+
+### Search terms with good results
+- depression screening
+- anxiety screening
+- depression
+- anxiety  
+
+These retrieved screening codes, score records, and referral codes from NHS Digital domain refsets, ONS mental health phenotypes, and OpenSAFELY projects.
