@@ -44,6 +44,8 @@ source(here("lib", "fun_figures.R"))
 #| warning: false
 #| echo: false
 
+# Diagnosis codes
+
 depr_cod <- get_codelist(
   "https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depr_cod/20241205"
 )
@@ -79,6 +81,28 @@ phobia_cod <- get_codelist(
 ptsd_cod <- get_codelist(
   "https://www.opencodelists.org/codelist/opensafely/posttraumatic-stress-disorder-ptsd/168e7933/"
 )
+
+# Resolved codes
+dep_res_cod <- get_codelist(
+  "https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depres_cod/20250627/"
+)
+
+anx_res_cod <- get_codelist(
+  "https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxres_cod/20250627/"
+)
+
+depression_resolved_cod <- get_codelist(
+  "https://www.opencodelists.org/codelist/user/milanwiedemann/depression_resolved/1d6e8e43/"
+)
+
+pd_resolved_cod <- get_codelist(
+  "https://www.opencodelists.org/codelist/user/milanwiedemann/pd_resolved/6b4fa7d8/"
+)
+
+anxiety_resolved_cod <- get_codelist(
+  "https://www.opencodelists.org/codelist/user/milanwiedemann/anxiety_resolved/045f1b0e/"
+)
+
 ```
 
 # Overview
@@ -89,9 +113,11 @@ The analysis proceeds in two stages. First, the coverage and usage of the NHS Re
 
 # NHS Primary Care Refsets
 
-The [Primary Care Domain Refset](https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-collections/quality-and-outcomes-framework-qof/quality-and-outcome-framework-qof-business-rules/primary-care-domain-reference-set-portal) contain one codelist for for *anxiety* diagnostic codes ([`anx_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxiety-diagnostic-codes/20241205/)) and one for *depression* diagnostic codes ([`depr_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depr_cod/20241205/)). 
+The [Primary Care Domain Refset](https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-collections/quality-and-outcomes-framework-qof/quality-and-outcome-framework-qof-business-rules/primary-care-domain-reference-set-portal) contain codelist for *anxiety* and *depression* diagnostic ([`anx_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxiety-diagnostic-codes/20241205/),[`depr_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depr_cod/20241205/)) and resolved ([`anx_res_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxres_cod/20250627/),[`dep_res_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depres_cod/20250627/)) codes. 
 
-## Analysis of codelists
+## Diagnosis
+
+### Analysis of codelists
 
 The below figure shows the coding of anxiety disorders and depression diagnoses, as specified in the NHS Primary Care Domain Refsets ([`anx_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxiety-diagnostic-codes/20241205/), [`depr_cod`](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depr_cod/20241205/)).
 
@@ -160,7 +186,7 @@ ggsave(
 fig_depr_anx_cod_trends
 ```
 
-## Analysis of individual codes
+### Analysis of individual codes
 
 ```{r}
 #| label: overlap-refset-counts
@@ -182,7 +208,7 @@ snomed_usage |>
 
 ::: {.panel-tabset}
 
-### Depression
+#### Depression
 
 ```{r}
 #| label: calc-depr-cod-counts
@@ -222,7 +248,7 @@ gtsave(
 tab_depr_cod_counts
 ```
 
-### Anxiety disorders
+#### Anxiety disorders
 
 ```{r}
 #| label: calc-anx-cod-counts
@@ -260,6 +286,149 @@ gtsave(
   )
 
 tab_anx_cod_counts
+```
+
+:::
+
+## Resolved
+
+### Analysis of codelists
+
+```{r}
+#| label: fig-nhsrefset-res-cod-trends
+#| fig-cap: "Yearly counts of resolved codes as specified by NHS Refsets."
+#| fig-height: 4.5
+#| fig-width: 8
+#| warning: false
+
+nhsrefset_res_cod_usage <- snomed_usage |> 
+  mutate(
+    anx_res = snomed_code %in% anx_res_cod$code,
+    dep_res = snomed_code %in% dep_res_cod$code
+    ) |> 
+  pivot_longer(
+    cols = c(
+      anx_res,
+      dep_res
+    ),
+    names_to = "codelist") |> 
+  filter(value == TRUE) |> 
+  group_by(end_date, codelist) |> 
+  summarise(count = sum(usage, na.rm = TRUE))
+
+fig_nhsrefset_res_cod_trends <- nhsrefset_res_cod_usage |> 
+  mutate(codelist = factor(
+    codelist,
+    levels = c(
+      "anx_res",
+      "dep_res"
+    ),
+    labels = c(
+      "Anxiety disorder resolved",
+      "Depression resolved"
+    ))) |> 
+  ggplot(
+      aes(
+        y = count,
+        x = end_date,
+        colour = codelist,
+        shape = codelist
+      )
+    ) +
+    geom_line(alpha = 0.4) +
+    geom_point(size = 2) +
+    labs(
+      title = "Yearly counts of resolved codes as specified by NHS Refsets",
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      shape = NULL,
+      caption = "Data from NHS England SNOMED Code Usage in Primary Care."
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+    scale_color_okabe_ito()
+
+ggsave(
+  filename = here("output", "figures", "cod_devel", "dx", "fig_nhsrefset_res_cod_trends.png"),
+  fig_nhsrefset_res_cod_trends,
+  height = 4,
+  width = 8
+)
+
+fig_nhsrefset_res_cod_trends
+```
+
+### Analysis of individual codes
+
+::: {.panel-tabset}
+
+#### Anxiety
+
+- **OpenCodelists**: [Anxiety disorder resolved codes (`anx_res_cod`)](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/anxres_cod/20250627/)
+
+```{r}
+#| label: tab-anx-res-cod-counts
+#| message: false
+#| warning: false
+
+anx_res_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% anx_res_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_anx_res_cod_counts <- anx_res_cod_counts |>
+  create_table_sem_tag(
+    title = md("*Anxiety* disorder resolved codes (`anx_res_cod`)"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_anx_res_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_anx_res_nhsrefset_cod_usage.png")
+  )
+
+tab_anx_res_cod_counts
+```
+
+#### Depression
+
+- **OpenCodelists**: [Depression dignosis resolved codes (`depres_cod`)](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/depres_cod/20250627/)
+
+```{r}
+#| label: tab-dep-res-cod-counts
+#| message: false
+#| warning: false
+
+dep_res_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% dep_res_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_dep_res_cod_counts <- dep_res_cod_counts |>
+  create_table_sem_tag(
+    title = md("*Depression* dignosis resolved (`dep_res_cod`)"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_dep_res_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_dep_res_nhsrefset_cod_usage.png")
+  )
+
+tab_dep_res_cod_counts
 ```
 
 :::
@@ -360,7 +529,9 @@ gt(df_measures_mental_health_conditions) |>
     )
 ```
 
-## Analysis of codelists
+## Diagnosis
+
+### Analysis of codelists
 
 ```{r}
 #| label: fig-amps-cod-trends
@@ -455,7 +626,6 @@ ggsave(
 fig_amps_cod_trends
 ```
 
-
 ```{r}
 #| label: fig-amps-cod-trends-zoom
 #| fig-cap: "Yearly counts of diagnoistic codes following AMPS methods. The y axis of the left panel is zoomed into codelists with low counts."
@@ -485,11 +655,11 @@ ggsave(
 fig_amps_cod_trends_zoom
 ```
 
-## Analysis of infividual codes
+### Analysis of individual codes
 
 ::: {.panel-tabset}
 
-### GAD
+#### GAD
 
 - **ICD-10 codes**: `F41.1` (Generalised anxiety disorder).
 - **OpenCodelists**: [Generalised anxiety disorder diagnostic codes](https://www.opencodelists.org/codelist/user/milanwiedemann/gad/1b8281dc)
@@ -512,15 +682,15 @@ tab_gad_cod_counts <- gad_cod_counts |>
     subtitle = "Timeframe: August 2011 to July 2024"
     )
 
-# gtsave(
-#   tab_gad_cod_counts,
-#   here("output", "tables", "cod_devel", "dx", "tab_gad_usage.png")
-#   )
+gtsave(
+  tab_gad_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_gad_usage.png")
+  )
 
 tab_gad_cod_counts
 ```
 
-### CMHC-NOS
+#### CMHC-NOS
 
 - **ICD-10 codes**: `F41.2` (Mixed anxiety and depressive disorder).
 - **OpenCodelists**: [Common mental health conditions not otherwise specified](https://www.opencodelists.org/codelist/user/milanwiedemann/cmhc-nos/02730ea7/)
@@ -551,7 +721,7 @@ gtsave(
 tab_cmhcnos_cod_counts
 ```
 
-### OCD
+#### OCD
 
 - **ICD-10 codes**: `F42` (Obsessive-compulsive disorder).
 - **OpenCodelists**: [Obsessive-compulsive disorder diagnostic codes](https://www.opencodelists.org/codelist/user/milanwiedemann/ocd/633767f6/)
@@ -582,7 +752,7 @@ gtsave(
 tab_ocd_cod_counts
 ```
 
-### Depression
+#### Depression
 
 - **ICD-10 codes**: `F32.00` (Mild depressive episode without somatic symptoms) and `F32.01` (Mild depressive episode with somatic symptoms) were grouped to produce mild depressive episode (i.e. with or without somatic symptoms).
 `F32.10` (Moderate depressive episode without somatic symptoms) and `F32.11` (Moderate depressive episode with somatic symptoms) were similarly grouped to produce moderate depressive episode. 
@@ -615,7 +785,7 @@ gtsave(
 tab_depression_cod_counts
 ```
 
-### PD
+#### PD
 
 - **ICD-10 codes**: `F41.0` Panic disorder
 - **OpenCodelists**: [Panic disorder diagnostic codes](https://www.opencodelists.org/codelist/user/milanwiedemann/pd/3744b507/)
@@ -646,7 +816,7 @@ gtsave(
 tab_pd_cod_counts
 ```
 
-### Phobia
+#### Phobia
 
 - **ICD-10 codes**: `F40.00` (Agoraphobia without panic disorder), `F40.01` (Agoraphobia with panic disorder), `F40.1` (Social phobias), and `F40.2` (Specific (isolated) phobias), were combined into one category of phobia.
 - **OpenCodelists**: [Phobia diagnostic codes](https://www.opencodelists.org/codelist/user/milanwiedemann/phobia/1e3541d2/)
@@ -677,7 +847,7 @@ gtsave(
 tab_phobia_cod_counts
 ```
 
-### PTSD
+#### PTSD
 
 - **ICD-10 codes**: `F43.1` (Post-traumatic stress disorder), assessed using DSM-IV symptoms of PTSD.
 - **OpenCodelists**: [PTSD diagnostic codes](https://www.opencodelists.org/codelist/opensafely/posttraumatic-stress-disorder-ptsd/168e7933/)
@@ -706,6 +876,183 @@ gtsave(
   )
 
 tab_ptsd_cod_counts
+```
+
+:::
+
+## Resolved
+
+### Analysis of codelists
+
+```{r}
+#| label: fig-amps-res-cod-trends
+#| fig-cap: "Yearly counts of resolved codes following AMPS methods."
+#| fig-height: 4.5
+#| fig-width: 8
+#| warning: false
+
+amps_res_cod_usage <- snomed_usage |> 
+  mutate(
+    anxiety_resolved = snomed_code %in% anxiety_resolved_cod$code,
+    pd_resolved = snomed_code %in% pd_resolved_cod$code,
+    depression_resolved = snomed_code %in% depression_resolved_cod$code,
+    ) |> 
+  pivot_longer(
+    cols = c(
+      anxiety_resolved,
+      pd_resolved,
+      depression_resolved
+    ),
+    names_to = "codelist") |> 
+  filter(value == TRUE) |> 
+  group_by(end_date, codelist) |> 
+  summarise(count = sum(usage, na.rm = TRUE))
+
+fig_amps_res_cod_trends <- amps_res_cod_usage |> 
+  mutate(codelist = factor(
+    codelist,
+    levels = c(
+      "anxiety_resolved",
+      "pd_resolved",
+      "depression_resolved"
+    ),
+    labels = c(
+      "Anxiety disorder resolved",
+      "Panic disorder resolved",
+      "Depression resolved"
+    ))) |> 
+  ggplot(
+      aes(
+        y = count,
+        x = end_date,
+        colour = codelist,
+        shape = codelist
+      )
+    ) +
+    geom_line(alpha = 0.4) +
+    geom_point(size = 2) +
+    labs(
+      title = "Yearly counts of resolved codes following AMPS methods",
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      shape = NULL,
+      caption = "Data from NHS England SNOMED Code Usage in Primary Care."
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      labels = label_date_short()
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+    scale_color_okabe_ito()
+
+ggsave(
+  filename = here("output", "figures", "cod_devel", "dx", "fig_amps_res_cod_trends.png"),
+  fig_amps_res_cod_trends,
+  height = 4,
+  width = 8
+)
+
+fig_amps_res_cod_trends
+```
+
+### Analysis of individual codes
+
+::: {.panel-tabset}
+
+#### Anxiety
+
+- **OpenCodelists**: [Anxiety disorder resolved codes](https://www.opencodelists.org/codelist/user/milanwiedemann/anxiety_resolved/045f1b0e/)
+
+```{r}
+#| label: tab-anxiety-res-cod-counts
+#| message: false
+#| warning: false
+
+anxiety_res_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% anxiety_resolved_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_anxiety_res_cod_counts <- anxiety_res_cod_counts |>
+  create_table_sem_tag(
+    title = md("Anxiety disorder resolved codes"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_anxiety_res_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_anxiety_res_usage.png")
+  )
+
+tab_anxiety_res_cod_counts
+```
+
+#### Depression
+
+- **OpenCodelists**: [Depression dignosis resolved or full remission codes](https://www.opencodelists.org/codelist/user/milanwiedemann/depression_resolved/1d6e8e43/)
+
+```{r}
+#| label: tab-depression-res-cod-counts
+#| message: false
+#| warning: false
+
+depression_res_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% depression_resolved_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_depression_res_cod_counts <- depression_res_cod_counts |>
+  create_table_sem_tag(
+    title = md("Depression dignosis resolved or full remission codes"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_depression_res_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_depression_res_cod_usage.png")
+  )
+
+tab_depression_res_cod_counts
+```
+
+#### Panic disorder
+
+- **OpenCodelists**: [Panic disorder resolved or full remission codes](https://www.opencodelists.org/codelist/user/milanwiedemann/pd_resolved/6b4fa7d8/)
+
+```{r}
+#| label: tab-pd-res-ocd-counts
+#| message: false
+#| warning: false
+
+pd_res_cod_counts <- snomed_usage |> 
+  filter(snomed_code %in% pd_resolved_cod$code) |> 
+  get_semantic_tag() |> 
+  summarise_code_counts() |> 
+  slice_max(n = 20, order_by = usage)
+
+# Display formatted table
+tab_pd_res_cod_counts <- pd_res_cod_counts |>
+  create_table_sem_tag(
+    title = md("Panic disorder resolved or full remission codes"),
+    subtitle = "Timeframe: August 2011 to July 2024"
+    )
+
+gtsave(
+  tab_pd_res_cod_counts,
+  here("output", "tables", "cod_devel", "dx", "tab_pd_res_cod_usage.png")
+  )
+
+tab_pd_res_cod_counts
 ```
 
 :::
