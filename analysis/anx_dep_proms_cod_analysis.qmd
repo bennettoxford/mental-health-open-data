@@ -20,7 +20,6 @@ editor: source
 #| results: 'hide'
 #| warning: false
 #| echo: true
-#| cache: true
 
 library(tidyverse)
 library(opencodecounts)
@@ -218,6 +217,8 @@ df_fig_proms_anx_dep_usage <- proms_anx_dep_usage |>
     )
   )
 
+scale_x_date_breaks <- unique(df_fig_proms_anx_dep_usage$end_date)
+
 fig_proms_anx_dep <- df_fig_proms_anx_dep_usage |> 
     ggplot(
       aes(
@@ -230,15 +231,15 @@ fig_proms_anx_dep <- df_fig_proms_anx_dep_usage |>
     geom_line(alpha = 0.2) +
     geom_point(size = 2) +
     labs(
-      title = "Yearly counts of PROMs for anxiety disorders and depression",
-      x = NULL,
+      title = NULL,
+      x = "End date of yearly time interval",
       y = NULL,
       colour = NULL,
       shape = NULL
       ) +
     scale_x_date(
-      date_breaks = "1 year",
-      labels = label_date_short()
+      breaks = scale_x_date_breaks,
+      labels = scales::label_date("%b\n%Y")
     ) +
     scale_y_continuous(
       labels = label_number(accuracy = 1),
@@ -257,4 +258,92 @@ ggsave(
 )
 
 fig_proms_anx_dep
+```
+
+
+```{r}
+#| label: fig-total-trends-title
+#| echo: false
+#| fig-cap: "Yearly counts of PROMs for anxiety disorders and depression from 2011/12 to 2023/24."
+#| fig-height: 6
+#| fig-width: 8
+#| warning: false
+
+df_fig_proms_anx_dep_usage <- proms_anx_dep_usage |>
+  select(
+    end_date,
+    snomed_code,
+    description_short,
+    semantic_tag,
+    usage,
+    proms_anx_cod,
+    proms_dep_cod
+  ) |>
+  mutate(
+    semantic_tag_group = case_when(
+      semantic_tag == "observable entity" ~ "observable entity",
+      TRUE ~ "other"
+    ),
+    semantic_tag_group = str_to_sentence(semantic_tag_group)
+  ) |>
+  pivot_longer(
+    cols = c("proms_anx_cod", "proms_dep_cod"),
+    names_to = "codelist"
+  ) |>
+  filter(value == TRUE) |>
+  group_by(end_date, semantic_tag_group, codelist) |>
+  summarise(usage = sum(usage)) |>
+  mutate(
+    codelist = factor(
+      codelist,
+      levels = c("proms_anx_cod", "proms_dep_cod"),
+      labels = c("Anxiety disorders", "Depression")
+    )
+  )
+
+scale_x_date_breaks <- c("2024-07-31", "2021-07-31", "2018-07-31", "2015-07-31", "2012-07-31")
+
+fig_proms_anx_dep_title <- df_fig_proms_anx_dep_usage |> 
+  filter(semantic_tag_group == "Observable entity") |> 
+    ggplot(
+      aes(
+        y = usage,
+        x = end_date,
+        colour = codelist,
+        shape = codelist
+      )
+    ) +
+    geom_line(alpha = 0.2) +
+    geom_point(size = 2) +
+    labs(
+      title = "Trends of recorded PROMs scores for depression and anxiety in English primary care",
+      x = "End date of yearly time interval",
+      y = "Recorded events",
+      colour = NULL,
+      shape = NULL
+      ) +
+    scale_x_date(
+   breaks = seq(min(df_fig_proms_anx_dep_usage$end_date, na.rm=TRUE),
+               max(df_fig_proms_anx_dep_usage$end_date, na.rm=TRUE),
+               by = "3 years"),
+  labels = scales::label_date("%b\n%Y")
+    ) +
+    scale_y_continuous(
+      labels = label_number(accuracy = 1),
+      limits = c(0, NA)
+    ) +
+    theme_bw() +
+    theme(legend.position = "bottom", text = element_text(size = 14)) +
+    scale_colour_viridis_d(end = .8) +
+    theme(text = element_text(size = 8))
+    # facet_wrap(~semantic_tag_group, ncol = 1)
+
+ggsave(
+  filename = here("output", "figures", "cod_analysis", "proms", "fig_proms_anx_dep_title.png"),
+  fig_proms_anx_dep_title,
+  height = 3.5,
+  width = 6
+)
+
+fig_proms_anx_dep_title
 ```
