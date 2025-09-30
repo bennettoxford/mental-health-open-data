@@ -198,6 +198,9 @@ tab_top3_psych_tx_sem_tag_anx_dep_usage
 #| fig-width: 8
 #| warning: false
 
+scale_x_date_breaks <- unique(psych_tx_depr_anx_usage$end_date)
+
+
 top_psych_tx_codes <- psych_tx_depr_anx_usage |>
   filter(semantic_tag == "regime/therapy") |>
   group_by(snomed_code) |>
@@ -231,14 +234,14 @@ fig_psych_tx_depr_anx_usage <- df_fig_psych_tx_depr_anx_usage |>
   geom_point(size = 2) +
   labs(
     title = NULL,
-    x = NULL,
+    x = "End date of yearly time interval",
     y = NULL,
     colour = NULL,
     shape = NULL
   ) +
   scale_x_date(
-    date_breaks = "1 year",
-    labels = label_date_short()
+    breaks = scale_x_date_breaks,
+    labels = scales::label_date("%b\n%Y")
   ) +
   scale_y_continuous(
     labels = label_number(accuracy = 1),
