@@ -28,9 +28,9 @@ library(scales)
 library(here)
 library(patchwork)
 
-source(here("lib", "fun_tables.R"))
-source(here("lib", "fun_data.R"))
-source(here("lib", "fun_figures.R"))
+source(here("lib", "functions", "fun_tables.R"))
+source(here("lib", "functions", "fun_data.R"))
+source(here("lib", "functions", "fun_figures.R"))
 
 search_terms <- list(
   phq = c("Patient Health Questionnaire"),

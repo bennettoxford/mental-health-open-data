@@ -29,9 +29,9 @@ library(gt)
 library(scales)
 library(stringr)
 
-source(here("lib", "fun_tables.R"))
-source(here("lib", "fun_data.R"))
-source(here("lib", "fun_figures.R"))
+source(here("lib", "functions", "fun_tables.R"))
+source(here("lib", "functions", "fun_data.R"))
+source(here("lib", "functions", "fun_figures.R"))
 
 # Define named list with search terms for broad categories
 search_terms <- list(

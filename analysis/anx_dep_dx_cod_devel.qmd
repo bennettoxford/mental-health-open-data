@@ -32,9 +32,9 @@ library(scales)
 library(ggforce)
 library(ggokabeito)
 
-source(here("lib", "fun_tables.R"))
-source(here("lib", "fun_data.R"))
-source(here("lib", "fun_figures.R"))
+source(here("lib", "functions", "fun_tables.R"))
+source(here("lib", "functions", "fun_data.R"))
+source(here("lib", "functions", "fun_figures.R"))
 ```
 
 ```{r}
