@@ -1,0 +1,601 @@
+nhs_fy,start_date,end_date,problem,problem_breakdown,measure,count
+fy1415,2014-04-01,2015-03-31,All,All,referrals_received,1267193
+fy1415,2014-04-01,2015-03-31,All,All,first_treatment,815665
+fy1415,2014-04-01,2015-03-31,All,All,finished_course_treatment,468881
+fy1516,2015-04-01,2016-03-31,All,All,referrals_received,1399088
+fy1516,2015-04-01,2016-03-31,All,All,first_treatment,953522
+fy1516,2015-04-01,2016-03-31,All,All,finished_course_treatment,537131
+fy1617,2016-04-01,2017-03-31,All,All,referrals_received,1385664
+fy1617,2016-04-01,2017-03-31,All,All,first_treatment,965379
+fy1617,2016-04-01,2017-03-31,All,All,finished_course_treatment,567106
+fy1718,2017-04-01,2018-03-31,All,All,referrals_received,1439957
+fy1718,2017-04-01,2018-03-31,All,All,first_treatment,1009035
+fy1718,2017-04-01,2018-03-31,All,All,finished_course_treatment,554709
+fy1819,2018-04-01,2019-03-31,All,All,referrals_received,1603643
+fy1819,2018-04-01,2019-03-31,All,All,first_treatment,1092296
+fy1819,2018-04-01,2019-03-31,All,All,finished_course_treatment,582556
+fy1920,2019-04-01,2020-03-31,All,All,referrals_received,1694790
+fy1920,2019-04-01,2020-03-31,All,All,first_treatment,1165653
+fy1920,2019-04-01,2020-03-31,All,All,finished_course_treatment,606192
+fy2021,2020-04-01,2021-03-31,All,All,referrals_received,1456446
+fy2021,2020-04-01,2021-03-31,All,All,first_treatment,1024014
+fy2021,2020-04-01,2021-03-31,All,All,finished_course_treatment,634649
+fy2122,2021-04-01,2022-03-31,All,All,referrals_received,1812596
+fy2122,2021-04-01,2022-03-31,All,All,accessing_services,1244386
+fy2122,2021-04-01,2022-03-31,All,All,finished_course_treatment,664087
+fy2223,2022-04-01,2023-03-31,All,All,referrals_received,1759581
+fy2223,2022-04-01,2023-03-31,All,All,accessing_services,1215329
+fy2223,2022-04-01,2023-03-31,All,All,finished_course_treatment,672193
+fy2324,2023-04-01,2024-03-31,All,All,referrals_received,1829202
+fy2324,2023-04-01,2024-03-31,All,All,accessing_services,1260381
+fy2324,2023-04-01,2024-03-31,All,All,finished_course_treatment,671648
+fy1415,2014-04-01,2015-03-31,Depression,All,referrals_received,187464
+fy1415,2014-04-01,2015-03-31,Depression,All,first_treatment,154627
+fy1415,2014-04-01,2015-03-31,Depression,All,finished_course_treatment,92810
+fy1516,2015-04-01,2016-03-31,Depression,All,referrals_received,224794
+fy1516,2015-04-01,2016-03-31,Depression,All,first_treatment,203013
+fy1516,2015-04-01,2016-03-31,Depression,All,finished_course_treatment,121743
+fy1617,2016-04-01,2017-03-31,Depression,All,referrals_received,299656
+fy1617,2016-04-01,2017-03-31,Depression,All,first_treatment,274938
+fy1617,2016-04-01,2017-03-31,Depression,All,finished_course_treatment,160737
+fy1718,2017-04-01,2018-03-31,Depression,All,referrals_received,375001
+fy1718,2017-04-01,2018-03-31,Depression,All,first_treatment,351787
+fy1718,2017-04-01,2018-03-31,Depression,All,finished_course_treatment,197509
+fy1819,2018-04-01,2019-03-31,Depression,All,referrals_received,431539
+fy1819,2018-04-01,2019-03-31,Depression,All,first_treatment,400977
+fy1819,2018-04-01,2019-03-31,Depression,All,finished_course_treatment,230113
+fy1920,2019-04-01,2020-03-31,Depression,All,referrals_received,458799
+fy1920,2019-04-01,2020-03-31,Depression,All,first_treatment,446413
+fy1920,2019-04-01,2020-03-31,Depression,All,finished_course_treatment,249838
+fy2021,2020-04-01,2021-03-31,Depression,All,referrals_received,260086
+fy2021,2020-04-01,2021-03-31,Depression,All,first_treatment,263602
+fy2021,2020-04-01,2021-03-31,Depression,All,finished_course_treatment,188559
+fy2122,2021-04-01,2022-03-31,Depression,All,referrals_received,443717
+fy2122,2021-04-01,2022-03-31,Depression,All,accessing_services,452701
+fy2122,2021-04-01,2022-03-31,Depression,All,finished_course_treatment,264384
+fy2223,2022-04-01,2023-03-31,Depression,All,referrals_received,448215
+fy2223,2022-04-01,2023-03-31,Depression,All,accessing_services,458686
+fy2223,2022-04-01,2023-03-31,Depression,All,finished_course_treatment,281253
+fy2324,2023-04-01,2024-03-31,Depression,All,referrals_received,464737
+fy2324,2023-04-01,2024-03-31,Depression,All,accessing_services,477495
+fy2324,2023-04-01,2024-03-31,Depression,All,finished_course_treatment,284801
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,All,referrals_received,346412
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,All,first_treatment,296665
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,All,finished_course_treatment,185833
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,All,referrals_received,429620
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,All,first_treatment,391215
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,All,finished_course_treatment,244967
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,All,referrals_received,468174
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,All,first_treatment,432480
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,All,finished_course_treatment,286038
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,All,referrals_received,467911
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,All,first_treatment,441076
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,All,finished_course_treatment,278817
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,All,referrals_received,493977
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,All,first_treatment,459945
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,All,finished_course_treatment,286994
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,All,referrals_received,511131
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,All,first_treatment,492992
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,All,finished_course_treatment,298885
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,All,referrals_received,362833
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,All,first_treatment,363638
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,All,finished_course_treatment,259688
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,All,referrals_received,515837
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,All,accessing_services,527094
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,All,finished_course_treatment,329695
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,All,referrals_received,498650
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,All,accessing_services,507710
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,All,finished_course_treatment,338098
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,All,referrals_received,505112
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,All,accessing_services,518352
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,All,finished_course_treatment,332409
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,4077
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Agoraphobia,first_treatment,3815
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,2657
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,4409
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Agoraphobia,first_treatment,4312
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,2969
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,5789
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Agoraphobia,first_treatment,5595
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,3545
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,6513
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Agoraphobia,first_treatment,6304
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,3857
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,6927
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Agoraphobia,first_treatment,6704
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,3996
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,6240
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Agoraphobia,first_treatment,6238
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,3780
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,3546
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Agoraphobia,first_treatment,3623
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,2610
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,7287
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Agoraphobia,accessing_services,7340
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,3895
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,7308
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Agoraphobia,accessing_services,7324
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,4813
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Agoraphobia,referrals_received,7198
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Agoraphobia,accessing_services,7469
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Agoraphobia,finished_course_treatment,4687
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,85105
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,first_treatment,71471
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,46006
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,105451
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,first_treatment,96282
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,60889
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,161230
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,first_treatment,148621
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,91673
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,202418
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,first_treatment,190820
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,119661
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,232763
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,first_treatment,219514
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,139429
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,259582
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,first_treatment,255585
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,159033
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,189179
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,first_treatment,190951
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,143555
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,274580
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,accessing_services,280498
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,184101
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,254649
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,accessing_services,262179
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,184543
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,referrals_received,257537
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,accessing_services,265596
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Generalized anxiety disorder,finished_course_treatment,176010
+fy1415,2014-04-01,2015-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,NA
+fy1415,2014-04-01,2015-03-31,Other Mental Health problems,Hypochondriacal disorder,first_treatment,NA
+fy1415,2014-04-01,2015-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,NA
+fy1516,2015-04-01,2016-03-31,Other Mental Health problems,Hypochondriacal disorder,first_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,NA
+fy1617,2016-04-01,2017-03-31,Other Mental Health problems,Hypochondriacal disorder,first_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,NA
+fy1718,2017-04-01,2018-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,8132
+fy1718,2017-04-01,2018-03-31,Other Mental Health problems,Hypochondriacal disorder,first_treatment,7891
+fy1718,2017-04-01,2018-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,5185
+fy1819,2018-04-01,2019-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,9691
+fy1819,2018-04-01,2019-03-31,Other Mental Health problems,Hypochondriacal disorder,first_treatment,9225
+fy1819,2018-04-01,2019-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,6470
+fy1920,2019-04-01,2020-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,10668
+fy1920,2019-04-01,2020-03-31,Other Mental Health problems,Hypochondriacal disorder,first_treatment,10731
+fy1920,2019-04-01,2020-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,6822
+fy2021,2020-04-01,2021-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,10851
+fy2021,2020-04-01,2021-03-31,Other Mental Health problems,Hypochondriacal disorder,first_treatment,11011
+fy2021,2020-04-01,2021-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,7592
+fy2122,2021-04-01,2022-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,13161
+fy2122,2021-04-01,2022-03-31,Other Mental Health problems,Hypochondriacal disorder,accessing_services,13733
+fy2122,2021-04-01,2022-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,10205
+fy2223,2022-04-01,2023-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,13261
+fy2223,2022-04-01,2023-03-31,Other Mental Health problems,Hypochondriacal disorder,accessing_services,13810
+fy2223,2022-04-01,2023-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,9613
+fy2324,2023-04-01,2024-03-31,Other Mental Health problems,Hypochondriacal disorder,referrals_received,14698
+fy2324,2023-04-01,2024-03-31,Other Mental Health problems,Hypochondriacal disorder,accessing_services,15353
+fy2324,2023-04-01,2024-03-31,Other Mental Health problems,Hypochondriacal disorder,finished_course_treatment,10648
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,180395
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,first_treatment,150364
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,88534
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,222258
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,first_treatment,197316
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,120129
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,171453
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,first_treatment,154969
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,112718
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,109339
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,first_treatment,99029
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,66418
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,85612
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,first_treatment,72933
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,44322
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,70563
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,first_treatment,59159
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,35064
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,33681
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,first_treatment,30678
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,19242
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,32408
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,accessing_services,33027
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,17777
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,35122
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,accessing_services,32514
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,18398
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,referrals_received,29738
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,accessing_services,27471
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Mixed anxiety and depressive disorder,finished_course_treatment,16667
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,11124
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,first_treatment,10519
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,7795
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,13123
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,first_treatment,12745
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,9141
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,15731
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,first_treatment,15048
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,10743
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,17173
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,first_treatment,16716
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,11665
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,19320
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,first_treatment,18482
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,12869
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,19019
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,first_treatment,18896
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,12728
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,16134
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,first_treatment,16365
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,11299
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,23125
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,accessing_services,23972
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,17018
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,22247
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,accessing_services,22922
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,16992
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,referrals_received,23676
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,accessing_services,24707
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Obsessive-compulsive disorder,finished_course_treatment,17526
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,20021
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,first_treatment,17757
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,11351
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,24777
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,first_treatment,22972
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,13761
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,34019
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,first_treatment,31700
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,17652
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,41039
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,first_treatment,39112
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,20890
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,47955
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,first_treatment,45245
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,24978
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,52678
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,first_treatment,50708
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,26921
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,33735
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,first_treatment,33977
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,22573
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,46403
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,accessing_services,46832
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,27015
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,44091
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,accessing_services,44728
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,26682
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,referrals_received,41594
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,accessing_services,42201
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Other anxiety or stress related disorder,finished_course_treatment,25253
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,14653
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],first_treatment,13661
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,9752
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,17902
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],first_treatment,17265
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,12022
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,23077
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],first_treatment,22237
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,15208
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,24046
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],first_treatment,23520
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,16291
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,24883
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],first_treatment,24000
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,16570
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,21398
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],first_treatment,21470
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,14666
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,14954
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],first_treatment,15236
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,11725
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,22749
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],accessing_services,23169
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,14749
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,22668
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],accessing_services,21798
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,15937
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],referrals_received,21868
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],accessing_services,22644
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Panic disorder [episodic paroxysmal anxiety],finished_course_treatment,15712
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,15674
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,first_treatment,14185
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,8964
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,21883
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,first_treatment,20966
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,12300
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,30265
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,first_treatment,28505
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,16806
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,37753
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,first_treatment,36353
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,20067
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,44236
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,first_treatment,42014
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,23475
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,49846
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,first_treatment,49039
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,25357
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,39550
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,first_treatment,40062
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,23931
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,59774
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,accessing_services,61664
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,32679
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,64260
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,accessing_services,66826
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,36283
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,referrals_received,74607
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,accessing_services,77280
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Post-traumatic stress disorder,finished_course_treatment,41504
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,10737
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Social phobias,first_treatment,10408
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,7454
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,14333
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Social phobias,first_treatment,13992
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,9739
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,20142
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Social phobias,first_treatment,19461
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,12904
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,22718
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Social phobias,first_treatment,22422
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,15017
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,25014
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Social phobias,first_treatment,24020
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,15969
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,24484
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Social phobias,first_treatment,24512
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,15925
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,16636
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Social phobias,first_treatment,17045
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,13045
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,28081
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Social phobias,accessing_services,28381
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,16732
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,27411
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Social phobias,accessing_services,27702
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,18759
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Social phobias,referrals_received,26296
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Social phobias,accessing_services,27338
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Social phobias,finished_course_treatment,18095
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,4626
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,first_treatment,4485
+fy1415,2014-04-01,2015-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,3320
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,5484
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,first_treatment,5365
+fy1516,2015-04-01,2016-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,4017
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,6468
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,first_treatment,6344
+fy1617,2016-04-01,2017-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,4789
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,6912
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,first_treatment,6800
+fy1718,2017-04-01,2018-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,4951
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,7267
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,first_treatment,7033
+fy1819,2018-04-01,2019-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,5386
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,7321
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,first_treatment,7385
+fy1920,2019-04-01,2020-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,5411
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,4301
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,first_treatment,4437
+fy2021,2020-04-01,2021-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,4052
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,7645
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,accessing_services,7827
+fy2122,2021-04-01,2022-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,5176
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,7633
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,accessing_services,7907
+fy2223,2022-04-01,2023-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,6078
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,referrals_received,7900
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,accessing_services,8293
+fy2324,2023-04-01,2024-03-31,Anxiety and stress related disorders,Specific (isolated) phobias,finished_course_treatment,6307
+fy1415,2014-04-01,2015-03-31,Other,Body Dysmorphic Disorder,referrals_received,NA
+fy1415,2014-04-01,2015-03-31,Other,Body Dysmorphic Disorder,first_treatment,NA
+fy1415,2014-04-01,2015-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other,Body Dysmorphic Disorder,referrals_received,NA
+fy1516,2015-04-01,2016-03-31,Other,Body Dysmorphic Disorder,first_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other,Body Dysmorphic Disorder,referrals_received,NA
+fy1617,2016-04-01,2017-03-31,Other,Body Dysmorphic Disorder,first_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,NA
+fy1718,2017-04-01,2018-03-31,Other,Body Dysmorphic Disorder,referrals_received,NA
+fy1718,2017-04-01,2018-03-31,Other,Body Dysmorphic Disorder,first_treatment,NA
+fy1718,2017-04-01,2018-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,NA
+fy1819,2018-04-01,2019-03-31,Other,Body Dysmorphic Disorder,referrals_received,NA
+fy1819,2018-04-01,2019-03-31,Other,Body Dysmorphic Disorder,first_treatment,NA
+fy1819,2018-04-01,2019-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,NA
+fy1920,2019-04-01,2020-03-31,Other,Body Dysmorphic Disorder,referrals_received,NA
+fy1920,2019-04-01,2020-03-31,Other,Body Dysmorphic Disorder,first_treatment,NA
+fy1920,2019-04-01,2020-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,NA
+fy2021,2020-04-01,2021-03-31,Other,Body Dysmorphic Disorder,referrals_received,266
+fy2021,2020-04-01,2021-03-31,Other,Body Dysmorphic Disorder,first_treatment,253
+fy2021,2020-04-01,2021-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,64
+fy2122,2021-04-01,2022-03-31,Other,Body Dysmorphic Disorder,referrals_received,624
+fy2122,2021-04-01,2022-03-31,Other,Body Dysmorphic Disorder,accessing_services,651
+fy2122,2021-04-01,2022-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,348
+fy2223,2022-04-01,2023-03-31,Other,Body Dysmorphic Disorder,referrals_received,627
+fy2223,2022-04-01,2023-03-31,Other,Body Dysmorphic Disorder,accessing_services,672
+fy2223,2022-04-01,2023-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,375
+fy2324,2023-04-01,2024-03-31,Other,Body Dysmorphic Disorder,referrals_received,775
+fy2324,2023-04-01,2024-03-31,Other,Body Dysmorphic Disorder,accessing_services,821
+fy2324,2023-04-01,2024-03-31,Other,Body Dysmorphic Disorder,finished_course_treatment,537
+fy1415,2014-04-01,2015-03-31,Other,Chronic fatigue syndrome,referrals_received,NA
+fy1415,2014-04-01,2015-03-31,Other,Chronic fatigue syndrome,first_treatment,NA
+fy1415,2014-04-01,2015-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other,Chronic fatigue syndrome,referrals_received,NA
+fy1516,2015-04-01,2016-03-31,Other,Chronic fatigue syndrome,first_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other,Chronic fatigue syndrome,referrals_received,NA
+fy1617,2016-04-01,2017-03-31,Other,Chronic fatigue syndrome,first_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,NA
+fy1718,2017-04-01,2018-03-31,Other,Chronic fatigue syndrome,referrals_received,NA
+fy1718,2017-04-01,2018-03-31,Other,Chronic fatigue syndrome,first_treatment,NA
+fy1718,2017-04-01,2018-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,NA
+fy1819,2018-04-01,2019-03-31,Other,Chronic fatigue syndrome,referrals_received,NA
+fy1819,2018-04-01,2019-03-31,Other,Chronic fatigue syndrome,first_treatment,NA
+fy1819,2018-04-01,2019-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,NA
+fy1920,2019-04-01,2020-03-31,Other,Chronic fatigue syndrome,referrals_received,NA
+fy1920,2019-04-01,2020-03-31,Other,Chronic fatigue syndrome,first_treatment,NA
+fy1920,2019-04-01,2020-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,NA
+fy2021,2020-04-01,2021-03-31,Other,Chronic fatigue syndrome,referrals_received,NA
+fy2021,2020-04-01,2021-03-31,Other,Chronic fatigue syndrome,first_treatment,NA
+fy2021,2020-04-01,2021-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,NA
+fy2122,2021-04-01,2022-03-31,Other,Chronic fatigue syndrome,referrals_received,NA
+fy2122,2021-04-01,2022-03-31,Other,Chronic fatigue syndrome,accessing_services,NA
+fy2122,2021-04-01,2022-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,NA
+fy2223,2022-04-01,2023-03-31,Other,Chronic fatigue syndrome,referrals_received,551
+fy2223,2022-04-01,2023-03-31,Other,Chronic fatigue syndrome,accessing_services,216
+fy2223,2022-04-01,2023-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,97
+fy2324,2023-04-01,2024-03-31,Other,Chronic fatigue syndrome,referrals_received,383
+fy2324,2023-04-01,2024-03-31,Other,Chronic fatigue syndrome,accessing_services,160
+fy2324,2023-04-01,2024-03-31,Other,Chronic fatigue syndrome,finished_course_treatment,78
+fy1415,2014-04-01,2015-03-31,Other,Irritable bowel syndrome,referrals_received,NA
+fy1415,2014-04-01,2015-03-31,Other,Irritable bowel syndrome,first_treatment,NA
+fy1415,2014-04-01,2015-03-31,Other,Irritable bowel syndrome,finished_course_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other,Irritable bowel syndrome,referrals_received,NA
+fy1516,2015-04-01,2016-03-31,Other,Irritable bowel syndrome,first_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other,Irritable bowel syndrome,finished_course_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other,Irritable bowel syndrome,referrals_received,NA
+fy1617,2016-04-01,2017-03-31,Other,Irritable bowel syndrome,first_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other,Irritable bowel syndrome,finished_course_treatment,NA
+fy1718,2017-04-01,2018-03-31,Other,Irritable bowel syndrome,referrals_received,NA
+fy1718,2017-04-01,2018-03-31,Other,Irritable bowel syndrome,first_treatment,NA
+fy1718,2017-04-01,2018-03-31,Other,Irritable bowel syndrome,finished_course_treatment,NA
+fy1819,2018-04-01,2019-03-31,Other,Irritable bowel syndrome,referrals_received,NA
+fy1819,2018-04-01,2019-03-31,Other,Irritable bowel syndrome,first_treatment,NA
+fy1819,2018-04-01,2019-03-31,Other,Irritable bowel syndrome,finished_course_treatment,NA
+fy1920,2019-04-01,2020-03-31,Other,Irritable bowel syndrome,referrals_received,NA
+fy1920,2019-04-01,2020-03-31,Other,Irritable bowel syndrome,first_treatment,NA
+fy1920,2019-04-01,2020-03-31,Other,Irritable bowel syndrome,finished_course_treatment,NA
+fy2021,2020-04-01,2021-03-31,Other,Irritable bowel syndrome,referrals_received,NA
+fy2021,2020-04-01,2021-03-31,Other,Irritable bowel syndrome,first_treatment,NA
+fy2021,2020-04-01,2021-03-31,Other,Irritable bowel syndrome,finished_course_treatment,NA
+fy2122,2021-04-01,2022-03-31,Other,Irritable bowel syndrome,referrals_received,NA
+fy2122,2021-04-01,2022-03-31,Other,Irritable bowel syndrome,accessing_services,NA
+fy2122,2021-04-01,2022-03-31,Other,Irritable bowel syndrome,finished_course_treatment,NA
+fy2223,2022-04-01,2023-03-31,Other,Irritable bowel syndrome,referrals_received,1448
+fy2223,2022-04-01,2023-03-31,Other,Irritable bowel syndrome,accessing_services,331
+fy2223,2022-04-01,2023-03-31,Other,Irritable bowel syndrome,finished_course_treatment,123
+fy2324,2023-04-01,2024-03-31,Other,Irritable bowel syndrome,referrals_received,1160
+fy2324,2023-04-01,2024-03-31,Other,Irritable bowel syndrome,accessing_services,263
+fy2324,2023-04-01,2024-03-31,Other,Irritable bowel syndrome,finished_course_treatment,114
+fy1415,2014-04-01,2015-03-31,Other,MUS not otherwise specified,referrals_received,NA
+fy1415,2014-04-01,2015-03-31,Other,MUS not otherwise specified,first_treatment,NA
+fy1415,2014-04-01,2015-03-31,Other,MUS not otherwise specified,finished_course_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other,MUS not otherwise specified,referrals_received,NA
+fy1516,2015-04-01,2016-03-31,Other,MUS not otherwise specified,first_treatment,NA
+fy1516,2015-04-01,2016-03-31,Other,MUS not otherwise specified,finished_course_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other,MUS not otherwise specified,referrals_received,NA
+fy1617,2016-04-01,2017-03-31,Other,MUS not otherwise specified,first_treatment,NA
+fy1617,2016-04-01,2017-03-31,Other,MUS not otherwise specified,finished_course_treatment,NA
+fy1718,2017-04-01,2018-03-31,Other,MUS not otherwise specified,referrals_received,NA
+fy1718,2017-04-01,2018-03-31,Other,MUS not otherwise specified,first_treatment,NA
+fy1718,2017-04-01,2018-03-31,Other,MUS not otherwise specified,finished_course_treatment,NA
+fy1819,2018-04-01,2019-03-31,Other,MUS not otherwise specified,referrals_received,NA
+fy1819,2018-04-01,2019-03-31,Other,MUS not otherwise specified,first_treatment,NA
+fy1819,2018-04-01,2019-03-31,Other,MUS not otherwise specified,finished_course_treatment,NA
+fy1920,2019-04-01,2020-03-31,Other,MUS not otherwise specified,referrals_received,NA
+fy1920,2019-04-01,2020-03-31,Other,MUS not otherwise specified,first_treatment,NA
+fy1920,2019-04-01,2020-03-31,Other,MUS not otherwise specified,finished_course_treatment,NA
+fy2021,2020-04-01,2021-03-31,Other,MUS not otherwise specified,referrals_received,NA
+fy2021,2020-04-01,2021-03-31,Other,MUS not otherwise specified,first_treatment,NA
+fy2021,2020-04-01,2021-03-31,Other,MUS not otherwise specified,finished_course_treatment,NA
+fy2122,2021-04-01,2022-03-31,Other,MUS not otherwise specified,referrals_received,NA
+fy2122,2021-04-01,2022-03-31,Other,MUS not otherwise specified,accessing_services,NA
+fy2122,2021-04-01,2022-03-31,Other,MUS not otherwise specified,finished_course_treatment,NA
+fy2223,2022-04-01,2023-03-31,Other,MUS not otherwise specified,referrals_received,9
+fy2223,2022-04-01,2023-03-31,Other,MUS not otherwise specified,accessing_services,6
+fy2223,2022-04-01,2023-03-31,Other,MUS not otherwise specified,finished_course_treatment,3
+fy2324,2023-04-01,2024-03-31,Other,MUS not otherwise specified,referrals_received,45
+fy2324,2023-04-01,2024-03-31,Other,MUS not otherwise specified,accessing_services,27
+fy2324,2023-04-01,2024-03-31,Other,MUS not otherwise specified,finished_course_treatment,4
+fy1415,2014-04-01,2015-03-31,Other Mental Health problems,Other,referrals_received,91568
+fy1415,2014-04-01,2015-03-31,Other Mental Health problems,Other,first_treatment,61037
+fy1415,2014-04-01,2015-03-31,Other Mental Health problems,Other,finished_course_treatment,28898
+fy1516,2015-04-01,2016-03-31,Other Mental Health problems,Other,referrals_received,90331
+fy1516,2015-04-01,2016-03-31,Other Mental Health problems,Other,first_treatment,72865
+fy1516,2015-04-01,2016-03-31,Other Mental Health problems,Other,finished_course_treatment,34950
+fy1617,2016-04-01,2017-03-31,Other Mental Health problems,Other,referrals_received,92667
+fy1617,2016-04-01,2017-03-31,Other Mental Health problems,Other,first_treatment,70585
+fy1617,2016-04-01,2017-03-31,Other Mental Health problems,Other,finished_course_treatment,37068
+fy1718,2017-04-01,2018-03-31,Other Mental Health problems,Other,referrals_received,68517
+fy1718,2017-04-01,2018-03-31,Other Mental Health problems,Other,first_treatment,48421
+fy1718,2017-04-01,2018-03-31,Other Mental Health problems,Other,finished_course_treatment,24205
+fy1819,2018-04-01,2019-03-31,Other Mental Health problems,Other,referrals_received,61361
+fy1819,2018-04-01,2019-03-31,Other Mental Health problems,Other,first_treatment,42798
+fy1819,2018-04-01,2019-03-31,Other Mental Health problems,Other,finished_course_treatment,16045
+fy1920,2019-04-01,2020-03-31,Other Mental Health problems,Other,referrals_received,50094
+fy1920,2019-04-01,2020-03-31,Other Mental Health problems,Other,first_treatment,38626
+fy1920,2019-04-01,2020-03-31,Other Mental Health problems,Other,finished_course_treatment,13118
+fy2021,2020-04-01,2021-03-31,Other Mental Health problems,Other,referrals_received,25393
+fy2021,2020-04-01,2021-03-31,Other Mental Health problems,Other,first_treatment,20276
+fy2021,2020-04-01,2021-03-31,Other Mental Health problems,Other,finished_course_treatment,7755
+fy2122,2021-04-01,2022-03-31,Other Mental Health problems,Other,referrals_received,34736
+fy2122,2021-04-01,2022-03-31,Other Mental Health problems,Other,accessing_services,26396
+fy2122,2021-04-01,2022-03-31,Other Mental Health problems,Other,finished_course_treatment,6622
+fy2223,2022-04-01,2023-03-31,Other Mental Health problems,Other,referrals_received,25176
+fy2223,2022-04-01,2023-03-31,Other Mental Health problems,Other,accessing_services,21755
+fy2223,2022-04-01,2023-03-31,Other Mental Health problems,Other,finished_course_treatment,5511
+fy2324,2023-04-01,2024-03-31,Other Mental Health problems,Other,referrals_received,20886
+fy2324,2023-04-01,2024-03-31,Other Mental Health problems,Other,accessing_services,19172
+fy2324,2023-04-01,2024-03-31,Other Mental Health problems,Other,finished_course_treatment,4476
+fy1415,2014-04-01,2015-03-31,Other recorded problems,All,referrals_received,24688
+fy1415,2014-04-01,2015-03-31,Other recorded problems,All,first_treatment,16509
+fy1415,2014-04-01,2015-03-31,Other recorded problems,All,finished_course_treatment,9005
+fy1516,2015-04-01,2016-03-31,Other recorded problems,All,referrals_received,24813
+fy1516,2015-04-01,2016-03-31,Other recorded problems,All,first_treatment,17214
+fy1516,2015-04-01,2016-03-31,Other recorded problems,All,finished_course_treatment,8010
+fy1617,2016-04-01,2017-03-31,Other recorded problems,All,referrals_received,20295
+fy1617,2016-04-01,2017-03-31,Other recorded problems,All,first_treatment,14471
+fy1617,2016-04-01,2017-03-31,Other recorded problems,All,finished_course_treatment,6985
+fy1718,2017-04-01,2018-03-31,Other recorded problems,All,referrals_received,22336
+fy1718,2017-04-01,2018-03-31,Other recorded problems,All,first_treatment,16750
+fy1718,2017-04-01,2018-03-31,Other recorded problems,All,finished_course_treatment,7084
+fy1819,2018-04-01,2019-03-31,Other recorded problems,All,referrals_received,22213
+fy1819,2018-04-01,2019-03-31,Other recorded problems,All,first_treatment,16199
+fy1819,2018-04-01,2019-03-31,Other recorded problems,All,finished_course_treatment,7530
+fy1920,2019-04-01,2020-03-31,Other recorded problems,All,referrals_received,24768
+fy1920,2019-04-01,2020-03-31,Other recorded problems,All,first_treatment,17234
+fy1920,2019-04-01,2020-03-31,Other recorded problems,All,finished_course_treatment,7770
+fy2021,2020-04-01,2021-03-31,Other recorded problems,All,referrals_received,13482
+fy2021,2020-04-01,2021-03-31,Other recorded problems,All,first_treatment,10731
+fy2021,2020-04-01,2021-03-31,Other recorded problems,All,finished_course_treatment,6291
+fy2122,2021-04-01,2022-03-31,Other recorded problems,All,referrals_received,16391
+fy2122,2021-04-01,2022-03-31,Other recorded problems,All,accessing_services,13114
+fy2122,2021-04-01,2022-03-31,Other recorded problems,All,finished_course_treatment,4617
+fy2223,2022-04-01,2023-03-31,Other recorded problems,All,referrals_received,13454
+fy2223,2022-04-01,2023-03-31,Other recorded problems,All,accessing_services,12212
+fy2223,2022-04-01,2023-03-31,Other recorded problems,All,finished_course_treatment,4569
+fy2324,2023-04-01,2024-03-31,Other recorded problems,All,referrals_received,13441
+fy2324,2023-04-01,2024-03-31,Other recorded problems,All,accessing_services,12210
+fy2324,2023-04-01,2024-03-31,Other recorded problems,All,finished_course_treatment,4339
+fy1415,2014-04-01,2015-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,617061
+fy1415,2014-04-01,2015-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,first_treatment,286827
+fy1415,2014-04-01,2015-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,152335
+fy1516,2015-04-01,2016-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,629530
+fy1516,2015-04-01,2016-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,first_treatment,269215
+fy1516,2015-04-01,2016-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,127461
+fy1617,2016-04-01,2017-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,504872
+fy1617,2016-04-01,2017-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,first_treatment,172905
+fy1617,2016-04-01,2017-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,76278
+fy1718,2017-04-01,2018-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,498060
+fy1718,2017-04-01,2018-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,first_treatment,143110
+fy1718,2017-04-01,2018-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,41909
+fy1819,2018-04-01,2019-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,584862
+fy1819,2018-04-01,2019-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,first_treatment,163152
+fy1819,2018-04-01,2019-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,35404
+fy1920,2019-04-01,2020-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,639330
+fy1920,2019-04-01,2020-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,first_treatment,159657
+fy1920,2019-04-01,2020-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,29759
+fy2021,2020-04-01,2021-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,794652
+fy2021,2020-04-01,2021-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,first_treatment,365767
+fy2021,2020-04-01,2021-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,172356
+fy2122,2021-04-01,2022-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,801915
+fy2122,2021-04-01,2022-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,accessing_services,225081
+fy2122,2021-04-01,2022-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,58769
+fy2223,2022-04-01,2023-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,771451
+fy2223,2022-04-01,2023-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,accessing_services,213741
+fy2223,2022-04-01,2023-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,42164
+fy2324,2023-04-01,2024-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,referrals_received,822663
+fy2324,2023-04-01,2024-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,accessing_services,231881
+fy2324,2023-04-01,2024-03-31,Not stated/Not known/Invalid,Not stated/Not known/Invalid,finished_course_treatment,44890
