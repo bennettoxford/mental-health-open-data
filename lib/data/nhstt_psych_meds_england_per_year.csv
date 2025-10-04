@@ -1,0 +1,201 @@
+start_date,end_date,nhs_fy,org_type,org_code,org_name,variable_type,variable_a,variable_b,statistic,measure,value
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Total,NA,count,status_end_total,554709
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Total,NA,count,status_end_prescribed_but_not_taking,21279
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Total,NA,count,status_end_prescribed_and_taking,244145
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Total,NA,count,status_end_not_prescribed,214531
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Total,NA,count,status_end_not_stated_not_known_invalid,74754
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed but not taking,NA,count,status_end_total,25057
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed but not taking,NA,count,status_end_prescribed_but_not_taking,6627
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed but not taking,NA,count,status_end_prescribed_and_taking,6926
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed but not taking,NA,count,status_end_not_prescribed,9038
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed but not taking,NA,count,status_end_not_stated_not_known_invalid,2466
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed and taking,NA,count,status_end_total,261448
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed and taking,NA,count,status_end_prescribed_but_not_taking,8717
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed and taking,NA,count,status_end_prescribed_and_taking,190674
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed and taking,NA,count,status_end_not_prescribed,35754
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Prescribed and taking,NA,count,status_end_not_stated_not_known_invalid,26303
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not Prescribed,NA,count,status_end_total,234472
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not Prescribed,NA,count,status_end_prescribed_but_not_taking,5213
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not Prescribed,NA,count,status_end_prescribed_and_taking,39557
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not Prescribed,NA,count,status_end_not_prescribed,162789
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not Prescribed,NA,count,status_end_not_stated_not_known_invalid,26913
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not stated/Not known/Invalid,NA,count,status_end_total,33732
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not stated/Not known/Invalid,NA,count,status_end_prescribed_but_not_taking,722
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not stated/Not known/Invalid,NA,count,status_end_prescribed_and_taking,6988
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not stated/Not known/Invalid,NA,count,status_end_not_prescribed,6950
+2017-04-01,2018-03-31,fy1718,England,All,All,Psychotropic Medication Status,Status Start - Not stated/Not known/Invalid,NA,count,status_end_not_stated_not_known_invalid,19072
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_total,582556
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_but_not_taking,22161
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_and_taking,249794
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_prescribed,232510
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_stated_not_known_invalid,78091
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_total,25262
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_but_not_taking,6698
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_and_taking,7062
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_prescribed,8918
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_stated_not_known_invalid,2584
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_total,268076
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_but_not_taking,9029
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_and_taking,193758
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_prescribed,37853
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_stated_not_known_invalid,27436
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_total,256949
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_but_not_taking,5771
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_and_taking,42794
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_prescribed,179190
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_stated_not_known_invalid,29194
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_total,32269
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_prescribed_but_not_taking,663
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_prescribed_and_taking,6180
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_not_prescribed,6549
+2018-04-01,2019-03-31,fy1819,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_not_stated_not_known_invalid,18877
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_total,606192
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_but_not_taking,22306
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_and_taking,246679
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_prescribed,251200
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_stated_not_known_invalid,86007
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_total,25316
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_but_not_taking,6484
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_and_taking,7246
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_prescribed,9099
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_stated_not_known_invalid,2487
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_total,263471
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_but_not_taking,9195
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_and_taking,189312
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_prescribed,38581
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_stated_not_known_invalid,26383
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_total,279229
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_but_not_taking,6018
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_and_taking,44513
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_prescribed,197003
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_stated_not_known_invalid,31695
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_total,38176
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_prescribed_but_not_taking,609
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_prescribed_and_taking,5608
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_not_prescribed,6517
+2019-04-01,2020-03-31,fy1920,England,All,All,Psychotropic Medication Status,Status at start - Not stated/Not known/Invalid,NA,count,status_end_not_stated_not_known_invalid,25442
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_total,287917
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_but_not_taking,5020
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_and_taking,44607
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_prescribed,191715
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_stated_not_known_invalid,46575
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_total,61538
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_but_not_taking,790
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_and_taking,10289
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_prescribed,8980
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_stated_not_known_invalid,41479
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_total,259373
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_but_not_taking,7473
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_and_taking,175445
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_prescribed,36483
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_stated_not_known_invalid,39972
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_total,25821
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_but_not_taking,5953
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_and_taking,7527
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_prescribed,8387
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_stated_not_known_invalid,3954
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_total,634649
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_but_not_taking,19236
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_and_taking,237868
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_prescribed,245565
+2020-04-01,2021-03-31,fy2021,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_stated_not_known_invalid,131980
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_total,664087
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_but_not_taking,18507
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_and_taking,237575
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_prescribed,253876
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_stated_not_known_invalid,154129
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_total,24774
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_but_not_taking,6192
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_and_taking,7055
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_prescribed,7765
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_stated_not_known_invalid,3762
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_total,256907
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_but_not_taking,6748
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_and_taking,174049
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_prescribed,36275
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_stated_not_known_invalid,39835
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_total,298892
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_but_not_taking,4647
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_and_taking,45640
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_prescribed,199172
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_stated_not_known_invalid,49433
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_total,83514
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_but_not_taking,920
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_and_taking,10831
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_prescribed,10664
+2021-04-01,2022-03-31,fy2122,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_stated_not_known_invalid,61099
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_total,672193
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_but_not_taking,18438
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_and_taking,245437
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_prescribed,270902
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_stated_not_known_invalid,137416
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_total,24556
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_but_not_taking,5574
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_and_taking,6993
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_prescribed,8209
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_stated_not_known_invalid,3780
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_total,260707
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_but_not_taking,6872
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_and_taking,175166
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_prescribed,39451
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_stated_not_known_invalid,39218
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_total,308569
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_but_not_taking,4666
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_and_taking,47528
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_prescribed,206893
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_stated_not_known_invalid,49482
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_total,78361
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_but_not_taking,1326
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_and_taking,15750
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_prescribed,16349
+2022-04-01,2023-03-31,fy2223,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_stated_not_known_invalid,44936
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_total,671648
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_but_not_taking,18302
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_and_taking,248763
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_prescribed,269851
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_stated_not_known_invalid,134732
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_total,23969
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_but_not_taking,5329
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_and_taking,6805
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_prescribed,8077
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_stated_not_known_invalid,3758
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_total,265074
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_but_not_taking,6665
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_and_taking,178111
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_prescribed,40236
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_stated_not_known_invalid,40062
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_total,309727
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_but_not_taking,4912
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_and_taking,48850
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_prescribed,206619
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_stated_not_known_invalid,49346
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_total,72878
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_but_not_taking,1396
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_and_taking,14997
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_prescribed,14919
+2023-04-01,2024-03-31,fy2324,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_stated_not_known_invalid,41566
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_total,670419
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_but_not_taking,16735
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_prescribed_and_taking,247195
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_prescribed,267131
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Total,NA,count,status_end_not_stated_not_known_invalid,139358
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_total,22702
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_but_not_taking,4454
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_prescribed_and_taking,6673
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_prescribed,7822
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed but not taking,NA,count,status_end_not_stated_not_known_invalid,3753
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_total,267405
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_but_not_taking,6152
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_prescribed_and_taking,176332
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_prescribed,41777
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Prescribed and taking,NA,count,status_end_not_stated_not_known_invalid,43144
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_total,308161
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_but_not_taking,4739
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_prescribed_and_taking,49353
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_prescribed,202036
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not Prescribed,NA,count,status_end_not_stated_not_known_invalid,52033
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_total,72151
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_but_not_taking,1390
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_prescribed_and_taking,14837
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_prescribed,15496
+2024-04-01,2025-03-31,fy2425,England,All,All,Psychotropic Medication Status,Status at start - Not known/Not stated/Invalid,NA,count,status_end_not_stated_not_known_invalid,40428
