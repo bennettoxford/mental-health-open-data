@@ -2,9 +2,16 @@ library(readxl)
 library(janitor)
 library(purrr)
 
-source(here::here("lib/functions/fun_nhstt_get_data.R"))
+source(here::here("lib/functions/fun_nhstt.R"))
 
 nhstt_metadata_xlsx_specs <- list(
+  measures = list(
+    url = "https://digital.nhs.uk/binaries/content/assets/website-assets/data-and-information/datasets/nhs-talking-therapies/reports/nhs_talking_therapies-publications-list-10042025.xlsx",
+    sheets = list(
+      list(sheet = 3, range = "A3:I534"),
+      list(sheet = 4, range = "A3:D334")
+    )
+  ),
   fy2223 = list(
     url = "https://files.digital.nhs.uk/5D/1BE581/psych-ther-ann-2022-23-meta-V1.1.xlsx",
     sheets = list(

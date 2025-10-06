@@ -53,7 +53,8 @@ select_datasets <- function(
     "meds",
     "therapist_role",
     "therapy_type"
-  )
+  ),
+  remove_empty = TRUE
 ) {
 
   datasets <- match.arg(datasets, several.ok = TRUE)
@@ -79,10 +80,14 @@ select_datasets <- function(
     })
   }
   
+  if (remove_empty) {
+    dfs_return <- purrr::keep(dfs_return, ~length(.) > 0)
+  }
+  
   dfs_return
 }
 
-check_var_names <- function(dfs) {
+check_names_across_years <- function(dfs) {
   all_vars <- map(dfs, function(year_list) {
     map(year_list, names) |>
       flatten_chr() |>
@@ -166,4 +171,102 @@ standardise_variables <- function(dfs, var_mapping) {
         )
     })
   })
+}
+
+check_levels_across_years <- function(df, var, year_col = nhs_fy) {
+  var_expr <- enquo(var)
+  year_expr <- enquo(year_col)
+  var_name <- as_label(var_expr)
+  year_name <- as_label(year_expr)
+  
+  var_values <- df |> pull(!!var_expr)
+  
+  if(all(is.na(var_values))) {
+    cli::cli_abort(c(
+      "x" = "Column {.field {var_name}} contains only NA values.",
+      "i" = "Cannot check level consistency for a column with no non-missing data."
+    ))
+  }
+  
+  level_presence <- df |>
+    select(!!var_expr, !!year_expr) |>
+    filter(!is.na(!!var_expr)) |>
+    distinct() |>
+    group_by(!!var_expr) |>
+    summarise(years = list(!!year_expr), .groups = "drop")
+  
+  all_years <- df |> pull(!!year_expr) |> unique() |> sort()
+  n_years <- length(all_years)
+  
+  presence_matrix <- map(level_presence[[1]], function(lvl) {
+    map_lgl(all_years, ~.x %in% level_presence$years[level_presence[[1]] == lvl][[1]])
+  }) |>
+    set_names(level_presence[[1]]) |>
+    as_tibble()
+  
+  complete_levels <- level_presence[[1]][map_lgl(level_presence[[1]], 
+    ~all(presence_matrix[[.x]]))]
+  partial_levels <- level_presence[[1]][map_lgl(level_presence[[1]], 
+    ~!all(presence_matrix[[.x]]))]
+  
+  max_level_length <- max(nchar(c(complete_levels, partial_levels)))
+  header_width <- max_level_length + 2 + (n_years * 3)
+  
+  cat(cli::rule(left = paste("Level comparison for", var_name, "across years"), 
+    col = "cyan", line = 2))
+  cat(cli::col_green(paste0(cli::symbol$tick, " ", length(complete_levels), 
+    " levels present in all years")), "\n")
+  cat(cli::col_red(paste0(cli::symbol$cross, " ", length(partial_levels), 
+    " levels missing in some years")), "\n")
+  cat(cli::rule(col = "cyan", line = 2), "\n")
+  
+  if(length(complete_levels) > 0) {
+    cat(cli::col_green(cli::style_bold("Levels present in all years:")), "\n")
+    cat(strrep("─", header_width), "\n")
+    walk(complete_levels, function(lvl) {
+      status_symbols <- map_chr(all_years, ~cli::col_green(cli::symbol$tick))
+      lvl_padded <- str_pad(lvl, max_level_length + 2, "right")
+      year_status <- paste(status_symbols, collapse = " ")
+      cat(cli::col_green(lvl_padded), year_status, "\n")
+    })
+    cat("\n")
+  }
+  
+  if(length(partial_levels) > 0) {
+    cat(cli::col_yellow(cli::style_bold("Levels missing in some years:")), "\n")
+    cat(strrep("─", header_width), "\n")
+    walk(partial_levels, function(lvl) {
+      present_in <- presence_matrix[[lvl]]
+      status_symbols <- map_chr(present_in, function(p) {
+        if (p) cli::col_green(cli::symbol$tick) else cli::col_red(cli::symbol$cross)
+      })
+      lvl_padded <- str_pad(lvl, max_level_length + 2, "right")
+      year_status <- paste(status_symbols, collapse = " ")
+      cat(cli::col_yellow(lvl_padded), year_status, "\n")
+    })
+    cat("\n")
+  }
+  
+  invisible(list(
+    complete = complete_levels,
+    partial = partial_levels,
+    presence = presence_matrix,
+    years = all_years
+  ))
+}
+
+recode_levels <- function(df, var, level_mapping) {
+  var_expr <- enquo(var)
+  var_name <- as_label(var_expr)
+  
+  df |>
+    mutate(
+      !!var_name := map_chr(!!var_expr, function(level) {
+        if (!is.na(level) && level %in% level_mapping) {
+          names(level_mapping)[match(level, level_mapping)]
+        } else {
+          level
+        }
+      })
+    )
 }

@@ -28,8 +28,8 @@ nhstt_annual_reports_links <- list(
   # "fy1415" = https://files.digital.nhs.uk/publicationimport/pub19xxx/pub19098/psych-ther-ann-rep-tab-2014-15.xlsx
 
   # IAPT
-  # "fy1516" = "https://files.digital.nhs.uk/zip/2/j/psych-ther-ann-rep-csv-pack-2015-16.zip",
-  # "fy117" = "https://files.digital.nhs.uk/F8/5B17FF/psych-ther-ann-rep-csv-pack-2016-17_v3.0.zip",
+  "fy1516" = "https://files.digital.nhs.uk/zip/2/j/psych-ther-ann-rep-csv-pack-2015-16.zip",
+  "fy1617" = "https://files.digital.nhs.uk/F8/5B17FF/psych-ther-ann-rep-csv-pack-2016-17_v3.0.zip",
   "fy1718" = "https://files.digital.nhs.uk/82/2CCBED/psych-ther-ann-2017-18-csvs.zip",
   "fy1819" = "https://files.digital.nhs.uk/88/EBA9A6/psych-ther-ann-2018-19-csvs.rar",
   "fy1920" = "https://files.digital.nhs.uk/1A/F2ABB3/psych-ther-ann-2019-20-csvs.zip",
@@ -51,16 +51,20 @@ write_nested_csvs(
   base_path = here("lib/data_raw")
 )
 
+dfs |> 
+  map(names)
+
 # Main dataset
 dfs_main <- select_datasets(
   dfs,
-  datasets = "main"
+  datasets = "main",
+  remove_empty = TRUE
 )
 
 dfs_main |> 
   map(names)
 
-df_main_variables <- check_var_names(dfs_main)
+df_main_variables <- check_names_across_years(dfs_main)
 df_main_variables$complete
 
 main_vars_list <- c(
@@ -91,8 +95,8 @@ main_vars_list <- c(
 
   "count_recovery",
   "percentage_recovery"
-
 )
+
 
 dfs_main_wide <- flatten_one_level(dfs_main) |> 
   map(~filter(.x, 
@@ -166,7 +170,7 @@ dfs_meds <- select_datasets(
 dfs_meds |> 
   map(names)
 
-df_meds_variables <- check_var_names(dfs_meds)
+df_meds_variables <- check_names_across_years(dfs_meds)
 df_meds_variables$complete
 
 meds_var_mapping <- c(
@@ -179,7 +183,7 @@ meds_var_mapping <- c(
 )
 
 dfs_meds <- standardise_variables(dfs_meds, meds_var_mapping)
-check_var_names(dfs_meds)
+check_names_across_years(dfs_meds)
 
 meds_vars_list <- c(
   "org_type",
