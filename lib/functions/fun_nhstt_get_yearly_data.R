@@ -60,7 +60,7 @@ dfs_main <- select_datasets(
 dfs_main |> 
   map(names)
 
-df_main_variables <- check_var_names(dfs_main)
+df_main_variables <- check_names_across_years(dfs_main)
 df_main_variables$complete
 
 main_vars_list <- c(
@@ -166,7 +166,7 @@ dfs_meds <- select_datasets(
 dfs_meds |> 
   map(names)
 
-df_meds_variables <- check_var_names(dfs_meds)
+df_meds_variables <- check_names_across_years(dfs_meds)
 df_meds_variables$complete
 
 meds_var_mapping <- c(
@@ -179,7 +179,7 @@ meds_var_mapping <- c(
 )
 
 dfs_meds <- standardise_variables(dfs_meds, meds_var_mapping)
-check_var_names(dfs_meds)
+check_names_across_years(dfs_meds)
 
 meds_vars_list <- c(
   "org_type",
