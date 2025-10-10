@@ -53,7 +53,8 @@ select_datasets <- function(
     "meds",
     "therapist_role",
     "therapy_type"
-  )
+  ),
+  remove_empty = TRUE
 ) {
 
   datasets <- match.arg(datasets, several.ok = TRUE)
@@ -77,6 +78,10 @@ select_datasets <- function(
       })
       tables[keep_idx]
     })
+  }
+  
+  if (remove_empty) {
+    dfs_return <- purrr::keep(dfs_main, ~length(.) > 0)
   }
   
   dfs_return
