@@ -1,4 +1,4 @@
-nhs_fy,start_date,end_date,problem,problem_breakdown,measure,count
+nhs_fy,start_date,end_date,variable_a,variable_b,measure,count
 fy1415,2014-04-01,2015-03-31,All,All,referrals_received,1267193
 fy1415,2014-04-01,2015-03-31,All,All,first_treatment,815665
 fy1415,2014-04-01,2015-03-31,All,All,finished_course_treatment,468881

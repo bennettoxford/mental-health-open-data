@@ -1,0 +1,92 @@
+---
+title: "NHS Talking Therapies"
+subtitle: "Annual reports"
+toc: true
+toc-depth: 2
+format:
+  html:
+    page-layout: full
+    code-fold: true
+    code-summary: "Show the code"
+    other-links:
+      - text: NHS TT data set reports
+        href: https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/improving-access-to-psychological-therapies-data-set/improving-access-to-psychological-therapies-data-set-reports
+      - text: IAPT Annual reports
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/psychological-therapies-annual-reports-on-the-use-of-iapt-services
+      - text: NHS TT Annual reports
+        href: https://digital.nhs.uk/data-and-information/publications/statistical/nhs-talking-therapies-for-anxiety-and-depression-annual-reports
+editor: source
+---
+
+```{r}
+#| label: setup
+#| message: false
+#| results: 'hide'
+#| warning: false
+#| echo: false
+
+library(tidyverse)
+library(scales)
+library(gt)
+library(here)
+library(scales)
+
+source(here::here("lib/functions/fun_nhstt.R"))
+```
+
+
+## Psychotropic medication status
+
+```{r}
+#| label: tbl-nhstt-meds
+#| message: false
+#| warning: false
+#| echo: false
+#| tbl-cap: "Description of annual medication status measures"
+
+nhstt_measures_desc <- read_csv(
+  here("lib/data_raw/measures/metadata_regular_publications.csv")
+)
+
+nhstt_measures_desc |>
+  filter(publication_frequency_reporting_period == "Annual") |>
+  mutate(measure_name = janitor::make_clean_names(measure_name)) |> 
+  filter(measure_name %in% c(
+    "count_status_end_prescribed_but_not_taking",
+    "count_status_end_prescribed_and_taking",
+    "count_status_end_not_prescribed",
+    "count_status_end_not_stated_not_known_invalid"
+  )) |> 
+  mutate(measure_desc = paste0("<strong>", measure_name, ":</strong> ", description_of_measure)) |>
+  select(measure_desc) |>
+  gt() |>
+  fmt_markdown(columns = measure_desc) |>
+  cols_label(measure_desc = "Annual measure descriptions")
+```
+
+```{r}
+#| label: fig-nhstt-meds
+#| message: false
+#| warning: false
+#| echo: false
+#| fig-cap: "Trends over time for annual medication status measures"
+
+nhstt_measures_desc <- read_csv(
+  here("lib/data/nhstt_psych_meds_england_per_year.csv")
+)
+
+check_levels_across_years(nhstt_measures_desc, variable_a)
+
+variable_a_mapping <- c(
+  "Status at start - Total" = "Status Start - Total",
+  "Status at start - Prescribed but not taking" = "Status Start - Prescribed but not taking",
+  "Status at start - Prescribed and taking" = "Status Start - Prescribed and taking",
+  "Status at start - Not Prescribed" = "Status Start - Not Prescribed",
+  "Status at start - Not known/Not stated/Invalid" = "Status Start - Not stated/Not known/Invalid",
+  "Status at start - Not known/Not stated/Invalid" = "Status at start - Not stated/Not known/Invalid"
+)
+
+nhstt_measures_desc_clean <- recode_levels(nhstt_measures_desc, variable_a, variable_a_mapping)
+check_levels_across_years(nhstt_measures_desc_clean, variable_a)
+
+```
