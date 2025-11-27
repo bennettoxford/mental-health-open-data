@@ -26,19 +26,39 @@ df_main <- dfs_flat |>
     names_to = "measure",
     values_to = "value"
   ) %>%
+  extract(
+    col = measure,
+    into = c("statistic", "measure"),
+    regex = "^(count)_(.+)$"
+  ) %>%
+  rename(
+    "variable_a" = "therapy_type"
+  ) %>%
   mutate(
     measure = str_remove(measure, "^count_"),
     start_year = as.integer(str_sub(nhs_fy, 3, 4)) + 2000,
     end_year = as.integer(str_sub(nhs_fy, 5, 6)) + 2000,
     start_date = as.Date(paste0(start_year, "-04-01")),
     end_date = as.Date(paste0(end_year, "-03-31")),
-    statistic = "count"
+    variable_type = "Therapy Type",
+    variable_a = gsub("[0-9]+ ", "", variable_a),
+    variable_a = gsub("_", " ", variable_a),
+    variable_b = NA,
+    org_type = "England",
+    org_code = "All",
+    org_name = "All",
+    
   ) %>%
   select(
     start_date,
     end_date,
     nhs_fy,
-    therapy_type,
+    org_type,
+    org_code,
+    org_name,
+    variable_type,
+    variable_a,
+    variable_b,
     statistic,
     measure,
     value
