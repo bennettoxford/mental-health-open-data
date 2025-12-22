@@ -3,14 +3,14 @@ title: "Extracting clinical codes from NHS Talking Therapies metadata"
 format: html
 editor: source
 ---
+
 ```{r}
 #| label: setup
 #| message: false
 #| warning: false
 #| include: false
 
-#Load relevant libraries
-
+#Load relevant libraries 
 library(stringr)
 library(opencodecounts)
 library(nhstt)
@@ -34,15 +34,22 @@ data <- get_metadata_measures_annual()
 
 ```
 
-
 ## Overview
 
 ## Background
 
-
 ## Methods
 
-### SNOMED-CT code extraction
+1.  Clinical code extraction :
+    Clinical codes were extracted from NHS TT annual metadata using the `technical_construction` field. Custom string-based extraction functions (`str_extract_snomed()`, `str_extract_icd()`) were applied to identify embedded clinical codes for SNOMED CT and ICD-10 respectively.
+
+2. Code list preparation
+    Extracted codes were processed separately for each coding system. The lists were flattened, deduplicated and missing values removed to produce unique sets of SNOMED CT and ICD-10 codes represented in the NHS TT metadata.
+
+3. Description and code usage mapping
+    The `opencodecounts` package was used to obtain standardised code descriptions and usage counts. 
+
+ ### SNOMED-CT code extraction
 
 ```{r}
 #| label: snomed_extract
@@ -60,7 +67,8 @@ snomed_codelist <- snomed_codelist[!is.na(snomed_codelist)]
 ```
 
 ### Descriptions of SNOMED-CT codes and usage
- ```{r}
+
+```{r}
 #| label : tab-snomed-nhstt
 #| echo: false
 #| warning: false
@@ -68,25 +76,81 @@ snomed_codelist <- snomed_codelist[!is.na(snomed_codelist)]
 
 # filter snomed_usage by extracted snomed codes from nhstt metadata
 nhstt_s_usage <- snomed_usage |> 
-  filter(snomed_code %in% snomed_codelist) |> 
-  mutate(
-    semantic_tag = extract_semantic_tag(description),
-    semantic_tag = str_to_sentence(semantic_tag),
-    description_short = strip_semantic_tag(description),
-  ) 
+ filter(snomed_code %in% snomed_codelist) |> 
+ mutate(
+   semantic_tag = extract_semantic_tag(description),
+   semantic_tag = str_to_sentence(semantic_tag),
+   description_short = strip_semantic_tag(description),
+ ) 
 
 nhstt_snomed_table <- nhstt_s_usage |>  # sort by usage
-    group_by(snomed_code, description_short, semantic_tag) |>
-    summarise(total_usage = sum(usage), .groups = 'drop') |>
-    mutate(ratio_usage = total_usage / sum(total_usage)) |>
-    arrange(desc(total_usage), semantic_tag)
+   group_by(snomed_code, description_short, semantic_tag) |>
+   summarise(total_usage = sum(usage), .groups = 'drop') |>
+   mutate(ratio_usage = total_usage / sum(total_usage)) |>
+   arrange(desc(total_usage), semantic_tag)
 
 tab_nhstt_snomed <- nhstt_snomed_table |> 
-   group_by(semantic_tag) |>
-    gt() |>
+  group_by(semantic_tag) |>
+   gt() |>
+   cols_label(
+     snomed_code = "SNOMED code",
+     description_short = "Description",
+     total_usage = "Usage",
+     ratio_usage = "%"
+   ) |>
+   tab_style(
+     style = cell_text(weight = "bold"),
+     locations = cells_column_labels()
+   ) |>
+   tab_style(
+     style = cell_text(font = "Courier New"),
+     locations = cells_body(columns = snomed_code)
+   ) |>
+   cols_align(align = "left", columns = snomed_code) |>
+ 
+   fmt_number(total_usage, decimals = 0) |>
+   fmt_percent(ratio_usage, decimals = 2)
+
+gtsave(
+ tab_nhstt_snomed,
+ here("output", "tables", "nhstt", "tab_nhstt_snomed_usage.png")
+ )
+
+```
+
+### ICD-10 code extraction
+
+```{r}
+# extracted and deduplicated list of ICD-10 codes
+icd_codelist <- data$icd_codes |> 
+ unlist() |> 
+ unique()
+# remove any NAs from the list
+icd_codelist <- icd_codelist[!is.na(icd_codelist)] 
+```
+
+### Descriptions of ICD-10 codes and usage
+
+```{r}
+#| label : tab-icd-nhstt
+#| echo: false
+#| warning: false
+#| message: false
+
+nhstt_icd_usage <- icd10_usage |> 
+  filter(icd10_code %in% icd_codelist) 
+
+nhstt_icd_table <- nhstt_icd_usage |> 
+  group_by(icd10_code, description) |> 
+  summarise(total_usage = sum(usage), .groups = 'drop') |>
+  mutate(ratio_usage = total_usage / sum(total_usage)) |> 
+  arrange(desc(total_usage))
+
+tab_nhstt_icd <- nhstt_icd_table |> 
+  gt() |>
     cols_label(
-      snomed_code = "SNOMED code",
-      description_short = "Description",
+      icd10_code = "ICD 10 code",
+      description = "Description",
       total_usage = "Usage",
       ratio_usage = "%"
     ) |>
@@ -94,21 +158,12 @@ tab_nhstt_snomed <- nhstt_snomed_table |>
       style = cell_text(weight = "bold"),
       locations = cells_column_labels()
     ) |>
-    tab_style(
-      style = cell_text(font = "Courier New"),
-      locations = cells_body(columns = snomed_code)
-    ) |>
-    cols_align(align = "left", columns = snomed_code) |>
-  
     fmt_number(total_usage, decimals = 0) |>
     fmt_percent(ratio_usage, decimals = 2)
 
+
 gtsave(
-  tab_nhstt_snomed,
-  here("output", "tables", "nhstt", "tab_nhstt_snomed_usage.png")
+  tab_nhstt_icd,
+  here("output", "tables", "nhstt", "tab_nhstt_icd_usage.png")
   )
-
- ```
-
-
-## Codelist development
+```
