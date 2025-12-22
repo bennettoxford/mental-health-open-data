@@ -45,6 +45,11 @@ data <- get_metadata_measures_annual()
 ### SNOMED-CT code extraction
 
 ```{r}
+#| label: snomed_extract
+#| echo: false
+#| warning: false
+
+
 # extracted and deduplicated list of SNOMED codes
 snomed_codelist <- data$snomed_codes |> 
   unlist() |> 
@@ -54,9 +59,56 @@ snomed_codelist <- snomed_codelist[!is.na(snomed_codelist)]
 
 ```
 
+### Descriptions of SNOMED-CT codes and usage
+ ```{r}
+#| label : tab-snomed-nhstt
+#| echo: false
+#| warning: false
+#| message: false
 
+# filter snomed_usage by extracted snomed codes from nhstt metadata
+nhstt_s_usage <- snomed_usage |> 
+  filter(snomed_code %in% snomed_codelist) |> 
+  mutate(
+    semantic_tag = extract_semantic_tag(description),
+    semantic_tag = str_to_sentence(semantic_tag),
+    description_short = strip_semantic_tag(description),
+  ) 
 
+nhstt_snomed_table <- nhstt_s_usage |>  # sort by usage
+    group_by(snomed_code, description_short, semantic_tag) |>
+    summarise(total_usage = sum(usage), .groups = 'drop') |>
+    mutate(ratio_usage = total_usage / sum(total_usage)) |>
+    arrange(desc(total_usage), semantic_tag)
 
-## Tables
+tab_nhstt_snomed <- nhstt_snomed_table |> 
+   group_by(semantic_tag) |>
+    gt() |>
+    cols_label(
+      snomed_code = "SNOMED code",
+      description_short = "Description",
+      total_usage = "Usage",
+      ratio_usage = "%"
+    ) |>
+    tab_style(
+      style = cell_text(weight = "bold"),
+      locations = cells_column_labels()
+    ) |>
+    tab_style(
+      style = cell_text(font = "Courier New"),
+      locations = cells_body(columns = snomed_code)
+    ) |>
+    cols_align(align = "left", columns = snomed_code) |>
+  
+    fmt_number(total_usage, decimals = 0) |>
+    fmt_percent(ratio_usage, decimals = 2)
+
+gtsave(
+  tab_nhstt_snomed,
+  here("output", "tables", "nhstt", "tab_nhstt_snomed_usage.png")
+  )
+
+ ```
+
 
 ## Codelist development
