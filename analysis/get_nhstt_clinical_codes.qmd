@@ -18,6 +18,8 @@ library(janitor)
 library(skimr)
 library(tidyverse)
 library(gt)
+library(scales)
+library(here)
 
 #source functions
 source(here("lib", "functions", "fun_get_nhstt_clinical_codes.R"))
@@ -34,22 +36,20 @@ data <- get_metadata_measures_annual()
 
 ```
 
-## Overview
 
 ## Background
+NHS Talking Therapies (NHS TT) metadata includes embedded clinical codes within the descriptive text field used to define measures. These codes capture clinical concepts such as therapy categories and conditions. 
+Extracting these codes allows for clearer documentation of clinical concepts used within NHS TT measures and enables linkage to external code usage with OpenCodeCounts.
 
 ## Methods
 
-1.  Clinical code extraction :
-    Clinical codes were extracted from NHS TT annual metadata using the `technical_construction` field. Custom string-based extraction functions (`str_extract_snomed()`, `str_extract_icd()`) were applied to identify embedded clinical codes for SNOMED CT and ICD-10 respectively.
+1.  Clinical code extraction : Clinical codes were extracted from NHS TT annual metadata using the `technical_construction` field. Custom string-based extraction functions (`str_extract_snomed()`, `str_extract_icd()`) were applied to identify embedded clinical codes for SNOMED CT and ICD-10 respectively.
 
-2. Code list preparation
-    Extracted codes were processed separately for each coding system. The lists were flattened, deduplicated and missing values removed to produce unique sets of SNOMED CT and ICD-10 codes represented in the NHS TT metadata.
+2.  Code list preparation Extracted codes were processed separately for each coding system. The lists were flattened, deduplicated and missing values removed to produce unique sets of SNOMED CT and ICD-10 codes represented in the NHS TT metadata.
 
-3. Description and code usage mapping
-    The `opencodecounts` package was used to obtain standardised code descriptions and usage counts. 
+3.  Description and code usage mapping The `opencodecounts` package was used to obtain standardised code descriptions and usage counts.
 
- ### SNOMED-CT code extraction
+### SNOMED-CT code extraction
 
 ```{r}
 #| label: snomed_extract
@@ -63,7 +63,7 @@ snomed_codelist <- data$snomed_codes |>
   unique()
 # remove any NAs from the list
 snomed_codelist <- snomed_codelist[!is.na(snomed_codelist)]
-
+n_snomed <- length(snomed_codelist)
 ```
 
 ### Descriptions of SNOMED-CT codes and usage
@@ -88,6 +88,8 @@ nhstt_snomed_table <- nhstt_s_usage |>  # sort by usage
    summarise(total_usage = sum(usage), .groups = 'drop') |>
    mutate(ratio_usage = total_usage / sum(total_usage)) |>
    arrange(desc(total_usage), semantic_tag)
+
+n_snomed_tab <- length(nhstt_snomed_table)
 
 tab_nhstt_snomed <- nhstt_snomed_table |> 
   group_by(semantic_tag) |>
@@ -127,6 +129,7 @@ icd_codelist <- data$icd_codes |>
  unique()
 # remove any NAs from the list
 icd_codelist <- icd_codelist[!is.na(icd_codelist)] 
+n_icd <- length(icd_codelist)
 ```
 
 ### Descriptions of ICD-10 codes and usage
@@ -145,6 +148,8 @@ nhstt_icd_table <- nhstt_icd_usage |>
   summarise(total_usage = sum(usage), .groups = 'drop') |>
   mutate(ratio_usage = total_usage / sum(total_usage)) |> 
   arrange(desc(total_usage))
+
+n_icd_tab <- length(nhstt_icd_table)
 
 tab_nhstt_icd <- nhstt_icd_table |> 
   gt() |>
@@ -167,3 +172,7 @@ gtsave(
   here("output", "tables", "nhstt", "tab_nhstt_icd_usage.png")
   )
 ```
+
+## Overview
+
+This analysis identified `r n_snomed` SNOMED CT codes and `r n_icd` ICD-10 codes from the annual metadata from NHS Talking Therapies (NHS TT). Of the identified codes from the metadata, `r n_snomed_tab` SNOMED CT codes and `r n_icd_tab` ICD-10 codes had code usage.
