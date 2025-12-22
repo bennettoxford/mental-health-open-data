@@ -6,9 +6,10 @@ editor: source
 
 ```{r}
 #| label: setup
+#| echo: false
 #| message: false
 #| warning: false
-#| include: false
+
 
 #Load relevant libraries 
 library(stringr)
@@ -36,10 +37,9 @@ data <- get_metadata_measures_annual()
 
 ```
 
-
 ## Background
-NHS Talking Therapies (NHS TT) metadata includes embedded clinical codes within the descriptive text field used to define measures. These codes capture clinical concepts such as therapy categories and conditions. 
-Extracting these codes allows for clearer documentation of clinical concepts used within NHS TT measures and enables linkage to external code usage with OpenCodeCounts.
+
+NHS Talking Therapies (NHS TT) metadata includes embedded clinical codes within the descriptive text field used to define measures. These codes capture clinical concepts such as therapy categories and conditions. Extracting these codes allows for clearer documentation of clinical concepts used within NHS TT measures and enables linkage to external code usage with OpenCodeCounts.
 
 ## Methods
 
@@ -89,7 +89,7 @@ nhstt_snomed_table <- nhstt_s_usage |>  # sort by usage
    mutate(ratio_usage = total_usage / sum(total_usage)) |>
    arrange(desc(total_usage), semantic_tag)
 
-n_snomed_tab <- length(nhstt_snomed_table)
+n_snomed_tab <- length(nhstt_snomed_table$snomed_code)
 
 tab_nhstt_snomed <- nhstt_snomed_table |> 
   group_by(semantic_tag) |>
@@ -117,6 +117,8 @@ gtsave(
  tab_nhstt_snomed,
  here("output", "tables", "nhstt", "tab_nhstt_snomed_usage.png")
  )
+
+tab_nhstt_snomed
 
 ```
 
@@ -149,7 +151,7 @@ nhstt_icd_table <- nhstt_icd_usage |>
   mutate(ratio_usage = total_usage / sum(total_usage)) |> 
   arrange(desc(total_usage))
 
-n_icd_tab <- length(nhstt_icd_table)
+n_icd_tab <- length(nhstt_icd_table$icd10_code)
 
 tab_nhstt_icd <- nhstt_icd_table |> 
   gt() |>
@@ -171,6 +173,8 @@ gtsave(
   tab_nhstt_icd,
   here("output", "tables", "nhstt", "tab_nhstt_icd_usage.png")
   )
+
+tab_nhstt_icd
 ```
 
 ## Overview
