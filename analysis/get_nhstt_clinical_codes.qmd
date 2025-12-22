@@ -20,6 +20,17 @@ library(tidyverse)
 library(gt)
 
 #source functions
+source(here("lib", "functions", "fun_get_nhstt_clinical_codes.R"))
+
+# nhstt annual metadata
+data <- get_metadata_measures_annual()
+
+# adding snomed and icd10 columns
+ data <- data |> 
+  select(field_name, technical_construction) |> 
+  mutate(snomed_codes = str_extract_snomed(technical_construction))|> 
+  mutate(icd_codes = str_extract_icd(technical_construction)) 
+
 
 ```
 
@@ -30,6 +41,19 @@ library(gt)
 
 
 ## Methods
+
+### SNOMED-CT code extraction
+
+```{r}
+# extracted and deduplicated list of SNOMED codes
+snomed_codelist <- data$snomed_codes |> 
+  unlist() |> 
+  unique()
+# remove any NAs from the list
+snomed_codelist <- snomed_codelist[!is.na(snomed_codelist)]
+
+```
+
 
 
 
