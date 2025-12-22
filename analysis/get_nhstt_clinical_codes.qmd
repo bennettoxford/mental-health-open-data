@@ -1,0 +1,38 @@
+---
+title: "Extracting clinical codes from NHS Talking Therapies metadata"
+format: html
+editor: source
+---
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+#| include: false
+
+#Load relevant libraries
+
+library(stringr)
+library(opencodecounts)
+library(nhstt)
+library(janitor)
+library(skimr)
+library(tidyverse)
+library(gt)
+
+#source functions
+
+```
+
+
+## Overview
+
+## Background
+
+
+## Methods
+
+
+
+## Tables
+
+## Codelist development
