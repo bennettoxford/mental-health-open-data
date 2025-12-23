@@ -115,7 +115,7 @@ tab_nhstt_snomed <- nhstt_snomed_table |>
 
 gtsave(
  tab_nhstt_snomed,
- here("output", "tables", "nhstt", "tab_nhstt_snomed_usage.png")
+ here("output", "nhstt", "tab_nhstt_snomed_usage.png")
  )
 
 tab_nhstt_snomed
@@ -171,7 +171,7 @@ tab_nhstt_icd <- nhstt_icd_table |>
 
 gtsave(
   tab_nhstt_icd,
-  here("output", "tables", "nhstt", "tab_nhstt_icd_usage.png")
+  here("output", "nhstt", "tab_nhstt_icd_usage.png")
   )
 
 tab_nhstt_icd
