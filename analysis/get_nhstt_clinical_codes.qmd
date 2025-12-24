@@ -153,8 +153,6 @@ nhstt_icd_table <- nhstt_icd_usage |>
 
 n_icd_tab <- length(nhstt_icd_table$icd10_code)
 
-missing_icd_codes <- icd_codelist[!(icd_codelist %in% nhstt_icd_table$icd10_code)]
-
 tab_nhstt_icd <- nhstt_icd_table |> 
   gt() |>
     cols_label(
@@ -179,7 +177,14 @@ gtsave(
 tab_nhstt_icd
 ```
 
+### Missing ICD 10 codes from OpenCodeCounts
+```{r}
+#list of missing ICD 10 codes
+missing_icd_codes <- list(icd_codelist[!(icd_codelist %in% nhstt_icd_table$icd10_code)])
+
+```
+
 ## Overview
 
 This analysis identified `r n_snomed` SNOMED CT codes and `r n_icd` ICD-10 codes from the annual metadata from NHS Talking Therapies (NHS TT). Of the identified codes from the metadata, `r n_snomed_tab` SNOMED CT codes and `r n_icd_tab` ICD-10 codes had code usage.
-The ICD-10 codes without code usage are `r missing_icd_codes`. 
+The ICD-10 codes without code usage are F42 and K58. 
