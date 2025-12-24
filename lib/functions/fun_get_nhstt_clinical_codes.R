@@ -8,7 +8,7 @@ str_extract_snomed <- function(string) {
 }
 
 str_extract_icd <- function(string) {
-  pattern <- "\\b[A-Z][0-9]{0,3}\\b"
+  pattern <- "\\b[A-Z][0-9]{1,3}\\b" 
 
   icd_codes <- str_extract_all(string, pattern)  
   icd_codes
