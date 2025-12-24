@@ -102,16 +102,27 @@ tab_nhstt_snomed <- nhstt_snomed_table |>
    ) |>
    tab_style(
      style = cell_text(weight = "bold"),
-     locations = cells_column_labels()
+     locations = cells_column_labels(columns = everything())
    ) |>
    tab_style(
      style = cell_text(font = "Courier New"),
      locations = cells_body(columns = snomed_code)
    ) |>
    cols_align(align = "left", columns = snomed_code) |>
- 
-   fmt_number(total_usage, decimals = 0) |>
-   fmt_percent(ratio_usage, decimals = 2)
+   tab_header(
+    title = md("**Summary of SNOMED CT codes in NHS Talking Therapies metadata**")
+   ) |> 
+   tab_source_note(
+    source_note = md(
+      "Data source: NHS Talking Therapies Annual Reports metadata (technical construction field)"
+    )
+   ) |> 
+    tab_footnote(
+      footnote = "One SNOMED CT code appears with multiple descriptions due to difference in American and British spelling.",
+      locations = cells_column_labels(columns = description_short)
+    ) |> 
+    fmt_number(total_usage, decimals = 0) |>
+    fmt_percent(ratio_usage, decimals = 2)
 
 gtsave(
  tab_nhstt_snomed,
@@ -165,8 +176,20 @@ tab_nhstt_icd <- nhstt_icd_table |>
       style = cell_text(weight = "bold"),
       locations = cells_column_labels()
     ) |>
-    fmt_number(total_usage, decimals = 0) |>
-    fmt_percent(ratio_usage, decimals = 2)
+      tab_header(
+        title = md("**Summary of ICD-10 codes in NHS Talking Therapies metadata**")
+      ) |> 
+      tab_source_note(
+    source_note = md(
+      "Data source: NHS Talking Therapies Annual Reports metadata (technical construction field)"
+    )
+   ) |> 
+    tab_footnote(
+      footnote = "Some ICD-10 codes may not be captured due to insufficient code specificity.",
+      locations = cells_column_labels(columns = icd10_code)
+    ) |>
+      fmt_number(total_usage, decimals = 0) |>
+      fmt_percent(ratio_usage, decimals = 2)
 
 
 gtsave(
