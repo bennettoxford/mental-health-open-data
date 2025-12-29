@@ -1,0 +1,213 @@
+---
+title: "Extracting clinical codes from NHS Talking Therapies metadata"
+format: html
+editor: source
+---
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+
+
+#Load relevant libraries 
+library(stringr)
+library(opencodecounts)
+library(nhstt)
+library(janitor)
+library(skimr)
+library(tidyverse)
+library(gt)
+library(scales)
+library(here)
+
+#source functions
+source(here("lib", "functions", "fun_get_nhstt_clinical_codes.R"))
+
+# nhstt annual metadata
+data <- get_metadata_measures_annual()
+
+# adding snomed and icd10 columns
+ data <- data |> 
+  select(field_name, technical_construction) |> 
+  mutate(snomed_codes = str_extract_snomed(technical_construction))|> 
+  mutate(icd_codes = str_extract_icd(technical_construction)) 
+
+
+```
+
+## Background
+
+NHS Talking Therapies (NHS TT) metadata includes embedded clinical codes within the descriptive text field used to define measures. These codes capture clinical concepts such as therapy categories and conditions. Extracting these codes allows for clearer documentation of clinical concepts used within NHS TT measures and enables linkage to external code usage with OpenCodeCounts.
+
+## Methods
+
+1.  Clinical code extraction : Clinical codes were extracted from NHS TT annual metadata using the `technical_construction` field. Custom string-based extraction functions (`str_extract_snomed()`, `str_extract_icd()`) were applied to identify embedded clinical codes for SNOMED CT and ICD-10 respectively.
+
+2.  Code list preparation Extracted codes were processed separately for each coding system. The lists were flattened, deduplicated and missing values removed to produce unique sets of SNOMED CT and ICD-10 codes represented in the NHS TT metadata.
+
+3.  Description and code usage mapping The `opencodecounts` package was used to obtain standardised code descriptions and usage counts.
+
+### SNOMED-CT code extraction
+
+```{r}
+#| label: snomed_extract
+#| echo: false
+#| warning: false
+
+
+# extracted and deduplicated list of SNOMED codes
+snomed_codelist <- data$snomed_codes |> 
+  unlist() |> 
+  unique()
+# remove any NAs from the list
+snomed_codelist <- snomed_codelist[!is.na(snomed_codelist)]
+n_snomed <- length(snomed_codelist)
+```
+
+### Descriptions of SNOMED-CT codes and usage
+
+```{r}
+#| label : tab-snomed-nhstt
+#| echo: false
+#| warning: false
+#| message: false
+
+# filter snomed_usage by extracted snomed codes from nhstt metadata
+nhstt_s_usage <- snomed_usage |> 
+ filter(snomed_code %in% snomed_codelist) |> 
+ mutate(
+   semantic_tag = extract_semantic_tag(description),
+   semantic_tag = str_to_sentence(semantic_tag),
+   description_short = strip_semantic_tag(description),
+ ) 
+
+nhstt_snomed_table <- nhstt_s_usage |>  # sort by usage
+   group_by(snomed_code, description_short, semantic_tag) |>
+   summarise(total_usage = sum(usage), .groups = 'drop') |>
+   mutate(ratio_usage = total_usage / sum(total_usage)) |>
+   arrange(desc(total_usage), semantic_tag)
+
+n_snomed_tab <- length(nhstt_snomed_table$snomed_code)
+
+tab_nhstt_snomed <- nhstt_snomed_table |> 
+  group_by(semantic_tag) |>
+   gt() |>
+   cols_label(
+     snomed_code = "SNOMED code",
+     description_short = "Description",
+     total_usage = "Usage",
+     ratio_usage = "%"
+   ) |>
+   tab_style(
+     style = cell_text(weight = "bold"),
+     locations = cells_column_labels(columns = everything())
+   ) |>
+   tab_style(
+     style = cell_text(font = "Courier New"),
+     locations = cells_body(columns = snomed_code)
+   ) |>
+   cols_align(align = "left", columns = snomed_code) |>
+   tab_header(
+    title = md("**Summary of SNOMED CT codes in NHS Talking Therapies metadata**")
+   ) |> 
+   tab_source_note(
+    source_note = md(
+      "Data source: NHS Talking Therapies Annual Reports metadata (technical construction field)"
+    )
+   ) |> 
+    tab_footnote(
+      footnote = "One SNOMED CT code appears with multiple descriptions due to difference in American and British spelling.",
+      locations = cells_column_labels(columns = description_short)
+    ) |> 
+    fmt_number(total_usage, decimals = 0) |>
+    fmt_percent(ratio_usage, decimals = 2)
+
+gtsave(
+ tab_nhstt_snomed,
+ here("output", "nhstt", "clinical_codes", "tab_nhstt_snomed_usage.png")
+ )
+
+tab_nhstt_snomed
+
+```
+
+### ICD-10 code extraction
+
+```{r}
+# extracted and deduplicated list of ICD-10 codes
+icd_codelist <- data$icd_codes |> 
+ unlist() |> 
+ unique()
+# remove any NAs from the list
+icd_codelist <- icd_codelist[!is.na(icd_codelist)] 
+n_icd <- length(icd_codelist)
+```
+
+### Descriptions of ICD-10 codes and usage
+
+```{r}
+#| label : tab-icd-nhstt
+#| echo: false
+#| warning: false
+#| message: false
+
+nhstt_icd_usage <- icd10_usage |> 
+  filter(icd10_code %in% icd_codelist) 
+
+nhstt_icd_table <- nhstt_icd_usage |> 
+  group_by(icd10_code, description) |> 
+  summarise(total_usage = sum(usage), .groups = 'drop') |>
+  mutate(ratio_usage = total_usage / sum(total_usage)) |> 
+  arrange(desc(total_usage))
+
+n_icd_tab <- length(nhstt_icd_table$icd10_code)
+
+tab_nhstt_icd <- nhstt_icd_table |> 
+  gt() |>
+    cols_label(
+      icd10_code = "ICD 10 code",
+      description = "Description",
+      total_usage = "Usage",
+      ratio_usage = "%"
+    ) |>
+    tab_style(
+      style = cell_text(weight = "bold"),
+      locations = cells_column_labels()
+    ) |>
+      tab_header(
+        title = md("**Summary of ICD-10 codes in NHS Talking Therapies metadata**")
+      ) |> 
+      tab_source_note(
+    source_note = md(
+      "Data source: NHS Talking Therapies Annual Reports metadata (technical construction field)"
+    )
+   ) |> 
+    tab_footnote(
+      footnote = "Some ICD-10 codes may not be captured due to insufficient code specificity.",
+      locations = cells_column_labels(columns = icd10_code)
+    ) |>
+      fmt_number(total_usage, decimals = 0) |>
+      fmt_percent(ratio_usage, decimals = 2)
+
+
+gtsave(
+  tab_nhstt_icd,
+  here("output", "nhstt", "clinical_codes", "tab_nhstt_icd_usage.png")
+  )
+
+tab_nhstt_icd
+```
+
+### Missing ICD 10 codes from OpenCodeCounts
+```{r}
+#list of missing ICD 10 codes
+missing_icd_codes <- list(icd_codelist[!(icd_codelist %in% nhstt_icd_table$icd10_code)])
+
+```
+
+## Overview
+
+This analysis identified `r n_snomed` SNOMED CT codes and `r n_icd` ICD-10 codes from the annual metadata from NHS Talking Therapies (NHS TT). Of the identified codes from the metadata, `r n_snomed_tab` SNOMED CT codes and `r n_icd_tab` ICD-10 codes had code usage.
+The ICD-10 codes without code usage are F42 and K58. 
