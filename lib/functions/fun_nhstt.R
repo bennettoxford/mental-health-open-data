@@ -52,7 +52,8 @@ select_datasets <- function(
     "peq",
     "meds",
     "therapist_role",
-    "therapy_type"
+    "therapy_type",
+    "table1"
   ),
   remove_empty = TRUE
 ) {
@@ -67,7 +68,8 @@ select_datasets <- function(
     peq = "peq",
     meds = "psych_med",
     therapist_role = "therapist_role",
-    therapy_type = "therapy_type"
+    therapy_type = "therapy_type",
+    table1 = "table[_ ]?1"
   )
     
   if (!is.null(datasets)) {
